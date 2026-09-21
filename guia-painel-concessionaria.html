@@ -337,11 +337,11 @@
     </div>
     <div class="ficha-linha">
       <div class="ficha-rotulo">Versão do documento</div>
-      <div class="ficha-valor">Preliminar — módulos de acesso e municípios</div>
+      <div class="ficha-valor">Preliminar — módulos de acesso, municípios e cargos</div>
     </div>
     <div class="ficha-linha">
       <div class="ficha-rotulo">Situação</div>
-      <div class="ficha-valor">Módulos publicados: acesso e municípios. Declarações e cargos/usuários entram nas próximas atualizações, no mesmo formato.</div>
+      <div class="ficha-valor">Módulos publicados: acesso, municípios e cargos. Declarações e usuários entram nas próximas atualizações, no mesmo formato.</div>
     </div>
   </div>
 
@@ -367,8 +367,18 @@
           <li><a href="#s2-4">Efeito na declaração</a></li>
         </ol>
       </li>
+      <li><a href="#s3">Cargos</a>
+        <ol class="sub">
+          <li><a href="#s3-1">Finalidade</a></li>
+          <li><a href="#s3-2">Listagem</a></li>
+          <li><a href="#s3-3">Cargo padrão do sistema</a></li>
+          <li><a href="#s3-4">Novo cargo</a></li>
+          <li><a href="#s3-5">Alteração e exclusão</a></li>
+          <li><a href="#s3-6">Atribuição a usuários</a></li>
+        </ol>
+      </li>
+      <li class="pendente">Usuários — a publicar</li>
       <li class="pendente">Declarações — a publicar</li>
-      <li class="pendente">Cargos e usuários — a publicar</li>
     </ol>
   </div>
 
@@ -467,11 +477,67 @@
     <p>A regra de conteúdo do arquivo está no Manual da Concessionária, seção 2.2.</p>
   </div>
 
+  <div class="secao" id="s3">
+    <div class="secao-titulo">3. Cargos</div>
+
+    <div class="subsecao-titulo" id="s3-1">3.1 Finalidade</div>
+    <p>O cargo define o que o usuário da concessionária pode consultar e operar no painel. O sistema entrega um cargo padrão, imutável. A concessionária cria os demais cargos, escolhe as permissões e os atribui aos seus usuários.</p>
+
+    <div class="subsecao-titulo" id="s3-2">3.2 Listagem</div>
+    <p>A listagem reúne o cargo padrão e os cargos criados pela própria concessionária. Filtro por nome recorta a relação. O cargo padrão exibe apenas consulta; os cargos da concessionária exibem consulta, alteração e exclusão.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/09-cargos.png" alt="Listagem de cargos com o cargo padrão Concessionaria e o botão Adicionar Cargo">
+      <figcaption><strong>Figura 9.</strong> Cargos da concessionária. O cargo padrão aparece com a ação de consulta; Adicionar Cargo abre o cadastro de um cargo próprio.</figcaption>
+    </figure>
+
+    <div class="subsecao-titulo" id="s3-3">3.3 Cargo padrão do sistema</div>
+    <p>O cargo <strong>Concessionaria</strong> é criado pelo sistema. Não admite alteração de nome, de permissões nem exclusão: na listagem aparece somente a consulta. Ele reúne as capacidades do contexto da concessionária (dashboard, municípios, declarações e gestão de usuários e cargos).</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/10-cargo-padrao.png" alt="Detalhes do cargo padrão Concessionaria, com permissões atribuídas por módulo">
+      <figcaption><strong>Figura 10.</strong> Consulta do cargo padrão Concessionaria. As permissões cobrem os módulos do painel; o registro não é editável.</figcaption>
+    </figure>
+
+    <div class="subsecao-titulo" id="s3-4">3.4 Novo cargo</div>
+    <p>O cadastro exige nome e ao menos uma permissão. O nome não pode coincidir com outro cargo do mesmo contexto, inclusive o padrão. As permissões vêm agrupadas por módulo; cada grupo admite seleção total ou item a item. Há também seleção geral de todas as permissões.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/11-cargo-novo.png" alt="Formulário Criar Novo Cargo, com nome e grupos de permissões">
+      <figcaption><strong>Figura 11.</strong> Cadastro de cargo próprio: nome obrigatório e permissões por módulo do painel.</figcaption>
+    </figure>
+    <table>
+      <tr><th>Grupo</th><th>Capacidades</th></tr>
+      <tr><td>Dashboard</td><td>Acessar dashboard</td></tr>
+      <tr><td>Municípios</td><td>Consultar municípios vinculados</td></tr>
+      <tr><td>Declarações UC</td><td>Consultar, enviar, corrigir/atualizar, baixar erros de validação</td></tr>
+      <tr><td>Declarações Extrato COSIP</td><td>Consultar, enviar, corrigir/atualizar, baixar erros de validação</td></tr>
+      <tr><td>Declarações Extrato IP</td><td>Consultar, enviar, corrigir/atualizar, baixar erros de validação</td></tr>
+      <tr><td>Declarações Conciliação Financeira</td><td>Consultar, enviar, corrigir/atualizar, baixar erros de validação</td></tr>
+      <tr><td>Usuários e Cargos</td><td>Consultar ou gerenciar usuários; consultar ou gerenciar cargos</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s3-5">3.5 Alteração e exclusão</div>
+    <p>Somente o cargo criado pela concessionária admite alteração e exclusão. A alteração reedita nome e permissões, com as mesmas exigências do cadastro. A exclusão é recusada enquanto houver usuário associado: é necessário retirar o cargo dos usuários antes.</p>
+    <table>
+      <tr><th>Condição</th><th>Efeito</th></tr>
+      <tr><td>Cargo padrão (Concessionaria)</td><td>Somente consulta</td></tr>
+      <tr><td>Cargo da concessionária, sem usuários</td><td>Consulta, alteração e exclusão</td></tr>
+      <tr><td>Cargo da concessionária, com usuários associados</td><td>Exclusão recusada até remover a associação</td></tr>
+      <tr><td>Nome já existente no contexto</td><td>Cadastro ou alteração recusados</td></tr>
+      <tr><td>Nenhuma permissão selecionada</td><td>Cadastro ou alteração recusados</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s3-6">3.6 Atribuição a usuários</div>
+    <p>A atribuição ocorre no módulo <strong>Usuários</strong>, no cadastro ou na alteração do usuário. Pelo menos um cargo é obrigatório. Os cargos disponíveis são o padrão e os criados pela concessionária. A inclusão de novos usuários no painel cabe ao usuário principal da concessionária.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/12-usuario-atribuir-cargo.png" alt="Formulário Novo Usuário com a lista de cargos para atribuição">
+      <figcaption><strong>Figura 12.</strong> Atribuição de cargo no cadastro de usuário. Com apenas o cargo padrão existente, a lista apresenta Concessionaria.</figcaption>
+    </figure>
+  </div>
+
 </div>
 
 <footer>
   <span>SIPGIP — Guia do Painel da Concessionária</span>
-  <span>Acesso e municípios · Leiaute 1.0.0</span>
+  <span>Acesso, municípios e cargos · Leiaute 1.0.0</span>
 </footer>
 
 </body>
