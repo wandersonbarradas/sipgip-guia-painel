@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual da Concessionária — SIPGIP 1.0.0</title>
+<style>
+  /* ─── Reset & Base ─────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --azul-gov: #071D41;
+    --azul-faixa: #1351B4;
+    --azul-claro: #2670E8;
+    --cinza-borda: #CCCCCC;
+    --cinza-fundo: #F8F8F8;
+    --cinza-linha: #EEEEEE;
+    --cinza-cabecalho: #E8E8E8;
+    --verde-ok: #333333;
+    --amarelo-atencao: #333333;
+    --preto: #1B1B1B;
+    --texto: #333333;
+    --fonte: 'Arial', 'Helvetica Neue', sans-serif;
+  }
+
+  html { font-size: 13px; }
+
+  body {
+    font-family: var(--fonte);
+    color: var(--texto);
+    background: #FFFFFF;
+    line-height: 1.55;
+  }
+
+  /* ─── Faixa Gov ─────────────────────────────────────────────────── */
+  .faixa-gov {
+    background: var(--azul-gov);
+    color: #FFFFFF;
+    font-size: 11px;
+    padding: 4px 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .faixa-gov span { opacity: 0.85; }
+
+  /* ─── Cabeçalho Institucional ───────────────────────────────────── */
+  .cabecalho-inst {
+    border-bottom: 3px solid var(--azul-faixa);
+    padding: 16px 40px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .brasao {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--azul-gov);
+    color: #fff;
+    font-size: 22px;
+    border-radius: 2px;
+  }
+  .inst-titulo h1 {
+    font-size: 11px;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #555;
+    letter-spacing: 0.04em;
+  }
+  .inst-titulo h2 {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--azul-gov);
+    margin-top: 2px;
+  }
+  .inst-titulo p {
+    font-size: 11px;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  /* ─── Identificação do Documento ────────────────────────────────── */
+  .id-documento {
+    background: var(--azul-faixa);
+    color: #FFFFFF;
+    padding: 10px 40px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .id-documento .sigla {
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+  }
+  .id-documento .desc {
+    font-size: 12px;
+    opacity: 0.88;
+  }
+  .id-documento .versao {
+    margin-left: auto;
+    font-size: 11px;
+    opacity: 0.78;
+    text-align: right;
+  }
+
+  /* ─── Layout Principal ──────────────────────────────────────────── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 40px 60px;
+  }
+
+  /* ─── Ficha Técnica ─────────────────────────────────────────────── */
+  .ficha {
+    border: 1px solid var(--cinza-borda);
+    margin: 20px 0;
+    font-size: 12px;
+  }
+  .ficha-linha {
+    display: flex;
+    border-bottom: 1px solid var(--cinza-borda);
+  }
+  .ficha-linha:last-child { border-bottom: none; }
+  .ficha-rotulo {
+    background: var(--cinza-cabecalho);
+    padding: 5px 12px;
+    width: 180px;
+    min-width: 180px;
+    font-weight: bold;
+    color: var(--azul-gov);
+    border-right: 1px solid var(--cinza-borda);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .ficha-valor {
+    padding: 5px 12px;
+    flex: 1;
+  }
+
+  /* ─── Sumário ───────────────────────────────────────────────────── */
+  .sumario {
+    border: 1px solid var(--cinza-borda);
+    margin: 24px 0;
+    background: var(--cinza-fundo);
+  }
+  .sumario-titulo {
+    background: var(--cinza-cabecalho);
+    padding: 6px 14px;
+    font-weight: bold;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--azul-gov);
+    border-bottom: 1px solid var(--cinza-borda);
+  }
+  .sumario ol {
+    counter-reset: item;
+    list-style: none;
+    padding: 10px 14px 10px 16px;
+    font-size: 12px;
+  }
+  .sumario li {
+    counter-increment: item;
+    margin: 3px 0;
+  }
+  .sumario li > a::before {
+    content: counters(item, ".") ". ";
+    font-weight: bold;
+    color: var(--azul-gov);
+  }
+  .sumario a { color: #1B1B1B; text-decoration: underline; }
+  .sumario a:hover { text-decoration: underline; }
+  .sumario .sub {
+    padding-left: 18px;
+    list-style: none;
+  }
+
+  /* ─── Seções ────────────────────────────────────────────────────── */
+  .secao {
+    margin: 28px 0 0;
+  }
+  .secao-titulo {
+    background: var(--azul-gov);
+    color: #FFFFFF;
+    padding: 7px 14px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+  }
+  .subsecao-titulo {
+    border-left: 4px solid #333333;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--azul-gov);
+    margin: 16px 0 8px;
+  }
+  .sub2-titulo {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--azul-gov);
+    margin: 12px 0 6px;
+    border-bottom: 1px solid var(--cinza-borda);
+    padding-bottom: 3px;
+  }
+
+  p { margin: 6px 0; font-size: 12px; }
+
+  /* ─── Notas e Avisos ────────────────────────────────────────────── */
+  .aviso {
+    border-left: 4px solid #666666;
+    background: #F4F4F4;
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 12px;
+  }
+  .aviso-atencao {
+    border-left: 4px solid #333333;
+    background: #F4F4F4;
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 12px;
+  }
+  .aviso-ok {
+    border-left: 4px solid #333333;
+    background: #F4F4F4;
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 12px;
+  }
+  .label-aviso {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ─── Tabelas ───────────────────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    margin: 10px 0;
+  }
+  th {
+    background: var(--cinza-cabecalho);
+    border: 1px solid var(--cinza-borda);
+    padding: 5px 8px;
+    text-align: left;
+    font-weight: bold;
+    color: var(--azul-gov);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  td {
+    border: 1px solid var(--cinza-borda);
+    padding: 4px 8px;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: var(--cinza-fundo); }
+  td.centro { text-align: center; }
+  td.code { font-family: 'Courier New', monospace; font-size: 11px; }
+  td.obrig { color: #1B1B1B; font-weight: bold; text-align: center; }
+  td.opc   { color: #1B1B1B; text-align: center; }
+
+  /* ─── Código / Exemplos ─────────────────────────────────────────── */
+  .bloco-codigo {
+    background: #1B1B1B;
+    color: #E8E8E8;
+    font-family: 'Courier New', monospace;
+    font-size: 11.5px;
+    padding: 12px 14px;
+    margin: 10px 0;
+    overflow-x: auto;
+    border: 1px solid #333;
+    line-height: 1.6;
+  }
+  .bloco-codigo .comentario { color: #7EC8A4; }
+  .bloco-codigo .campo { color: #FFD580; }
+  .bloco-codigo .valor { color: #79B8FF; }
+
+  .inline-code {
+    font-family: 'Courier New', monospace;
+    background: #F2F2F2;
+    border: 1px solid #CCCCCC;
+    padding: 1px 5px;
+    font-size: 11px;
+    color: var(--preto);
+  }
+
+  .bloco-codigo-legenda {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    background: #2E2E2E;
+    color: #7EC8A4;
+    padding: 6px 14px 4px;
+    border: 1px solid #333;
+    border-bottom: none;
+    margin-top: 10px;
+  }
+  .bloco-codigo-legenda + .bloco-codigo {
+    margin-top: 0;
+    border-top: 1px dashed #444;
+  }
+
+  /* ─── Hierarquia de Registros ───────────────────────────────────── */
+  .hierarquia {
+    font-family: 'Courier New', monospace;
+    font-size: 11.5px;
+    background: var(--cinza-fundo);
+    border: 1px solid var(--cinza-borda);
+    padding: 12px 16px;
+    margin: 10px 0;
+    line-height: 1.7;
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  /* ─── Rodapé ────────────────────────────────────────────────────── */
+  footer {
+    border-top: 2px solid var(--azul-faixa);
+    margin-top: 40px;
+    padding: 12px 40px;
+    font-size: 10px;
+    color: #888;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ─── Badges ────────────────────────────────────────────────────── */
+  .badge {
+    display: inline-block;
+    padding: 1px 7px;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .badge-obrig { background: #333333; color: #fff; }
+  .badge-opc   { background: #666666; color: #fff; }
+  .badge-cond  { background: #444444; color: #fff; }
+  .badge-novo  { background: #333333; color: #fff; }
+
+
+  .parte-titulo {
+    background: var(--azul-faixa);
+    color: #FFFFFF;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    margin: 36px 0 8px;
+    text-transform: uppercase;
+  }
+  .passo {
+    border-left: 4px solid var(--azul-faixa);
+    background: var(--cinza-fundo);
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 12px;
+  }
+  .passo strong { color: var(--azul-gov); }
+
+  /* ─── Separador ─────────────────────────────────────────────────── */
+  hr { border: none; border-top: 1px solid var(--cinza-borda); margin: 20px 0; }
+
+  /* ─── Impressão ─────────────────────────────────────────────────── */
+  .nav-docs {
+    background: var(--cinza-fundo);
+    border-bottom: 1px solid var(--cinza-borda);
+    padding: 6px 40px;
+    font-size: 11px;
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .nav-docs a { color: var(--azul-faixa); }
+
+  @media print {
+    .faixa-gov, footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .secao-titulo, th  { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .bloco-codigo      { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .nav-docs { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav-docs">
+  <a href="index.html">Documentação SIPGIP</a>
+  <span>Manual da Concessionária</span>
+</div>
+
+<div class="faixa-gov">
+  <span>&#9632;</span>
+  <span>PREFEITURA MUNICIPAL — SECRETARIA DE INFRAESTRUTURA E SERVIÇOS URBANOS</span>
+</div>
+
+<div class="cabecalho-inst">
+  <div class="brasao">&#9670;</div>
+  <div class="inst-titulo">
+    <h1>Sistema de Informações da Planta de Gestão de Iluminação Pública</h1>
+    <h2>SIPGIP — Manual da Concessionária</h2>
+    <p>Departamento de Controle de Iluminação Pública e Câmeras de Monitoramento</p>
+  </div>
+</div>
+
+<div class="id-documento">
+  <span class="sigla">MANUAL SIPGIP</span>
+  <span class="desc">Obrigação acessória — operação, leiautes e catálogo de mensagens</span>
+  <span class="versao">Leiaute 1.0.0 &nbsp;|&nbsp; Vigência: 01/01/2026</span>
+</div>
+
+<div class="container">
+
+  <div class="ficha">
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Documento</div>
+      <div class="ficha-valor">Manual da Concessionária — SIPGIP</div>
+    </div>
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Assunto</div>
+      <div class="ficha-valor">Como cumprir a obrigação acessória de COSIP e iluminação pública: acesso, entrega, validação, protocolos, retificação, leiautes e códigos de mensagem</div>
+    </div>
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Destinatários</div>
+      <div class="ficha-valor">Equipes operacionais e de tecnologia da informação das concessionárias de energia elétrica</div>
+    </div>
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Base normativa</div>
+      <div class="ficha-valor">NT SIPGIP 001/2025 — leiaute 1.0.0</div>
+    </div>
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Versão do documento</div>
+      <div class="ficha-valor">1.0.0</div>
+    </div>
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Versão do leiaute</div>
+      <div class="ficha-valor">1.0.0 <span style="color:#666;">(campo <span class="inline-code">VERSAO</span> do registro <span class="inline-code">0000</span>)</span></div>
+    </div>
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Vigência</div>
+      <div class="ficha-valor">A partir de 01 de janeiro de 2026 — Competência 202601</div>
+    </div>
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Situação</div>
+      <div class="ficha-valor"><span class="badge badge-novo">Vigente — leiaute 1.0.0</span></div>
+    </div>
+  </div>
+
+
+  <div class="sumario">
+    <div class="sumario-titulo">Sumário</div>
+    <ol>
+      <li><a href="#parte-a">A obrigação</a>
+        <ol class="sub">
+          <li><a href="#s1">O que é o SIPGIP</a></li>
+          <li><a href="#s2">Quem deve declarar</a></li>
+          <li><a href="#s3">Módulos, periodicidade e ordem</a></li>
+        </ol>
+      </li>
+      <li><a href="#parte-b">Ciclo operacional</a>
+        <ol class="sub">
+          <li><a href="#s5">Acesso com certificado digital</a></li>
+          <li><a href="#s6">Municípios ativos</a></li>
+          <li><a href="#s7">Inventário municipal de IP</a></li>
+          <li><a href="#s8">Geração do arquivo</a></li>
+          <li><a href="#s9">Assinatura digital</a></li>
+          <li><a href="#s10">Entrega</a></li>
+          <li><a href="#s11">Validação</a></li>
+          <li><a href="#s12">Protocolo e comprovante</a></li>
+          <li><a href="#s13">Rejeição e relatório de erros</a></li>
+          <li><a href="#s14">Consulta das entregas</a></li>
+          <li><a href="#s15">Retificação</a></li>
+          <li><a href="#s15b">Original complementar</a></li>
+        </ol>
+      </li>
+      <li><a href="#parte-c">Modelo conceitual e leiautes</a>
+        <ol class="sub">
+          <li><a href="#s16">Especificações técnicas gerais</a></li>
+          <li><a href="#s17">Módulo UC — Unidades Consumidoras</a></li>
+          <li><a href="#s18">Módulo COSIP — Extratos de COSIP / NF3e</a></li>
+          <li><a href="#s19">Módulo EXTRATO — Extrato de Consumo de IP</a></li>
+          <li><a href="#s20">Módulo CONCILIACAO — Conciliação Financeira</a></li>
+          <li><a href="#s21">Assinatura digital dos arquivos</a></li>
+          <li><a href="#s22">Protocolo de declaração</a></li>
+          <li><a href="#s23">Tabelas de domínio</a></li>
+        </ol>
+      </li>
+      <li><a href="#parte-d">Catálogo de mensagens</a>
+        <ol class="sub">
+          <li><a href="#s24">Regras de validação e códigos de erro</a></li>
+        </ol>
+      </li>
+      <li><a href="#anexos">Anexos</a>
+        <ol class="sub">
+          <li><a href="#s25">Requisitos de geração e transmissão</a></li>
+          <li><a href="#s27">Glossário</a></li>
+        </ol>
+      </li>
+    </ol>
+  </div>
+
+
+  <div class="parte-titulo" id="parte-a">1. A obrigação</div>
+
+  <div class="secao" id="s1">
+    <div class="secao-titulo">1.1 O que é o SIPGIP</div>
+    <p>O <strong>Sistema de Informações da Planta de Gestão de Iluminação Pública (SIPGIP)</strong> é a obrigação acessória pela qual a concessionária de energia elétrica transmite ao Município, em arquivo digital assinado, as informações de Unidades Consumidoras, COSIP, consumo de Iluminação Pública e conciliação financeira.</p>
+    <p>Este manual especifica os procedimentos de entrega, os leiautes, as tabelas de domínio e o catálogo de mensagens da NT SIPGIP 001/2025, leiaute <span class="inline-code">1.0.0</span>. Em caso de divergência, prevalecem a Nota Técnica e o validador.</p>
+    <p>A obrigação compreende:</p>
+    <ul style="margin: 8px 0 8px 20px; font-size: 12px; line-height: 1.7;">
+      <li>Cadastro das Unidades Consumidoras atendidas no Município;</li>
+      <li>Registro dos valores de COSIP cobrados por Unidade Consumidora;</li>
+      <li>Informação do consumo e do faturamento da rede de Iluminação Pública, com base no inventário municipal de pontos e medidores;</li>
+      <li>Conciliação financeira mensal consolidada por município.</li>
+    </ul>
+  </div>
+
+  <div class="secao" id="s2">
+    <div class="secao-titulo">1.2 Quem deve declarar</div>
+    <p>São obrigados à entrega:</p>
+    <ul style="margin: 8px 0 8px 20px; font-size: 12px; line-height: 1.7;">
+      <li>Concessionárias de distribuição de energia elétrica que prestem serviços de iluminação pública no Município;</li>
+      <li>Empresas responsáveis pela gestão operacional da rede de IP, quando formalmente designadas pela concessionária.</li>
+    </ul>
+    <p>O acesso ao sistema exige certificado digital de usuário cadastrado e ativo. A assinatura do arquivo exige e-CNPJ da concessionária, idêntico ao <span class="inline-code">CNPJ_DISTRIBUIDORA</span> do registro <span class="inline-code">0000</span> (seções 2.1 e 2.5).</p>
+  </div>
+
+  <div class="secao" id="s3">
+    <div class="secao-titulo">1.3 Módulos, periodicidade e ordem</div>
+    <p>A obrigação mensal compreende quatro arquivos, um por módulo. A planta energética municipal <strong>não</strong> é arquivo da concessionária.</p>
+    <table>
+      <tr>
+        <th>Módulo</th>
+        <th>Nome no arquivo</th>
+        <th>Periodicidade</th>
+        <th>Finalidade</th>
+      </tr>
+      <tr>
+        <td><strong>UC</strong></td>
+        <td class="code">UC</td>
+        <td class="centro">Mensal</td>
+        <td>Cadastro de Unidades Consumidoras com atributos tarifários</td>
+      </tr>
+      <tr>
+        <td><strong>COSIP</strong></td>
+        <td class="code">COSIP</td>
+        <td class="centro">Mensal</td>
+        <td>Extratos de COSIP por UC, extraídos das NF3e</td>
+      </tr>
+      <tr>
+        <td><strong>EXTRATO</strong></td>
+        <td class="code">EXTRATO</td>
+        <td class="centro">Mensal</td>
+        <td>Extrato de consumo mensal por ponto e, quando aplicável, por equipamento de IP</td>
+      </tr>
+      <tr>
+        <td><strong>CONCILIACAO</strong></td>
+        <td class="code">CONCILIACAO</td>
+        <td class="centro">Mensal</td>
+        <td>Conciliação financeira consolidada por município</td>
+      </tr>
+    </table>
+    <div class="subsecao-titulo">1.3.1 Ordem de entrega</div>
+    <ol style="margin: 8px 0 8px 20px; font-size: 12px; line-height: 1.8;">
+      <li><strong>UC</strong> — cadastro das unidades consumidoras;</li>
+      <li><strong>Inventário municipal de IP</strong> — pontos e medidores mantidos pelo Município (não é <span class="inline-code">.p7s</span>);</li>
+      <li><strong>COSIP</strong> — exige UC previamente aceita (<span class="inline-code">COS-100</span>);</li>
+      <li><strong>EXTRATO</strong> — exige ponto (e, se medido, medidor) no inventário vigente (<span class="inline-code">EXT-30</span>, <span class="inline-code">EXT-46</span>, <span class="inline-code">EXT-47</span>);</li>
+      <li><strong>CONCILIACAO</strong> — consolidado mensal; nesta versão não cruza automaticamente COSIP nem EXTRATO.</li>
+    </ol>
+    <p>Todos os módulos compartilham a mesma estrutura de conteúdo assinado:</p>
+    <div class="hierarquia">0000 — HEADER DO CONTEÚDO             (obrigatório, 1 ocorrência)
+├── 0100 — MUNICÍPIO                  (obrigatório, N ocorrências)
+│   ├── [registros de dados]          (obrigatório, N ocorrências)
+│   └── 0999 — TOTALIZADORES          (obrigatório, 1 por município)
+└── 9999 — FOOTER DO CONTEÚDO         (obrigatório, 1 ocorrência)</div>
+  </div>
+
+  <div class="parte-titulo" id="parte-b">2. Ciclo operacional</div>
+
+  <div class="secao" id="s5">
+    <div class="secao-titulo">2.1 Acesso com certificado digital</div>
+    <p>O acesso ao sistema municipal é realizado exclusivamente com certificado digital A1 ou A3, ICP-Brasil. O CPF ou CNPJ do certificado deve coincidir com o documento de usuário cadastrado e ativo da concessionária.</p>
+    <p>O certificado de autenticação do usuário é distinto do certificado de assinatura do arquivo. A assinatura do <span class="inline-code">.p7s</span> exige e-CNPJ da concessionária (seção 2.5). Autenticação com e-CPF não substitui essa exigência.</p>
+    <div class="subsecao-titulo">2.1.1 Rejeição de acesso</div>
+    <table>
+      <tr><th>Condição</th><th>Efeito</th></tr>
+      <tr><td>Certificado não apresentado</td><td>Acesso recusado</td></tr>
+      <tr><td>Certificado não validado ou fora da validade</td><td>Acesso recusado</td></tr>
+      <tr><td>CPF/CNPJ inexistente no cadastro da concessionária</td><td>Acesso recusado</td></tr>
+      <tr><td>Usuário inativo</td><td>Acesso recusado</td></tr>
+    </table>
+  </div>
+
+  <div class="secao" id="s6">
+    <div class="secao-titulo">2.2 Municípios ativos</div>
+    <p>O arquivo deve conter apenas municípios com vínculo <strong>ativo</strong> entre a concessionária e o Município. Vínculo inativo, suspenso ou cancelado não admite bloco <span class="inline-code">0100</span> (<span class="inline-code">MUN-11</span>).</p>
+    <p>Não existe registro de município sem movimento. O bloco <span class="inline-code">0100</span> exige ao menos um registro de dados (<span class="inline-code">EST-04</span>). Município sem fato gerador na competência é omitido.</p>
+  </div>
+
+  <div class="secao" id="s7">
+    <div class="secao-titulo">2.3 Inventário municipal de IP</div>
+    <p>A planta energética (pontos, medidores e equipamentos) não é transmitida por arquivo. O Município mantém o inventário vigente. O módulo EXTRATO exige que <span class="inline-code">CODIGO_PONTO_IP_MUNICIPIO</span> e, quando o ponto for medido, o medidor correspondam a esse cadastro.</p>
+    <p>Divergência em relação ao inventário rejeita o EXTRATO (<span class="inline-code">EXT-30</span>, <span class="inline-code">EXT-46</span>, <span class="inline-code">EXT-47</span>).</p>
+  </div>
+
+  <div class="secao" id="s8">
+    <div class="secao-titulo">2.4 Geração do arquivo</div>
+    <p>O conteúdo textual observa o leiaute 1.0.0 do módulo (seção 3): UTF-8 sem BOM, delimitado por pipe, <span class="inline-code">VERSAO = 1.0.0</span>, <span class="inline-code">TIPO_OPERACAO</span> único para o arquivo (<span class="inline-code">O</span> ou <span class="inline-code">R</span>) e totalizadores <span class="inline-code">0999</span> e <span class="inline-code">9999</span> consistentes.</p>
+    <ul style="margin: 8px 0 8px 20px; font-size: 12px; line-height: 1.8;">
+      <li>Sem pipe extra após o último campo; sem caractere <span class="inline-code">|</span> no conteúdo (<span class="inline-code">TXT-04</span>);</li>
+      <li>Campo vazio representado por <span class="inline-code">||</span>;</li>
+      <li>Valores numéricos sem máscara e sem separador de milhar; decimal com ponto;</li>
+      <li>Município sem movimento omitido;</li>
+      <li>No EXTRATO, <span class="inline-code">QTD_EXTRATOS</span> conta todos os <span class="inline-code">0110</span>; <span class="inline-code">VL_TOTAL_CONSUMO</span> soma somente o <span class="inline-code">VALOR_FATURADO</span> dos extratos de ponto.</li>
+    </ul>
+
+  </div>
+
+  <div class="secao" id="s9">
+    <div class="secao-titulo">2.5 Assinatura digital</div>
+    <p>O conteúdo textual é assinado com e-CNPJ ICP-Brasil da concessionária, padrão CAdES <em>attached</em> (PKCS#7), hash mínimo SHA-256, produzindo um arquivo <span class="inline-code">.p7s</span>. Não se admite conteúdo textual separado nem assinatura detached. e-CPF não atende.</p>
+    <table>
+      <tr><th>Atributo</th><th>Exigência</th></tr>
+      <tr><td>Certificado</td><td>e-CNPJ da concessionária</td></tr>
+      <tr><td>CNPJ do certificado</td><td>Idêntico a <span class="inline-code">CNPJ_DISTRIBUIDORA</span> do <span class="inline-code">0000</span> e à concessionária autenticada</td></tr>
+      <tr><td>Padrão</td><td>CAdES attached / PKCS#7, SHA-256</td></tr>
+      <tr><td>Extensão</td><td><span class="inline-code">.p7s</span></td></tr>
+    </table>
+    <p>Arquivo não assinado, certificado vencido ou CNPJ divergente é rejeitado na entrada, sem análise de leiaute (<span class="inline-code">SIG-01</span> a <span class="inline-code">SIG-11</span>).</p>
+  </div>
+
+  <div class="secao" id="s10">
+    <div class="secao-titulo">2.6 Entrega</div>
+    <p>A transmissão ocorre no painel da concessionária credenciada. Entrega-se um arquivo <span class="inline-code">.p7s</span> por módulo. A recepção inicia a validação assíncrona; o protocolo é emitido somente após o aceite. Município omitido em original aceito é transmitido em arquivo original complementar (seção 2.12), não em retificadora.</p>
+    <div class="subsecao-titulo">2.6.1 Concorrência</div>
+    <p>Não se inicia nova entrega enquanto houver validação ou processamento em curso do módulo bloqueante:</p>
+    <table>
+      <tr><th>Módulo</th><th>Bloqueado por</th></tr>
+      <tr><td>UC</td><td>UC</td></tr>
+      <tr><td>COSIP</td><td>UC ou COSIP</td></tr>
+      <tr><td>EXTRATO</td><td>EXTRATO</td></tr>
+      <tr><td>CONCILIACAO</td><td>CONCILIACAO</td></tr>
+    </table>
+  </div>
+
+  <div class="secao" id="s11">
+    <div class="secao-titulo">2.7 Validação</div>
+    <p>Após a entrega, o sistema verifica a assinatura e o leiaute.</p>
+    <table>
+      <tr><th>Resultado</th><th>Efeito</th></tr>
+      <tr><td>Em validação</td><td>Análise em curso. Sem protocolo.</td></tr>
+      <tr><td>Rejeitado</td><td>Erro bloqueante. O <span class="inline-code">.p7s</span> é recusado na íntegra. Sem protocolo.</td></tr>
+      <tr><td>Aceito / em processamento</td><td>Leiaute válido. Persistência por município. Protocolo da declaração geral disponível.</td></tr>
+      <tr><td>Concluído</td><td>Persistência encerrada. Protocolo da declaração geral e um protocolo por município.</td></tr>
+      <tr><td>Aceito com alertas</td><td>Entrega válida. Alertas (ex.: <span class="inline-code">UC-82</span>) não rejeitam o arquivo.</td></tr>
+    </table>
+    <p>Erro bloqueante rejeita o arquivo inteiro. Não há aceite parcial por município na validação.</p>
+  </div>
+
+  <div class="secao" id="s12">
+    <div class="secao-titulo">2.8 Protocolo e comprovante</div>
+    <p>O aceite gera comprovante contendo protocolo da declaração geral (44 dígitos), competência, data e hora de envio, tipo (original ou retificadora) e módulo. Encerrada a persistência, emite-se protocolo distinto para cada município.</p>
+    <table>
+      <tr><th>Protocolo</th><th>Uso</th></tr>
+      <tr><td>Declaração geral</td><td>Identifica o lote. Não se utiliza em retificação.</td></tr>
+      <tr><td>Declaração do município</td><td>Identifica o recorte municipal. Único valor admitido em <span class="inline-code">PROTOCOLO_RETIFICADORA</span>.</td></tr>
+    </table>
+    <p>A emissão do protocolo não atesta a veracidade do conteúdo nem homologa crédito. O valor esperado da COSIP, segundo a lei municipal, é apurado após o aceite e não integra as regras da seção 4. Composição do protocolo: seção 3.7.</p>
+  </div>
+
+  <div class="secao" id="s13">
+    <div class="secao-titulo">2.9 Rejeição e relatório de erros</div>
+    <p>A entrega rejeitada apresenta as ocorrências (código, linha, campo, mensagem), o total e o resumo por categoria. O relatório completo é disponibilizado para download.</p>
+    <p>Alertas não rejeitam o arquivo e podem ser baixados em separado. Os códigos constam do catálogo da seção 4. A correção exige novo conteúdo textual, nova assinatura e nova entrega do <span class="inline-code">.p7s</span>.</p>
+  </div>
+
+  <div class="secao" id="s14">
+    <div class="secao-titulo">2.10 Consulta das entregas</div>
+    <p>As entregas aceitas são consultadas por módulo e competência, com status, protocolo da declaração geral e protocolos municipais. A declaração do município é o recorte da entrega aceita e o objeto da retificação (seção 2.11). Entrega rejeitada na validação não gera declaração municipal.</p>
+  </div>
+
+  <div class="secao" id="s15">
+    <div class="secao-titulo">2.11 Retificação</div>
+    <p>A retificação substitui integralmente a última declaração aceita do município e módulo, na competência da fronteira. O arquivo declara <span class="inline-code">TIPO_OPERACAO = R</span> no <span class="inline-code">0000</span> e contém somente os municípios objeto da correção. O campo <span class="inline-code">PROTOCOLO_RETIFICADORA</span> de cada <span class="inline-code">0100</span> recebe o protocolo de 44 dígitos da declaração municipal última aceita. O protocolo da declaração geral não é informado. Os registros de dados do município são reenviados na íntegra.</p>
+    <table>
+      <tr><th>Regra</th><th>Efeito</th></tr>
+      <tr><td>Arquivo homogêneo <span class="inline-code">R</span></td><td>Não se misturam blocos originais e retificadores no mesmo <span class="inline-code">.p7s</span></td></tr>
+      <tr><td><span class="inline-code">MUN-15</span></td><td>O protocolo deve existir e corresponder ao mesmo município, módulo e competência</td></tr>
+      <tr><td><span class="inline-code">MUN-17</span></td><td>O protocolo deve ser o da última declaração municipal aceita (fronteira)</td></tr>
+      <tr><td><span class="inline-code">MUN-18</span></td><td>Retificação de UC bloqueada na existência de extratos COSIP dependentes</td></tr>
+      <tr><td><span class="inline-code">MUN-20</span></td><td>Competência anterior à fronteira não se reenvia como original</td></tr>
+    </table>
+    <p>A retificadora não inclui município sem declaração municipal aceita. Município omitido no original segue a seção 2.12.</p>
+  </div>
+
+  <div class="secao" id="s15b">
+    <div class="secao-titulo">2.12 Original complementar</div>
+    <p>A unicidade do original (<span class="inline-code">MUN-12</span>) incide sobre o município, a competência e o módulo. Não incide sobre o lote da concessionária.</p>
+    <p>Arquivo original aceito com parte dos municípios da competência não impede novo arquivo original, na mesma competência e módulo, contendo somente município ainda sem declaração original. Município já declarado como original não figura nesse arquivo. <span class="inline-code">PROTOCOLO_RETIFICADORA</span> permanece vazio.</p>
+    <p>Não se admite arquivo misto (originais e retificadoras no mesmo <span class="inline-code">.p7s</span>) nem inclusão do município omitido em retificadora, por ausência de protocolo de filha.</p>
+  </div>
+
+<div class="parte-titulo" id="parte-c">3. Modelo conceitual e leiautes</div>
+  <p>Especificação do leiaute <span class="inline-code">1.0.0</span>. A declaração geral corresponde à declaração master do lote; a declaração do município, à declaração filha.</p>
+<div class="secao" id="s16">
+    <div class="secao-titulo">3.1 Especificações Técnicas Gerais</div>
+
+    <div class="subsecao-titulo" id="s16a">3.1.1 Formato e Codificação</div>
+
+    <table>
+      <tr><th>Atributo</th><th>Valor</th></tr>
+      <tr><td>Formato do arquivo transmitido</td><td>PKCS#7 com assinatura CAdES attached (<code>.p7s</code>)</td></tr>
+      <tr><td>Modalidade da assinatura</td><td>Attached, com o conteúdo textual incorporado ao próprio arquivo assinado</td></tr>
+      <tr><td>Conteúdo assinado</td><td>Texto delimitado por pipe, conforme o leiaute do módulo declarado no registro <span class="inline-code">0000</span></td></tr>
+      <tr><td>Codificação do conteúdo assinado</td><td>UTF-8 (sem BOM)</td></tr>
+      <tr><td>Quebra de linha do conteúdo assinado</td><td>LF (<code>\n</code>) ou CRLF (<code>\r\n</code>) — ambos aceitos</td></tr>
+      <tr><td>Delimitador de campo</td><td>Pipe <span class="inline-code">|</span></td></tr>
+      <tr><td>Pipe final no registro</td><td>Vedado pipe extra após o último campo. Campo final vazio encerra a linha em <span class="inline-code">|</span>, por ser o último campo, e não por terminador opcional.</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s16b">3.1.2 Delimitadores e Campos</div>
+
+    <p>Cada linha do conteúdo textual incorporado ao arquivo <span class="inline-code">.p7s</span> representa um registro. Os campos são separados pelo caractere pipe <span class="inline-code">|</span>. Regras obrigatórias:</p>
+
+    <ul style="margin: 8px 0 8px 20px; font-size: 12px; line-height: 1.8;">
+      <li><strong>Campo vazio:</strong> dois pipes consecutivos <span class="inline-code">||</span>. Vedados <span class="inline-code">null</span>, <span class="inline-code">-</span>, <span class="inline-code">N/A</span> e equivalentes.</li>
+      <li><strong>Espaços:</strong> não inserir espaços antes ou depois do valor de um campo.</li>
+      <li><strong>Caracteres de controle:</strong> não permitidos; o conteúdo assinado deve ser UTF-8 válido.</li>
+      <li><strong>Tamanho máximo do campo:</strong> deve respeitar o limite especificado no leiaute de cada registro.</li>
+      <li><strong>Pipe no conteúdo:</strong> é vedada a ocorrência do caractere <span class="inline-code">|</span> dentro de qualquer campo. A concessionária deve substituí-lo por espaço simples antes da geração (<span class="inline-code">TXT-04</span>).</li>
+      <li><strong>Contagem de campos:</strong> a quantidade de campos é o número de segmentos após a divisão da linha por <span class="inline-code">|</span>. Um pipe extra no fim da linha cria um campo vazio a mais e rejeita o registro (HDR-01, MUN-01, UC-01, COS-00, BND-01, EXT-01, CON-01, FTR-01).</li>
+    </ul>
+
+    <div class="subsecao-titulo" id="s16c">3.1.3 Tipos de Dados</div>
+
+    <table>
+      <tr>
+        <th>Código</th>
+        <th>Tipo</th>
+        <th>Descrição</th>
+      </tr>
+      <tr>
+        <td class="code centro">C</td>
+        <td>Alfanumérico</td>
+        <td>Texto ou identificador textual. Preserva exatamente o valor informado, inclusive zeros à esquerda. Sem preenchimento artificial com zeros ou espaços.</td>
+      </tr>
+      <tr>
+        <td class="code centro">N</td>
+        <td>Numérico sem decimal</td>
+        <td>Sequência de dígitos de <span class="inline-code">0</span> a <span class="inline-code">9</span>, sem máscara, sem ponto, sem vírgula e sem separador de milhar. Pode representar quantidade, código, identificador, data ou competência, conforme regra do campo.</td>
+      </tr>
+      <tr>
+        <td class="code centro">N(d)</td>
+        <td>Numérico decimal</td>
+        <td>Número decimal com separador obrigatório por ponto <span class="inline-code">.</span>, sem separador de milhar. A coluna <span class="inline-code">Tam</span> é a quantidade máxima de dígitos, excluídos o ponto e o sinal; as casas da coluna <span class="inline-code">Dec</span> estão compreendidas nesse total. Em regra o campo deve ter exatamente <span class="inline-code">d</span> casas (NUM-03). Exceção: tarifas <span class="inline-code">TE_*</span>, <span class="inline-code">VALOR_BANDEIRA</span> e <span class="inline-code">TOTAL_ENERGIA_CONSUMIDA</span> admitem até o máximo de casas da regra específica. Ex: <span class="inline-code">100.00</span>, <span class="inline-code">0.5234</span>. Valores negativos só são permitidos quando a regra do campo declarar expressamente, como <span class="inline-code">VL_SALDO</span> do módulo CONCILIACAO.</td>
+      </tr>
+      <tr>
+        <td class="code centro">D</td>
+        <td>Data</td>
+        <td>Data real no calendário gregoriano, formato fixo <span class="inline-code">DD/MM/AAAA</span>, com 10 caracteres, dia e mês com dois dígitos, ano com quatro dígitos e separador obrigatório por barra. Não admite hora, fuso, outro separador nem data inexistente (ex.: 31/04/2026). Zeros à esquerda no dia e no mês são obrigatórios.</td>
+      </tr>
+    </table>
+
+    <p>Campos com tipo <span class="inline-code">N</span> são validados como texto numérico. Códigos, documentos, protocolos, chaves, CEPs e competências não devem ser convertidos para número inteiro, pois podem possuir zeros à esquerda ou tamanho fixo obrigatório. Datas usam o tipo <span class="inline-code">D</span>, não o tipo <span class="inline-code">N</span>.</p>
+
+    <div class="subsecao-titulo" id="s16d">3.1.4 Competência e Periodicidade</div>
+
+    <p>O campo <span class="inline-code">COMPETENCIA</span> no registro <span class="inline-code">0000</span> identifica o mês de referência do arquivo. Formato: <strong>AAAAMM</strong> (6 dígitos numéricos). Exemplos: <span class="inline-code">202601</span> (janeiro/2026), <span class="inline-code">202612</span> (dezembro/2026).</p>
+
+    <p>O tipo de operação vale para todo o conteúdo assinado: não se misturam blocos originais e retificadores no mesmo arquivo. A unicidade do original (<span class="inline-code">MUN-12</span>) incide sobre o município, a competência e o módulo — não sobre o lote da concessionária. Um arquivo original aceito com parte dos municípios da competência não impede novo arquivo original, na mesma competência e módulo, contendo somente município ainda sem declaração original. Município já declarado como original não figura nesse arquivo complementar. A retificadora contém somente municípios cuja declaração filha está sendo substituída; município sem filha aceita não entra em retificadora.</p>
+
+    <div class="subsecao-titulo" id="s16e">3.1.5 Tipos de Operação</div>
+
+    <table>
+      <tr><th>Código</th><th>Descrição</th><th>Regra</th></tr>
+      <tr>
+        <td class="code centro">O</td>
+        <td>Original</td>
+        <td>Primeira declaração do município na competência e módulo. <span class="inline-code">PROTOCOLO_RETIFICADORA</span> vazio. Admitido mais de um arquivo original na mesma competência, desde que cada município do arquivo ainda não possua declaração original (<span class="inline-code">MUN-12</span>).</td>
+      </tr>
+      <tr>
+        <td class="code centro">R</td>
+        <td>Retificadora</td>
+        <td>Substitui integralmente a última declaração <strong>filha</strong> aceita daquele município e módulo. Só é admitida para a competência dessa última filha (fronteira). O campo <span class="inline-code">PROTOCOLO_RETIFICADORA</span> recebe o protocolo de 44 dígitos dessa filha — nunca o protocolo da master do lote.</td>
+      </tr>
+    </table>
+
+    <div class="aviso">
+      <span class="label-aviso">Retificadora</span>
+      A retificadora substitui integralmente a última declaração filha aceita do mesmo município e módulo. O protocolo no <span class="inline-code">0100</span> deve existir, pertencer ao mesmo município, módulo e competência (<span class="inline-code">MUN-15</span>) e ser o da última filha aceita (<span class="inline-code">MUN-17</span>). Somente a competência da fronteira admite retificação: competência anterior é recusada por <span class="inline-code">MUN-17</span> ou, se reenviada como original, por <span class="inline-code">MUN-20</span>. A master do lote não é retificável. Os registros de dados do município são reenviados na íntegra. No módulo UC, a existência de extratos COSIP dependentes bloqueia a retificação (<span class="inline-code">MUN-18</span>). Município omitido em original aceito não se inclui em retificadora: transmite-se em arquivo original complementar, somente com município ainda sem original.
+    </div>
+
+    <div class="subsecao-titulo" id="s16f">3.1.6 Município sem movimento</div>
+    <p>Não existe registro de “sem movimento”. O bloco <span class="inline-code">0100</span> exige ao menos um registro de dados (<span class="inline-code">EST-04</span>). Município sem fato a declarar na competência <strong>não entra</strong> no conteúdo assinado.</p>
+
+    <div class="subsecao-titulo" id="s16g">3.1.7 Ordem de entrega dos módulos</div>
+    <p>A ordem de entrega é:</p>
+    <ol style="margin: 8px 0 8px 20px; font-size: 12px; line-height: 1.8;">
+      <li><strong>UC</strong> — cadastro das unidades consumidoras;</li>
+      <li><strong>Inventário municipal de IP</strong> — cadastro de pontos e medidores no Município (não é arquivo desta Nota Técnica);</li>
+      <li><strong>COSIP</strong> — extratos por NF3e, exigindo UC previamente aceita;</li>
+      <li><strong>EXTRATO</strong> — consumo por ponto, exigindo ponto (e, se medido, medidor) no inventário vigente;</li>
+      <li><strong>CONCILIACAO</strong> — consolidado mensal; nesta versão não cruza automaticamente COSIP nem EXTRATO.</li>
+    </ol>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- S5 — Módulo UC -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="secao" id="s17">
+    <div class="secao-titulo">3.2 Módulo UC — Unidades Consumidoras</div>
+
+    <p>O módulo <strong>UC</strong> declara o cadastro mensal das Unidades Consumidoras atendidas pela concessionária nos municípios.</p>
+
+    <div class="subsecao-titulo" id="s17a">3.2.1 Hierarquia de Registros</div>
+
+    <div class="hierarquia">
+0000 — HEADER           (NOME_ARQUIVO = "UC")
+├── 0100 — MUNICÍPIO    (1..N por conteúdo assinado)
+│   ├── 0110 — DADOS DA UC (1..N por município)
+│   └── 0999 — TOTALIZADORES (1 por município)
+└── 9999 — FOOTER
+    </div>
+
+    <div class="subsecao-titulo" id="s17b">3.2.2 Leiaute dos Registros</div>
+
+    <!-- 0000 UC -->
+    <div class="sub2-titulo">Registro 0000 — Header (9 campos)</div>
+    <table>
+      <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Obrig</th><th>Descrição / Regra</th></tr>
+      <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">0000</span></td></tr>
+      <tr><td class="centro">02</td><td class="code">NOME_ARQUIVO</td><td class="centro">C</td><td class="centro">20</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">UC</span></td></tr>
+      <tr><td class="centro">03</td><td class="code">VERSAO</td><td class="centro">C</td><td class="centro">10</td><td class="obrig">SIM</td><td>Versão do leiaute. Deve ser exatamente <span class="inline-code">1.0.0</span> (formato <span class="inline-code">X.Y.Z</span> e valor vigente).</td></tr>
+      <tr><td class="centro">04</td><td class="code">TIPO_OPERACAO</td><td class="centro">C</td><td class="centro">1</td><td class="obrig">SIM</td><td><span class="inline-code">O</span> = Original &nbsp;|&nbsp; <span class="inline-code">R</span> = Retificadora. Vale para todo o conteúdo assinado: não há lote misto.</td></tr>
+      <tr><td class="centro">05</td><td class="code">COMPETENCIA</td><td class="centro">N</td><td class="centro">6</td><td class="obrig">SIM</td><td>Formato AAAAMM. Mês entre 01 e 12.</td></tr>
+      <tr><td class="centro">06</td><td class="code">COD_DISTRIBUIDORA</td><td class="centro">N</td><td class="centro">6</td><td class="obrig">SIM</td><td>Código ANEEL da distribuidora (6 dígitos)</td></tr>
+      <tr><td class="centro">07</td><td class="code">CNPJ_DISTRIBUIDORA</td><td class="centro">N</td><td class="centro">14</td><td class="obrig">SIM</td><td>CNPJ sem máscara (14 dígitos + DV válido)</td></tr>
+      <tr><td class="centro">08</td><td class="code">RAZAO_SOCIAL</td><td class="centro">C</td><td class="centro">100</td><td class="obrig">SIM</td><td>Razão social da distribuidora</td></tr>
+      <tr><td class="centro">09</td><td class="code">UF</td><td class="centro">C</td><td class="centro">2</td><td class="obrig">SIM</td><td>UF da distribuidora (sigla com 2 letras maiúsculas)</td></tr>
+    </table>
+
+    <!-- 0100 -->
+    <div class="sub2-titulo">Registro 0100 — Município (5 campos)</div>
+    <table>
+      <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Obrig</th><th>Descrição / Regra</th></tr>
+      <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">0100</span></td></tr>
+      <tr><td class="centro">02</td><td class="code">COD_MUNICIPIO_IBGE</td><td class="centro">N</td><td class="centro">7</td><td class="obrig">SIM</td><td>Código IBGE de 7 dígitos. Deve existir no cadastro do sistema central.</td></tr>
+      <tr><td class="centro">03</td><td class="code">NOME_MUNICIPIO</td><td class="centro">C</td><td class="centro">60</td><td class="obrig">SIM</td><td>Nome oficial do município (sem abreviações)</td></tr>
+      <tr><td class="centro">04</td><td class="code">UF</td><td class="centro">C</td><td class="centro">2</td><td class="obrig">SIM</td><td>UF do município</td></tr>
+      <tr><td class="centro">05</td><td class="code">PROTOCOLO_RETIFICADORA</td><td class="centro">N</td><td class="centro">44</td><td class="opc">NÃO</td><td>Protocolo de 44 dígitos da <strong>declaração filha</strong> (escopo 2) última aceita para o mesmo município e módulo. Obrigatório quando <span class="inline-code">TIPO_OPERACAO = R</span>; vazio quando <span class="inline-code">TIPO_OPERACAO = O</span>. Deve pertencer à mesma competência do arquivo e ser a última filha aceita daquele município e módulo. Não informar o protocolo da master.</td></tr>
+    </table>
+
+    <!-- 0110 UC -->
+    <div class="sub2-titulo">Registro 0110 — Dados da UC (24 campos)</div>
+    <table>
+      <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Dec</th><th>Obrig</th><th>Descrição / Regra</th></tr>
+      <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="centro">—</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">0110</span></td></tr>
+      <tr><td class="centro">02</td><td class="code">CODIGO_UC</td><td class="centro">C</td><td class="centro">15</td><td class="centro">—</td><td class="obrig">SIM</td><td>Código único da UC. Exatamente 15 dígitos. Único no conteúdo assinado.</td></tr>
+      <tr><td class="centro">03</td><td class="code">INSCRICAO_MUNICIPAL</td><td class="centro">C</td><td class="centro">20</td><td class="centro">—</td><td class="opc">NÃO</td><td>Inscrição cadastral municipal</td></tr>
+      <tr><td class="centro">04</td><td class="code">COD_CLASSE_CONSUMO</td><td class="centro">N</td><td class="centro">2</td><td class="centro">—</td><td class="obrig">SIM</td><td>Código da classe: 01–08. Ver Tabela de Domínio § 3.8.1.</td></tr>
+      <tr><td class="centro">05</td><td class="code">COD_SUBCLASSE_CONSUMO</td><td class="centro">N</td><td class="centro">2</td><td class="centro">—</td><td class="obrig">SIM</td><td>Código da subclasse conforme a classe. Ver Tabela § 3.8.2.</td></tr>
+      <tr><td class="centro">06</td><td class="code">TIPO_LIGACAO</td><td class="centro">N</td><td class="centro">1</td><td class="centro">—</td><td class="obrig">SIM</td><td><span class="inline-code">1</span>=Monofásica &nbsp;<span class="inline-code">2</span>=Bifásica &nbsp;<span class="inline-code">3</span>=Trifásica</td></tr>
+      <tr><td class="centro">07</td><td class="code">TIPO_GRUPO_TENSAO</td><td class="centro">N</td><td class="centro">2</td><td class="centro">—</td><td class="obrig">SIM</td><td>01–14. Ver Tabela § 3.8.4.</td></tr>
+      <tr><td class="centro">08</td><td class="code">TIPO_MODALIDADE_TARIFARIA</td><td class="centro">N</td><td class="centro">2</td><td class="centro">—</td><td class="obrig">SIM</td><td>01–10. Ver Tabela § 3.8.5.</td></tr>
+      <tr><td class="centro">09</td><td class="code">STATUS</td><td class="centro">N</td><td class="centro">2</td><td class="centro">—</td><td class="obrig">SIM</td><td><span class="inline-code">01</span>=Ativo &nbsp;<span class="inline-code">02</span>=Suspenso &nbsp;<span class="inline-code">03</span>=Encerrado. Ver Tabela § 3.8.6.</td></tr>
+      <tr><td class="centro">10</td><td class="code">DATA_INICIO_STATUS</td><td class="centro">D</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Data real no formato <span class="inline-code">DD/MM/AAAA</span>. Refere-se ao status atual da UC.</td></tr>
+      <tr><td class="centro">11</td><td class="code">MOTIVO_SUSPENSAO</td><td class="centro">N</td><td class="centro">2</td><td class="centro">—</td><td class="opc">COND.</td><td>Obrigatório quando <span class="inline-code">STATUS = 02</span>; deve ficar vazio nos demais status. Ver Tabela § 3.8.6.1.</td></tr>
+      <tr><td class="centro">12</td><td class="code">MOTIVO_ENCERRAMENTO</td><td class="centro">N</td><td class="centro">2</td><td class="centro">—</td><td class="opc">COND.</td><td>Obrigatório quando <span class="inline-code">STATUS = 03</span>; deve ficar vazio nos demais status. Ver Tabela § 3.8.6.2.</td></tr>
+      <tr><td class="centro">13</td><td class="code">PROGRAMA_SOCIAL</td><td class="centro">C</td><td class="centro">1</td><td class="centro">—</td><td class="obrig">SIM</td><td><span class="inline-code">S</span>=Sim &nbsp;<span class="inline-code">N</span>=Não</td></tr>
+      <tr><td class="centro">14</td><td class="code">LOGRADOURO</td><td class="centro">C</td><td class="centro">100</td><td class="centro">—</td><td class="obrig">SIM</td><td>Nome da rua/avenida</td></tr>
+      <tr><td class="centro">15</td><td class="code">NUMERO</td><td class="centro">C</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Número do endereço</td></tr>
+      <tr><td class="centro">16</td><td class="code">COMPLEMENTO</td><td class="centro">C</td><td class="centro">60</td><td class="centro">—</td><td class="opc">NÃO</td><td>Complemento do endereço</td></tr>
+      <tr><td class="centro">17</td><td class="code">BAIRRO</td><td class="centro">C</td><td class="centro">60</td><td class="centro">—</td><td class="obrig">SIM</td><td>Bairro</td></tr>
+      <tr><td class="centro">18</td><td class="code">CEP</td><td class="centro">N</td><td class="centro">8</td><td class="centro">—</td><td class="obrig">SIM</td><td>CEP sem máscara (8 dígitos)</td></tr>
+      <tr><td class="centro">19</td><td class="code">DEMANDA_CONTRATADA_PONTA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>kW. Obrigatório para Grupo A com modalidade Azul.</td></tr>
+      <tr><td class="centro">20</td><td class="code">DEMANDA_CONTRATADA_FORA_PONTA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>kW. Obrigatório para Grupo A com modalidade Azul.</td></tr>
+      <tr><td class="centro">21</td><td class="code">DEMANDA_CONTRATADA_UNICA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>kW. Obrigatório para Grupo A com modalidade Verde/Binômia.</td></tr>
+      <tr><td class="centro">22</td><td class="code">GERACAO_DISTRIBUIDA</td><td class="centro">C</td><td class="centro">1</td><td class="centro">—</td><td class="opc">NÃO</td><td><span class="inline-code">S</span>=Sim &nbsp;<span class="inline-code">N</span>=Não</td></tr>
+      <tr><td class="centro">23</td><td class="code">POTENCIA_INSTALADA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>kW. Obrigatório quando <span class="inline-code">GERACAO_DISTRIBUIDA = S</span>.</td></tr>
+      <tr><td class="centro">24</td><td class="code">TIPO_GERACAO</td><td class="centro">N</td><td class="centro">2</td><td class="centro">—</td><td class="opc">NÃO</td><td>01–06. Obrigatório quando <span class="inline-code">GERACAO_DISTRIBUIDA = S</span>. Ver Tabela § 3.8.7.</td></tr>
+    </table>
+
+    <!-- 0999 UC -->
+    <div class="sub2-titulo">Registro 0999 — Totalizadores do Município (2 campos)</div>
+    <table>
+      <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Obrig</th><th>Descrição</th></tr>
+      <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">0999</span></td></tr>
+      <tr><td class="centro">02</td><td class="code">QTD_UCS</td><td class="centro">N</td><td class="centro">10</td><td class="obrig">SIM</td><td>Quantidade de registros <span class="inline-code">0110</span> no bloco do município. Deve coincidir exatamente com o total contado.</td></tr>
+    </table>
+
+    <!-- 9999 -->
+    <div class="sub2-titulo">Registro 9999 — Footer (3 campos)</div>
+    <table>
+      <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Obrig</th><th>Descrição</th></tr>
+      <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">9999</span></td></tr>
+      <tr><td class="centro">02</td><td class="code">QTD_LIN</td><td class="centro">N</td><td class="centro">10</td><td class="obrig">SIM</td><td>Total de linhas do conteúdo assinado, incluindo <span class="inline-code">0000</span>, todos os blocos municipais, registros de dados, registros filhos, totalizadores <span class="inline-code">0999</span> e o próprio <span class="inline-code">9999</span>.</td></tr>
+      <tr><td class="centro">03</td><td class="code">QTD_REG_0100</td><td class="centro">N</td><td class="centro">6</td><td class="obrig">SIM</td><td>Quantidade de registros <span class="inline-code">0100</span> no conteúdo assinado</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s17c">3.2.3 Exemplo de Conteúdo Assinado UC (Original)</div>
+    <div class="bloco-codigo-legenda"># Módulo UC — Conteúdo de declaração original — Competência 08/2025</div>
+<div class="bloco-codigo"><span class="valor">0000</span>|UC|1.0.0|O|202508|068407|06840748000189|ENERGISA PIAUI - DISTRIBUIDORA DE ENERGIA S.A.|PI
+<span class="valor">0100</span>|2211001|TERESINA|PI|
+<span class="valor">0110</span>|123456789012345||06|01|1|07|01|01|01/08/2025|||N|Rua das Flores|100|Apto 101|Centro|64000001||||N||
+<span class="valor">0110</span>|123456789012346||04|20|3|05|05|01|01/08/2025|||N|Rua Industrial|300||Distrito Ind|64000003|100.00|200.00||N||
+<span class="valor">0110</span>|123456789012347||06|01|1|07|01|01|01/08/2025|||N|Rua Solar|500||Centro|64000005||||S|10.50|01
+<span class="valor">0999</span>|3
+<span class="valor">0100</span>|2207702|PARNAIBA|PI|
+<span class="valor">0110</span>|123456789012350||06|01|1|07|01|01|01/08/2025|||S|Rua F|600||Zona Norte|64200001||||N||
+<span class="valor">0999</span>|1
+<span class="valor">9999</span>|10|2</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- S6 — Módulo COSIP -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="secao" id="s18">
+    <div class="secao-titulo">3.3 Módulo COSIP — Extratos de COSIP / NF3e</div>
+
+    <p>O módulo <strong>COSIP</strong> declara os valores de Contribuição para o Custeio do Serviço de Iluminação Pública cobrados por Unidade Consumidora, extraídos das Notas Fiscais Eletrônicas de Energia (NF3e).</p>
+    <div class="aviso">
+      <span class="label-aviso">Base de cálculo e valor esperado</span>
+      Neste leiaute, <span class="inline-code">BASE_CALCULO_COSIP</span> é o valor em reais informado pela concessionária na apuração da contribuição, e deve ser maior ou igual a <span class="inline-code">VL_COSIP</span> (<span class="inline-code">COS-63</span>). O valor esperado segundo a lei municipal é apurado pelo Município <strong>após</strong> o aceite do arquivo e não integra a validação desta Nota Técnica.
+    </div>
+
+    <div class="subsecao-titulo" id="s18a">3.3.1 Hierarquia de Registros</div>
+    <div class="hierarquia">
+0000 — HEADER           (NOME_ARQUIVO = "COSIP")
+├── 0100 — MUNICÍPIO    (1..N por conteúdo assinado)
+│   ├── 0110 — EXTRATO COSIP / NF3e   (1..N por município)
+│   │   └── 0120 — BANDEIRA TARIFÁRIA  (0..N por extrato)
+│   └── 0999 — TOTALIZADORES (1 por município)
+└── 9999 — FOOTER
+    </div>
+
+    <div class="subsecao-titulo" id="s18b">3.3.2 Leiaute dos Registros</div>
+
+    <div class="aviso">
+      <span class="label-aviso">Nota</span>
+      Os registros <span class="inline-code">0000</span>, <span class="inline-code">0100</span> e <span class="inline-code">9999</span> do módulo COSIP são idênticos aos do módulo UC, com exceção de <span class="inline-code">NOME_ARQUIVO</span> = <span class="inline-code">COSIP</span> (seção 3.2.2).
+    </div>
+
+    <!-- 0110 COSIP -->
+    <div class="sub2-titulo">Registro 0110 — Extrato COSIP / NF3e (29 campos)</div>
+    <table>
+      <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Dec</th><th>Obrig</th><th>Descrição / Regra</th></tr>
+      <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="centro">—</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">0110</span></td></tr>
+      <tr><td class="centro">02</td><td class="code">CHAVE_NFE</td><td class="centro">C</td><td class="centro">44</td><td class="centro">—</td><td class="obrig">SIM</td><td>Chave de acesso da NF3e: exatamente 44 dígitos numéricos, única no arquivo e, em original, única na competência (COS-80, COS-90, COS-91). Modelo 66 e dígito verificador módulo 11 não são validados.</td></tr>
+      <tr><td class="centro">03</td><td class="code">CODIGO_UC</td><td class="centro">C</td><td class="centro">15</td><td class="centro">—</td><td class="obrig">SIM</td><td>Código único da UC (15 dígitos). Deve existir no cadastro de UCs do Município.</td></tr>
+      <tr><td class="centro">04</td><td class="code">ENERGIA_CONSUMIDA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>kWh — Energia ativa consumida. Não negativa.</td></tr>
+      <tr><td class="centro">05</td><td class="code">ENERGIA_INJETADA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>kWh — Energia injetada por geração distribuída</td></tr>
+      <tr><td class="centro">06</td><td class="code">ENERGIA_COMPENSADA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>kWh — Energia compensada por geração distribuída</td></tr>
+      <tr><td class="centro">07</td><td class="code">ENERGIA_PONTA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>kWh — Energia consumida na ponta</td></tr>
+      <tr><td class="centro">08</td><td class="code">ENERGIA_FORA_PONTA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>kWh — Energia consumida fora da ponta</td></tr>
+      <tr><td class="centro">09</td><td class="code">DEMANDA_FATURADA_PONTA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>kW — Demanda faturada na ponta</td></tr>
+      <tr><td class="centro">10</td><td class="code">DEMANDA_FATURADA_FORA_PONTA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>kW — Demanda faturada fora da ponta</td></tr>
+      <tr><td class="centro">11</td><td class="code">DEMANDA_FATURADA_UNICA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>kW — Demanda faturada única</td></tr>
+      <tr><td class="centro">12</td><td class="code">BASE_CALCULO_COSIP</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Base em reais informada pela concessionária na apuração. Não negativa. Deve ser &gt;= <span class="inline-code">VL_COSIP</span> (<span class="inline-code">COS-63</span>). Não é o valor esperado da lei municipal.</td></tr>
+      <tr><td class="centro">13</td><td class="code">VL_COSIP</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Valor principal de COSIP cobrado na NF3e. Não negativo. Informar <span class="inline-code">0.00</span> quando não houver cobrança por isenção. Multa, juros e atualização monetária são campos separados.</td></tr>
+      <tr><td class="centro">14</td><td class="code">VL_TOTAL_FATURA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Valor total da fatura. Deve ser maior que zero.</td></tr>
+      <tr><td class="centro">15</td><td class="code">TE_UNICA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">6</td><td class="opc">NÃO</td><td>R$/kWh — Tarifa de energia única (modalidades convencionais)</td></tr>
+      <tr><td class="centro">16</td><td class="code">TE_PONTA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">6</td><td class="opc">NÃO</td><td>R$/kWh — Tarifa de energia na ponta</td></tr>
+      <tr><td class="centro">17</td><td class="code">TE_FORA_PONTA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">6</td><td class="opc">NÃO</td><td>R$/kWh — Tarifa de energia fora da ponta</td></tr>
+      <tr><td class="centro">18</td><td class="code">TE_INTERMEDIARIA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">6</td><td class="opc">NÃO</td><td>R$/kWh — Tarifa de energia intermediária</td></tr>
+      <tr><td class="centro">19</td><td class="code">TUSD_PONTA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>R$/kW — TUSD demanda ponta</td></tr>
+      <tr><td class="centro">20</td><td class="code">TUSD_FORA_PONTA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>R$/kW — TUSD demanda fora da ponta</td></tr>
+      <tr><td class="centro">21</td><td class="code">TUSD_UNICA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="opc">NÃO</td><td>R$/kW — TUSD demanda única</td></tr>
+      <tr><td class="centro">22</td><td class="code">DT_INICIO_PERIODO_FATURAMENTO</td><td class="centro">D</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Data real no formato <span class="inline-code">DD/MM/AAAA</span></td></tr>
+      <tr><td class="centro">23</td><td class="code">DT_FIM_PERIODO_FATURAMENTO</td><td class="centro">D</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Data real no formato <span class="inline-code">DD/MM/AAAA</span>, não anterior à data inicial</td></tr>
+      <tr><td class="centro">24</td><td class="code">COMPETENCIA_FATURAMENTO</td><td class="centro">N</td><td class="centro">6</td><td class="centro">—</td><td class="obrig">SIM</td><td><span class="inline-code">AAAAMM</span>, mês 01–12. Deve intersectar o período de faturamento</td></tr>
+      <tr><td class="centro">25</td><td class="code">STATUS_PAGAMENTO</td><td class="centro">C</td><td class="centro">20</td><td class="centro">—</td><td class="obrig">SIM</td><td><span class="inline-code">pago</span>, <span class="inline-code">nao_pago</span> ou <span class="inline-code">pago_em_atraso</span>. Ver Tabela § 3.8.8.1.</td></tr>
+      <tr><td class="centro">26</td><td class="code">DT_PAGAMENTO</td><td class="centro">D</td><td class="centro">10</td><td class="centro">—</td><td class="opc">COND.</td><td>Obrigatória para <span class="inline-code">pago</span> e <span class="inline-code">pago_em_atraso</span>; vazia para <span class="inline-code">nao_pago</span></td></tr>
+      <tr><td class="centro">27</td><td class="code">VL_MULTA_COSIP</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Multa de COSIP. Não negativa. Informar <span class="inline-code">0.00</span> se ausente.</td></tr>
+      <tr><td class="centro">28</td><td class="code">VL_JUROS_COSIP</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Juros de COSIP. Não negativos. Informar <span class="inline-code">0.00</span> se ausente.</td></tr>
+      <tr><td class="centro">29</td><td class="code">VL_ATUALIZACAO_MONETARIA_COSIP</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Atualização monetária de COSIP. Não negativa. Informar <span class="inline-code">0.00</span> se ausente.</td></tr>
+    </table>
+
+    <!-- 0120 -->
+    <div class="sub2-titulo">Registro 0120 — Bandeira Tarifária (5 campos) <span class="badge badge-cond">Filho do 0110</span></div>
+    <table>
+      <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Dec</th><th>Obrig</th><th>Descrição</th></tr>
+      <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="centro">—</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">0120</span></td></tr>
+      <tr><td class="centro">02</td><td class="code">BANDEIRA_TARIFARIA</td><td class="centro">N</td><td class="centro">1</td><td class="centro">—</td><td class="obrig">SIM</td><td>Código da bandeira tarifária: 1 a 4. Ver Tabela § 3.8.8.</td></tr>
+      <tr><td class="centro">03</td><td class="code">VALOR_BANDEIRA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">4</td><td class="obrig">SIM</td><td>R$/kWh — Tarifa da bandeira</td></tr>
+      <tr><td class="centro">04</td><td class="code">TOTAL_ENERGIA_CONSUMIDA</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>kWh — Energia cobrada por esta bandeira</td></tr>
+      <tr><td class="centro">05</td><td class="code">TOTAL</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Valor total da bandeira. Deve corresponder a <span class="inline-code">VALOR_BANDEIRA × TOTAL_ENERGIA_CONSUMIDA</span>.</td></tr>
+    </table>
+
+    <!-- 0999 COSIP -->
+    <div class="sub2-titulo">Registro 0999 — Totalizadores COSIP (3 campos)</div>
+    <table>
+      <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Dec</th><th>Obrig</th><th>Descrição</th></tr>
+      <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="centro">—</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">0999</span></td></tr>
+      <tr><td class="centro">02</td><td class="code">QTD_EXTRATOS</td><td class="centro">N</td><td class="centro">6</td><td class="centro">—</td><td class="obrig">SIM</td><td>Quantidade de registros <span class="inline-code">0110</span> no bloco</td></tr>
+      <tr><td class="centro">03</td><td class="code">VL_TOTAL_COSIP</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Soma dos valores <span class="inline-code">VL_COSIP</span> de todos os extratos do bloco. Deve coincidir com a soma calculada.</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s18c">3.3.3 Exemplo de Conteúdo Assinado COSIP (Original)</div>
+    <div class="bloco-codigo-legenda"># Módulo COSIP — Conteúdo de declaração original — Competência 08/2025</div>
+<div class="bloco-codigo"><span class="valor">0000</span>|COSIP|1.0.0|O|202508|068407|06840748000189|ENERGISA PIAUI - DISTRIBUIDORA DE ENERGIA S.A.|PI
+<span class="valor">0100</span>|2211001|TERESINA|PI|
+<span class="valor">0110</span>|22250806840748000189660010000000011000000015|123456789012345|300.00||||||||300.00|50.00|350.00|0.987650|||||||01/08/2025|31/08/2025|202508|pago|10/09/2025|0.00|0.00|0.00
+<span class="valor">0120</span>|2|0.0500|100.00|5.00
+<span class="valor">0110</span>|22250806840748000189660010000000021000000020|123456789012346|700.00|||500.00|200.00|100.00|200.00||700.00|5.00|705.00||0.650000|0.400000||1.23|5.68||01/08/2025|31/08/2025|202508|nao_pago||0.00|0.00|0.00
+<span class="valor">0999</span>|2|55.00
+<span class="valor">9999</span>|7|1</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- S7 — Módulo EXTRATO -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="secao" id="s19">
+    <div class="secao-titulo">3.4 Módulo EXTRATO — Extrato de Consumo de IP</div>
+
+    <p>O módulo <strong>EXTRATO</strong> declara o consumo mensal por ponto de iluminação pública e, quando o ponto for estimado, o detalhamento por equipamento. A planta energética municipal não é transmitida por arquivo. A validação utiliza o inventário vigente do Município (pontos e medidores).</p>
+
+    <div class="aviso-atencao">
+      <span class="label-aviso">Inventário municipal</span>
+      O campo <span class="inline-code">CODIGO_PONTO_IP_MUNICIPIO</span> deve corresponder a um ponto existente no inventário municipal (<span class="inline-code">EXT-30</span>). <span class="inline-code">CODIGO_EQUIPAMENTO</span> é texto livre: não há consulta de equipamento no banco. Em ponto medido, o medidor informado deve existir, estar ativo e vinculado ao ponto (<span class="inline-code">EXT-46</span> e <span class="inline-code">EXT-47</span>).
+    </div>
+
+    <div class="subsecao-titulo" id="s19a">3.4.1 Hierarquia de Registros</div>
+    <div class="hierarquia">
+0000 — HEADER           (NOME_ARQUIVO = "EXTRATO")
+├── 0100 — MUNICÍPIO    (1..N por conteúdo assinado)
+│   ├── 0110 — CONSUMO POR PONTO / EQUIPAMENTO (1..N por município)
+│   └── 0999 — TOTALIZADORES (1 por município)
+└── 9999 — FOOTER
+    </div>
+
+    <div class="subsecao-titulo" id="s19b">3.4.2 Leiaute dos Registros</div>
+
+    <!-- 0110 EXTRATO -->
+    <div class="sub2-titulo">Registro 0110 — Consumo por Ponto / Equipamento (15 campos)</div>
+    <table>
+      <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Dec</th><th>Obrig</th><th>Descrição / Regra</th></tr>
+      <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="centro">—</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">0110</span></td></tr>
+      <tr><td class="centro">02</td><td class="code">CODIGO_PONTO_IP_MUNICIPIO</td><td class="centro">C</td><td class="centro">30</td><td class="centro">—</td><td class="obrig">SIM</td><td>Código do ponto IP no inventário municipal (código da concessionária no cadastro do Município).</td></tr>
+      <tr><td class="centro">03</td><td class="code">CODIGO_IP_MUNICIPIO</td><td class="centro">C</td><td class="centro">30</td><td class="centro">—</td><td class="opc">NÃO</td><td>Código do levantamento municipal. Quando informado, deve coincidir com o cadastrado no ponto.</td></tr>
+      <tr><td class="centro">04</td><td class="code">CODIGO_EQUIPAMENTO</td><td class="centro">C</td><td class="centro">30</td><td class="centro">—</td><td class="opc">COND.</td><td>Texto livre, sem consulta no banco. Vazio no extrato geral do ponto e em ponto medido; preenchido apenas no detalhamento de ponto estimado. Ver regra abaixo.</td></tr>
+      <tr><td class="centro">05</td><td class="code">CONSUMO_KWH</td><td class="centro">N</td><td class="centro">10</td><td class="centro">2</td><td class="obrig">SIM</td><td>kWh — Consumo no período. Não negativo.</td></tr>
+      <tr><td class="centro">06</td><td class="code">TARIFA_UNITARIA</td><td class="centro">N</td><td class="centro">10</td><td class="centro">4</td><td class="obrig">SIM</td><td>R$/kWh — Tarifa aplicada. Deve ser maior que zero.</td></tr>
+      <tr><td class="centro">07</td><td class="code">VALOR_FATURADO</td><td class="centro">N</td><td class="centro">15</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Valor faturado. A diferença em relação a <span class="inline-code">CONSUMO_KWH × TARIFA_UNITARIA</span> não pode exceder R$ 0,02.</td></tr>
+      <tr><td class="centro">08</td><td class="code">TEMPO_FUNCIONAMENTO</td><td class="centro">N</td><td class="centro">5</td><td class="centro">2</td><td class="opc">NÃO</td><td>Horas/dia de funcionamento. Quando informado, deve estar entre 0 e 24.</td></tr>
+      <tr><td class="centro">09</td><td class="code">PERDA_REATOR</td><td class="centro">N</td><td class="centro">8</td><td class="centro">2</td><td class="opc">NÃO</td><td>Watts — Perda no reator. Não negativa.</td></tr>
+      <tr><td class="centro">10</td><td class="code">NUMERO_MEDIDOR</td><td class="centro">C</td><td class="centro">30</td><td class="centro">—</td><td class="opc">COND.</td><td>Obrigatório em ponto medido; proibido em ponto estimado.</td></tr>
+      <tr><td class="centro">11</td><td class="code">LEITURA_ANTERIOR</td><td class="centro">N</td><td class="centro">10</td><td class="centro">—</td><td class="opc">COND.</td><td>Obrigatória quando houver medidor.</td></tr>
+      <tr><td class="centro">12</td><td class="code">LEITURA_ATUAL</td><td class="centro">N</td><td class="centro">10</td><td class="centro">—</td><td class="opc">COND.</td><td>Obrigatória quando houver medidor. Deve ser maior ou igual à leitura anterior.</td></tr>
+      <tr><td class="centro">13</td><td class="code">DT_INICIO_PERIODO_FATURAMENTO</td><td class="centro">D</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Data real no formato <span class="inline-code">DD/MM/AAAA</span></td></tr>
+      <tr><td class="centro">14</td><td class="code">DT_FIM_PERIODO_FATURAMENTO</td><td class="centro">D</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Data real no formato <span class="inline-code">DD/MM/AAAA</span>, não anterior à data inicial</td></tr>
+      <tr><td class="centro">15</td><td class="code">COMPETENCIA_FATURAMENTO</td><td class="centro">N</td><td class="centro">6</td><td class="centro">—</td><td class="obrig">SIM</td><td><span class="inline-code">AAAAMM</span>, mês 01–12. Deve intersectar o período de faturamento</td></tr>
+    </table>
+
+    <div class="aviso">
+      <span class="label-aviso">Tipo de medição do ponto</span>
+      O tipo de medição vem do inventário municipal (<span class="inline-code">01</span> estimado ou <span class="inline-code">02</span> medido), não do arquivo EXTRATO.
+      <ul style="margin: 6px 0 0 18px; font-size: 12px; line-height: 1.7;">
+        <li><strong>Ponto estimado:</strong> exatamente 1 extrato geral (<span class="inline-code">CODIGO_EQUIPAMENTO</span> vazio). Se o consumo geral for maior que zero, exigir pelo menos 1 extrato por equipamento (código preenchido), cuja soma de consumo feche com o geral (tolerância 0,02 kWh). Medidor e leituras são proibidos. Se o geral tiver consumo zero, os extratos por equipamento são dispensados.</li>
+        <li><strong>Ponto medido:</strong> somente extrato(s) do ponto, com <span class="inline-code">CODIGO_EQUIPAMENTO</span> vazio, medidor e leituras obrigatórios. O medidor deve existir, estar ativo e vinculado ao ponto.</li>
+      </ul>
+    </div>
+
+    <!-- 0999 EXTRATO -->
+    <div class="sub2-titulo">Registro 0999 — Totalizadores EXTRATO (3 campos)</div>
+    <table>
+      <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Dec</th><th>Obrig</th><th>Descrição</th></tr>
+      <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="centro">—</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">0999</span></td></tr>
+      <tr><td class="centro">02</td><td class="code">QTD_EXTRATOS</td><td class="centro">N</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Quantidade de registros <span class="inline-code">0110</span> (extratos) no bloco, de ponto ou de equipamento.</td></tr>
+      <tr><td class="centro">03</td><td class="code">VL_TOTAL_CONSUMO</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Soma dos <span class="inline-code">VALOR_FATURADO</span> apenas dos extratos de ponto (<span class="inline-code">CODIGO_EQUIPAMENTO</span> vazio). O detalhe por equipamento não integra o total financeiro. Não negativo.</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s19c">3.4.3 Exemplo de Conteúdo Assinado EXTRATO (Original)</div>
+    <div class="bloco-codigo-legenda"># Módulo EXTRATO — ponto estimado (geral + equipamentos) e ponto medido — Competência 11/2025</div>
+<div class="bloco-codigo"><span class="valor">0000</span>|EXTRATO|1.0.0|O|202511|068407|06840748000189|ENERGISA PIAUI - DISTRIBUIDORA DE ENERGIA S.A.|PI
+<span class="valor">0100</span>|2211001|TERESINA|PI|
+<span class="valor">0110</span>|CONC-2024-0001|MUN-IP-00123|LED-001|36.00|0.5234|18.84|12.00|0.00||||01/11/2025|30/11/2025|202511
+<span class="valor">0110</span>|CONC-2024-0001|MUN-IP-00123|RELE-001|1.80|0.5234|0.94||||||01/11/2025|30/11/2025|202511
+<span class="valor">0110</span>|CONC-2024-0001|MUN-IP-00123||37.80|0.5234|19.78||||||01/11/2025|30/11/2025|202511
+<span class="valor">0110</span>|CONC-2024-0002|||30.00|0.5234|15.70|||MED-98765|1500|1531|01/11/2025|30/11/2025|202511
+<span class="valor">0999</span>|4|35.48
+<span class="valor">9999</span>|8|1</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- S8 — Módulo CONCILIACAO -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="secao" id="s20">
+    <div class="secao-titulo">3.5 Módulo CONCILIACAO — Conciliação Financeira</div>
+
+    <p>O módulo <strong>CONCILIACAO</strong> declara a conciliação financeira mensal consolidada por município. Os valores não são cruzados com COSIP nem com EXTRATO. As fórmulas de inadimplência e de saldo (<span class="inline-code">CON-13</span> e <span class="inline-code">CON-14</span>) são bloqueantes.</p>
+
+    <div class="aviso">
+      <span class="label-aviso">Nota</span>
+      Cada município admite <strong>exatamente um</strong> registro <span class="inline-code">0110</span>. O campo <span class="inline-code">ANALISE_SALDO</span> não é informado no arquivo: o sistema calcula e persiste <span class="inline-code">superavit</span>, <span class="inline-code">deficit</span> ou <span class="inline-code">equilibrado</span> conforme o sinal de <span class="inline-code">VL_SALDO</span>.
+    </div>
+
+    <div class="subsecao-titulo" id="s20a">3.5.1 Hierarquia de Registros</div>
+    <div class="hierarquia">
+0000 — HEADER           (NOME_ARQUIVO = "CONCILIACAO")
+├── 0100 — MUNICÍPIO    (1..N por conteúdo assinado)
+│   ├── 0110 — CONCILIAÇÃO MENSAL     (exatamente 1 por município)
+│   └── 0999 — TOTALIZADORES (1 por município)
+└── 9999 — FOOTER
+    </div>
+
+    <div class="subsecao-titulo" id="s20b">3.5.2 Leiaute dos Registros</div>
+
+    <div class="aviso">
+      <span class="label-aviso">Nota</span>
+      Os registros <span class="inline-code">0000</span>, <span class="inline-code">0100</span> e <span class="inline-code">9999</span> são idênticos aos do módulo UC, com exceção de <span class="inline-code">NOME_ARQUIVO</span> = <span class="inline-code">CONCILIACAO</span> (seção 3.2.2).
+    </div>
+
+    <div class="sub2-titulo">Registro 0110 — Conciliação Mensal do Município (11 campos)</div>
+    <table>
+      <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Dec</th><th>Obrig</th><th>Descrição / Regra</th></tr>
+      <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="centro">—</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">0110</span></td></tr>
+      <tr><td class="centro">02</td><td class="code">QTD_UCS_FATURADAS</td><td class="centro">N</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Quantidade de UCs faturadas. Inteiro &gt;= 0.</td></tr>
+      <tr><td class="centro">03</td><td class="code">VL_COSIP_FATURADO</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — COSIP faturado. Não negativo.</td></tr>
+      <tr><td class="centro">04</td><td class="code">QTD_UCS_ARRECADADAS</td><td class="centro">N</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Quantidade de UCs arrecadadas. Inteiro &gt;= 0.</td></tr>
+      <tr><td class="centro">05</td><td class="code">QTD_UCS_INADIMPLENTES</td><td class="centro">N</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Inteiro &gt;= 0. Deve ser igual a <span class="inline-code">QTD_UCS_FATURADAS − QTD_UCS_ARRECADADAS</span>.</td></tr>
+      <tr><td class="centro">06</td><td class="code">VL_COSIP_ARRECADADO</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — COSIP arrecadado. Não negativo.</td></tr>
+      <tr><td class="centro">07</td><td class="code">CONSUMO_IP_KWH</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>kWh — Consumo de IP. Não negativo.</td></tr>
+      <tr><td class="centro">08</td><td class="code">VL_FATURADO_IP</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Valor faturado de IP. Não negativo.</td></tr>
+      <tr><td class="centro">09</td><td class="code">VL_DESPESA_MANUTENCAO_ILUMINACAO</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Despesa de manutenção de iluminação. Não negativa.</td></tr>
+      <tr><td class="centro">10</td><td class="code">VL_DESPESA_MANUTENCAO_MONITORAMENTO</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Despesa de manutenção de monitoramento. Não negativa.</td></tr>
+      <tr><td class="centro">11</td><td class="code">VL_SALDO</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Aceita negativo. Deve conferir com a fórmula abaixo.</td></tr>
+    </table>
+
+    <p>Fórmulas obrigatórias:</p>
+    <div class="hierarquia">QTD_UCS_INADIMPLENTES = QTD_UCS_FATURADAS − QTD_UCS_ARRECADADAS
+
+VL_SALDO = VL_COSIP_ARRECADADO
+         − VL_FATURADO_IP
+         − VL_DESPESA_MANUTENCAO_ILUMINACAO
+         − VL_DESPESA_MANUTENCAO_MONITORAMENTO</div>
+
+    <div class="sub2-titulo">Registro 0999 — Totalizadores CONCILIACAO (3 campos)</div>
+    <table>
+      <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Dec</th><th>Obrig</th><th>Descrição</th></tr>
+      <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="centro">—</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">0999</span></td></tr>
+      <tr><td class="centro">02</td><td class="code">QTD_CONCILIACOES</td><td class="centro">N</td><td class="centro">6</td><td class="centro">—</td><td class="obrig">SIM</td><td>Quantidade de registros <span class="inline-code">0110</span> no bloco (sempre 1)</td></tr>
+      <tr><td class="centro">03</td><td class="code">VL_TOTAL_SALDO</td><td class="centro">N</td><td class="centro">16</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Deve coincidir com <span class="inline-code">VL_SALDO</span> do único <span class="inline-code">0110</span> do bloco. Aceita negativo.</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s20c">3.5.3 Exemplo de Conteúdo Assinado CONCILIACAO (Original)</div>
+    <div class="bloco-codigo-legenda"># Módulo CONCILIACAO — Conteúdo de declaração original — Competência 07/2025</div>
+<div class="bloco-codigo"><span class="valor">0000</span>|CONCILIACAO|1.0.0|O|202507|068407|06840748000189|ENERGISA PIAUI - DISTRIBUIDORA DE ENERGIA S.A.|PI
+<span class="valor">0100</span>|2211001|TERESINA|PI|
+<span class="valor">0110</span>|1000|100000.00|900|100|95000.00|12345.67|85000.00|5000.00|1000.00|4000.00
+<span class="valor">0999</span>|1|4000.00
+<span class="valor">9999</span>|5|1</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- S9 — Regras de Validação -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="secao" id="s21">
+    <div class="secao-titulo">3.6 Assinatura Digital dos Arquivos</div>
+
+    <p>Os arquivos transmitidos no SIPGIP são assinados digitalmente. A assinatura é requisito de validade do documento eletrônico.</p>
+
+    <div class="subsecao-titulo">3.6.1 Certificado Digital Exigido</div>
+
+    <p>A assinatura deve ser realizada com certificado digital de <strong>pessoa jurídica</strong> (e-CNPJ) emitido por Autoridade Certificadora credenciada pela Infraestrutura de Chaves Públicas Brasileira (ICP-Brasil). O CNPJ extraído do certificado deve ser o da concessionária. Certificado de pessoa física (e-CPF) não atende. Modalidades aceitas:</p>
+
+    <table>
+      <tr><th>Modalidade</th><th>Tipo</th><th>Descrição</th></tr>
+      <tr>
+        <td><strong>A1</strong></td>
+        <td>Arquivo (armazenado no computador)</td>
+        <td>Certificado em formato de arquivo protegido por senha, com validade de até 1 (um) ano, armazenado localmente no sistema responsável pela geração e transmissão dos arquivos.</td>
+      </tr>
+      <tr>
+        <td><strong>A3</strong></td>
+        <td>Dispositivo criptográfico (token ou cartão)</td>
+        <td>Certificado armazenado em dispositivo físico criptográfico (token USB ou cartão inteligente), com validade de até 3 (três) anos.</td>
+      </tr>
+    </table>
+
+    <div class="subsecao-titulo">3.6.2 Vinculação do Certificado ao CNPJ da Concessionária</div>
+
+    <p>O CNPJ constante no certificado digital utilizado para assinatura deve ser <strong>idêntico</strong> ao CNPJ informado no campo <span class="inline-code">CNPJ_DISTRIBUIDORA</span> do registro <span class="inline-code">0000</span> (registro de abertura) do arquivo transmitido. A divergência entre o CNPJ do certificado e o CNPJ declarado no arquivo constitui irregularidade formal e enseja a rejeição da transmissão.</p>
+
+    <div class="subsecao-titulo">3.6.3 Formato do Arquivo Assinado</div>
+
+    <p>A assinatura digital deve ser do tipo <strong>CAdES</strong> (Cryptographic Message Syntax Advanced Electronic Signature), na modalidade <em>attached</em> (assinatura incorporada ao conteúdo), produzindo um arquivo no formato <strong>PKCS#7</strong>, com extensão <strong>.p7s</strong>. Nesta modalidade, o conteúdo textual e a assinatura digital formam um único objeto, dispensando o envio separado do conteúdo original.</p>
+
+    <table>
+      <tr><th>Atributo</th><th>Especificação</th></tr>
+      <tr><td>Padrão de assinatura</td><td>CAdES (ICP-Brasil DOC-ICP-15)</td></tr>
+      <tr><td>Modalidade</td><td>Attached (conteúdo incorporado)</td></tr>
+      <tr><td>Extensão do arquivo transmitido</td><td>.p7s</td></tr>
+      <tr><td>Conteúdo assinado</td><td>Texto delimitado por pipe incorporado ao arquivo PKCS#7</td></tr>
+      <tr><td>Assinatura detached</td><td>Não aceita</td></tr>
+      <tr><td>Algoritmo de hash mínimo</td><td>SHA-256</td></tr>
+      <tr><td>Carimbo de tempo</td><td>Opcional (TSP compatível com ICP-Brasil)</td></tr>
+    </table>
+
+    <div class="subsecao-titulo">3.6.4 Nomeação dos Arquivos</div>
+
+    <p>A nomenclatura do arquivo é livre. A extensão transmitida é <strong>.p7s</strong>, com o conteúdo textual incorporado à assinatura.</p>
+
+    <div class="subsecao-titulo">3.6.5 Verificação da Assinatura pelo Município</div>
+
+    <p>O Município verificará, no momento da recepção do arquivo, a validade da assinatura digital, a cadeia de certificação ICP-Brasil e a correspondência entre o CNPJ do certificado, o CNPJ declarado no arquivo e o CNPJ da concessionária acessada. Arquivos com assinatura inválida, certificado expirado ou CNPJ divergente serão automaticamente rejeitados, sem análise do conteúdo.</p>
+
+    <div class="sub2-titulo">Códigos de rejeição da assinatura (entrada)</div>
+    <table>
+      <tr><th>Código</th><th>Descrição</th></tr>
+      <tr><td class="code">SIG-01</td><td>Arquivo não assinado digitalmente</td></tr>
+      <tr><td class="code">SIG-02</td><td>Formato de assinatura não reconhecido</td></tr>
+      <tr><td class="code">SIG-03</td><td>Reservado — não utilizado nesta versão</td></tr>
+      <tr><td class="code">SIG-04</td><td>Assinatura digital inválida</td></tr>
+      <tr><td class="code">SIG-05</td><td>Certificado ausente, ilegível ou inválido</td></tr>
+      <tr><td class="code">SIG-06</td><td>Certificado fora da validade</td></tr>
+      <tr><td class="code">SIG-07</td><td>CNPJ do certificado ausente ou ilegível</td></tr>
+      <tr><td class="code">SIG-08</td><td>CNPJ do certificado não corresponde à concessionária acessada</td></tr>
+      <tr><td class="code">SIG-09</td><td>CNPJ do certificado divergente do CNPJ informado no header do arquivo</td></tr>
+      <tr><td class="code">SIG-10</td><td>Certificado fora do padrão ICP-Brasil (obrigatório fora do ambiente de desenvolvimento)</td></tr>
+      <tr><td class="code">SIG-11</td><td>Conteúdo extraído vazio ou ilegível</td></tr>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- S11 — Protocolo de Declaração -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="secao" id="s22">
+    <div class="secao-titulo">3.7 Protocolo de Declaração</div>
+
+    <p>Ao término do processamento bem-sucedido, o sistema atribui um <strong>protocolo numérico de 44 dígitos</strong> à declaração master (lote) e um protocolo distinto a cada declaração filha (município). A retificação usa exclusivamente o protocolo da filha. A master não é retificável pelo declarante.</p>
+
+    <div class="subsecao-titulo">3.7.1 Composição do Protocolo</div>
+
+    <p>O protocolo é formado pela concatenação sequencial dos campos abaixo, sem separadores, totalizando 44 dígitos numéricos:</p>
+
+    <table>
+      <tr>
+        <th>Campo</th>
+        <th>Posição</th>
+        <th>Tamanho</th>
+        <th>Descrição</th>
+      </tr>
+      <tr>
+        <td class="code">cUF</td>
+        <td class="centro">1–2</td>
+        <td class="centro">2</td>
+        <td>Código IBGE da UF da concessionária</td>
+      </tr>
+      <tr>
+        <td class="code">AAMM</td>
+        <td class="centro">3–6</td>
+        <td class="centro">4</td>
+        <td>Ano e mês da competência, sem o século completo (ex.: <span class="inline-code">2601</span> para janeiro/2026)</td>
+      </tr>
+      <tr>
+        <td class="code">CNPJ</td>
+        <td class="centro">7–20</td>
+        <td class="centro">14</td>
+        <td>CNPJ da concessionária, somente dígitos, sem máscara</td>
+      </tr>
+      <tr>
+        <td class="code">mod</td>
+        <td class="centro">21–22</td>
+        <td class="centro">2</td>
+        <td>Código do módulo: <span class="inline-code">01</span>=UC &nbsp; <span class="inline-code">02</span>=COSIP &nbsp; <span class="inline-code">04</span>=EXTRATO &nbsp; <span class="inline-code">05</span>=CONCILIACAO. O código <span class="inline-code">03</span> não é utilizado.</td>
+      </tr>
+      <tr>
+        <td class="code">codDist</td>
+        <td class="centro">23–28</td>
+        <td class="centro">6</td>
+        <td>Código ANEEL da distribuidora, somente dígitos</td>
+      </tr>
+      <tr>
+        <td class="code">tpDecl</td>
+        <td class="centro">29</td>
+        <td class="centro">1</td>
+        <td>Tipo da declaração: <span class="inline-code">1</span>=Original &nbsp; <span class="inline-code">2</span>=Retificadora</td>
+      </tr>
+      <tr>
+        <td class="code">escopo</td>
+        <td class="centro">30</td>
+        <td class="centro">1</td>
+        <td>Escopo: <span class="inline-code">1</span>=Declaração geral do arquivo &nbsp; <span class="inline-code">2</span>=Declaração por município</td>
+      </tr>
+      <tr>
+        <td class="code">tpOrig</td>
+        <td class="centro">31</td>
+        <td class="centro">1</td>
+        <td>Origem do processamento: <span class="inline-code">1</span>=Processamento inicial &nbsp; <span class="inline-code">2</span>=Reprocessamento</td>
+      </tr>
+      <tr>
+        <td class="code">idLocal</td>
+        <td class="centro">32–38</td>
+        <td class="centro">7</td>
+        <td>Identificação do município: <span class="inline-code">0000000</span> para declaração geral do arquivo; código IBGE de 7 dígitos para declaração por município</td>
+      </tr>
+      <tr>
+        <td class="code">cNum</td>
+        <td class="centro">39–43</td>
+        <td class="centro">5</td>
+        <td>Número sequencial da declaração na competência, com 5 dígitos, iniciando em <span class="inline-code">00001</span> e reiniciando a cada nova competência</td>
+      </tr>
+      <tr>
+        <td class="code">cDV</td>
+        <td class="centro">44</td>
+        <td class="centro">1</td>
+        <td>Dígito verificador calculado pelo método módulo 11, no mesmo padrão adotado pela Nota Fiscal Eletrônica (NF-e)</td>
+      </tr>
+    </table>
+
+    <div class="subsecao-titulo">3.7.2 Exemplo de Protocolo</div>
+
+    <div class="hierarquia">Protocolo master (escopo 1) — 44 dígitos:
+  22260106840748000189010684071110000000000011
+
+  22           — cUF: Piauí
+  2601         — AAMM: janeiro de 2026
+  06840748000189 — CNPJ da concessionária
+  01           — mod: UC
+  068407       — codDist
+  1            — tpDecl: original
+  1            — escopo: master do arquivo
+  1            — tpOrig: processamento inicial
+  0000000      — idLocal: master (sem município)
+  00001        — cNum
+  1            — cDV (módulo 11, padrão NF-e)
+
+Protocolo filha de Teresina (escopo 2), competência 202508 — 44 dígitos:
+  22250806840748000189010684071212211001000011
+
+  AAMM 2508; escopo 2; idLocal 2211001; cDV 1.
+  Este é o tipo de protocolo que alimenta PROTOCOLO_RETIFICADORA.</div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- S11 — Tabelas de Domínio -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="secao" id="s23">
+    <div class="secao-titulo">3.8 Tabelas de Domínio</div>
+
+    <div class="aviso">
+      <span class="label-aviso">Nota</span>
+      As tabelas de domínio abaixo refletem os valores aceitos pelo sistema na versão 1.0.0 do leiaute.
+    </div>
+
+    <div class="sub2-titulo">§ 3.8.1 — Classe de Consumo (COD_CLASSE_CONSUMO)</div>
+    <table>
+      <tr><th>Código</th><th>Descrição</th></tr>
+      <tr><td class="centro code">01</td><td>Comercial, Serviços e Outras Atividades</td></tr>
+      <tr><td class="centro code">02</td><td>Consumo Próprio</td></tr>
+      <tr><td class="centro code">03</td><td>Iluminação Pública</td></tr>
+      <tr><td class="centro code">04</td><td>Industrial</td></tr>
+      <tr><td class="centro code">05</td><td>Poder Público</td></tr>
+      <tr><td class="centro code">06</td><td>Residencial</td></tr>
+      <tr><td class="centro code">07</td><td>Rural</td></tr>
+      <tr><td class="centro code">08</td><td>Serviço Público</td></tr>
+    </table>
+
+    <div class="sub2-titulo">§ 3.8.2 — Subclasse de Consumo (COD_SUBCLASSE_CONSUMO)</div>
+    <table>
+      <tr><th>Código</th><th>Descrição</th><th>Classes Válidas</th></tr>
+      <tr><td class="centro code">01</td><td>Residencial</td><td class="centro">06</td></tr>
+      <tr><td class="centro code">02</td><td>Residencial baixa renda</td><td class="centro">06</td></tr>
+      <tr><td class="centro code">03</td><td>Residencial baixa renda indígena</td><td class="centro">06</td></tr>
+      <tr><td class="centro code">04</td><td>Residencial baixa renda quilombola</td><td class="centro">06</td></tr>
+      <tr><td class="centro code">05</td><td>Residencial baixa renda benefício</td><td class="centro">06</td></tr>
+      <tr><td class="centro code">06</td><td>Residencial baixa renda multifamiliar</td><td class="centro">06</td></tr>
+      <tr><td class="centro code">07</td><td>Comercial</td><td class="centro">01</td></tr>
+      <tr><td class="centro code">08</td><td>Serviços de transporte</td><td class="centro">01, 08</td></tr>
+      <tr><td class="centro code">09</td><td>Serviços de comunicação</td><td class="centro">01, 08</td></tr>
+      <tr><td class="centro code">10</td><td>Associação e entidades filantrópicas</td><td class="centro">01</td></tr>
+      <tr><td class="centro code">11</td><td>Templos religiosos</td><td class="centro">01</td></tr>
+      <tr><td class="centro code">12</td><td>Administração condominial</td><td class="centro">01</td></tr>
+      <tr><td class="centro code">13</td><td>Iluminação em rodovias</td><td class="centro">03</td></tr>
+      <tr><td class="centro code">14</td><td>Semáforos, radares e câmeras</td><td class="centro">03, 05</td></tr>
+      <tr><td class="centro code">15</td><td>Outros serviços comercial</td><td class="centro">01</td></tr>
+      <tr><td class="centro code">16</td><td>Agropecuária rural</td><td class="centro">07</td></tr>
+      <tr><td class="centro code">17</td><td>Agropecuária urbana</td><td class="centro">07</td></tr>
+      <tr><td class="centro code">18</td><td>Residencial rural</td><td class="centro">06, 07</td></tr>
+      <tr><td class="centro code">19</td><td>Cooperativa de eletrificação rural</td><td class="centro">07</td></tr>
+      <tr><td class="centro code">20</td><td>Agroindustrial</td><td class="centro">04, 07</td></tr>
+      <tr><td class="centro code">21</td><td>Serviço público de irrigação rural</td><td class="centro">07, 08</td></tr>
+      <tr><td class="centro code">22</td><td>Escola agrotécnica</td><td class="centro">05, 07</td></tr>
+      <tr><td class="centro code">23</td><td>Aquicultura</td><td class="centro">07</td></tr>
+      <tr><td class="centro code">24</td><td>Poder público Federal</td><td class="centro">05</td></tr>
+      <tr><td class="centro code">25</td><td>Poder Público Estadual ou Distrital</td><td class="centro">05</td></tr>
+      <tr><td class="centro code">26</td><td>Poder público Municipal</td><td class="centro">05</td></tr>
+      <tr><td class="centro code">27</td><td>Tração Elétrica</td><td class="centro">08</td></tr>
+      <tr><td class="centro code">28</td><td>Água, esgoto ou saneamento</td><td class="centro">08</td></tr>
+      <tr><td class="centro code">99</td><td>Outros</td><td class="centro">Qualquer</td></tr>
+    </table>
+    <p>A classe 03 (iluminação pública) admite neste leiaute as subclasses 13 (rodovias) e 14 (semáforos, radares e câmeras). Iluminação pública em via urbana comum, quando não se enquadrar nessas subclasses, utiliza o código 99.</p>
+
+    <div class="sub2-titulo">§ 3.8.3 — Tipo de Ligação (TIPO_LIGACAO)</div>
+    <table>
+      <tr><th>Código</th><th>Descrição</th></tr>
+      <tr><td class="centro code">1</td><td>Monofásico</td></tr>
+      <tr><td class="centro code">2</td><td>Bifásico</td></tr>
+      <tr><td class="centro code">3</td><td>Trifásico</td></tr>
+    </table>
+
+    <div class="sub2-titulo">§ 3.8.4 — Tipo de Grupo de Tensão (TIPO_GRUPO_TENSAO)</div>
+    <table>
+      <tr><th>Código</th><th>Grupo</th><th>Descrição / Faixa</th></tr>
+      <tr><td class="centro code">01</td><td>A1</td><td>230 kV ou mais</td></tr>
+      <tr><td class="centro code">02</td><td>A2</td><td>88 kV a 138 kV</td></tr>
+      <tr><td class="centro code">03</td><td>A3</td><td>69 kV</td></tr>
+      <tr><td class="centro code">04</td><td>A3a</td><td>30 kV a 44 kV</td></tr>
+      <tr><td class="centro code">05</td><td>A4</td><td>2,3 kV a 25 kV</td></tr>
+      <tr><td class="centro code">06</td><td>AS</td><td>Subterrâneo — Grupo A</td></tr>
+      <tr><td class="centro code">07</td><td>B1</td><td>Residencial</td></tr>
+      <tr><td class="centro code">08</td><td>B1 BR</td><td>Baixa Renda</td></tr>
+      <tr><td class="centro code">09</td><td>B2 Rural</td><td>Rural</td></tr>
+      <tr><td class="centro code">10</td><td>B2 Coop</td><td>Cooperativa</td></tr>
+      <tr><td class="centro code">11</td><td>B2 Irrig</td><td>Irrigação</td></tr>
+      <tr><td class="centro code">12</td><td>B3</td><td>Demais</td></tr>
+      <tr><td class="centro code">13</td><td>B4a</td><td>IP rede</td></tr>
+      <tr><td class="centro code">14</td><td>B4b</td><td>IP bulbo</td></tr>
+    </table>
+    <p>Para as regras UC-30, UC-31, UC-50, UC-51, COS-40 e COS-41: códigos <span class="inline-code">01</span> a <span class="inline-code">06</span> são Grupo A; códigos <span class="inline-code">07</span> a <span class="inline-code">14</span> são Grupo B. O código <span class="inline-code">06</span> (AS — subterrâneo) é Grupo A.</p>
+
+    <div class="sub2-titulo">§ 3.8.5 — Modalidade Tarifária (TIPO_MODALIDADE_TARIFARIA)</div>
+    <table>
+      <tr><th>Código</th><th>Descrição</th><th>Grupo</th></tr>
+      <tr><td class="centro code">01</td><td>Monômia</td><td class="centro">B</td></tr>
+      <tr><td class="centro code">02</td><td>Binômia</td><td class="centro">A</td></tr>
+      <tr><td class="centro code">03</td><td>Branca</td><td class="centro">B</td></tr>
+      <tr><td class="centro code">04</td><td>Azul APE</td><td class="centro">A</td></tr>
+      <tr><td class="centro code">05</td><td>Azul</td><td class="centro">A</td></tr>
+      <tr><td class="centro code">06</td><td>Verde APE</td><td class="centro">A</td></tr>
+      <tr><td class="centro code">07</td><td>Verde</td><td class="centro">A</td></tr>
+      <tr><td class="centro code">08</td><td>Pré-pagamento</td><td class="centro">B</td></tr>
+      <tr><td class="centro code">09</td><td>Geração</td><td class="centro">—</td></tr>
+      <tr><td class="centro code">10</td><td>Distribuição</td><td class="centro">—</td></tr>
+    </table>
+    <p>UC-50 (Grupo A): códigos <span class="inline-code">02, 04, 05, 06, 07</span>. UC-51 (Grupo B): códigos <span class="inline-code">01, 03, 08</span>. Os códigos <span class="inline-code">09</span> e <span class="inline-code">10</span> são formalmente listados (UC-24) e não têm grupo admitido: o registro é rejeitado pela UC-50 ou UC-51.</p>
+
+    <div class="sub2-titulo">§ 3.8.6 — Status da UC (STATUS — Módulo UC)</div>
+    <table>
+      <tr><th>Código</th><th>Nome</th><th>Descrição</th></tr>
+      <tr><td class="centro code">01</td><td>Ativo</td><td>UC ativa</td></tr>
+      <tr><td class="centro code">02</td><td>Suspenso</td><td>Fornecimento temporariamente suspenso</td></tr>
+      <tr><td class="centro code">03</td><td>Encerrado</td><td>Relação operacional encerrada</td></tr>
+    </table>
+
+    <div class="sub2-titulo">§ 3.8.6.1 — Motivo de Suspensão (MOTIVO_SUSPENSAO)</div>
+    <table>
+      <tr><th>Código</th><th>Descrição</th></tr>
+      <tr><td class="centro code">01</td><td>Inadimplência</td></tr>
+      <tr><td class="centro code">02</td><td>Solicitação do consumidor</td></tr>
+      <tr><td class="centro code">03</td><td>Motivo técnico</td></tr>
+      <tr><td class="centro code">04</td><td>Determinação judicial</td></tr>
+      <tr><td class="centro code">05</td><td>Outros</td></tr>
+    </table>
+
+    <div class="sub2-titulo">§ 3.8.6.2 — Motivo de Encerramento (MOTIVO_ENCERRAMENTO)</div>
+    <table>
+      <tr><th>Código</th><th>Descrição</th></tr>
+      <tr><td class="centro code">01</td><td>Inexistente — ponto de fornecimento inexistente (erro cadastral)</td></tr>
+      <tr><td class="centro code">02</td><td>Troca de município — UC declarada no município incorreto (erro cadastral)</td></tr>
+      <tr><td class="centro code">03</td><td>Pedido do consumidor — encerramento ordinário a pedido do titular</td></tr>
+      <tr><td class="centro code">04</td><td>Desligamento pela distribuidora — extinção por iniciativa da concessionária</td></tr>
+      <tr><td class="centro code">05</td><td>Demolição ou desaparecimento do imóvel</td></tr>
+      <tr><td class="centro code">06</td><td>Mudança de titularidade — encerramento da UC anterior</td></tr>
+      <tr><td class="centro code">07</td><td>Reclassificação cadastral</td></tr>
+      <tr><td class="centro code">08</td><td>Outros</td></tr>
+    </table>
+    <p>A suspensão do fornecimento (<span class="inline-code">STATUS = 02</span>) não extingue o contrato e não interrompe, por si só, a incidência da contribuição. A cessação da incidência depende de encerramento regularmente declarado (<span class="inline-code">STATUS = 03</span>).</p>
+
+    <div class="sub2-titulo">§ 3.8.7 — Tipo de Geração (TIPO_GERACAO)</div>
+    <table>
+      <tr><th>Código</th><th>Descrição</th></tr>
+      <tr><td class="centro code">01</td><td>Solar Fotovoltaica</td></tr>
+      <tr><td class="centro code">02</td><td>Eólica</td></tr>
+      <tr><td class="centro code">03</td><td>Hídrica</td></tr>
+      <tr><td class="centro code">04</td><td>Biomassa</td></tr>
+      <tr><td class="centro code">05</td><td>Cogeração</td></tr>
+      <tr><td class="centro code">06</td><td>Outras</td></tr>
+    </table>
+
+    <div class="sub2-titulo">§ 3.8.8 — Bandeira Tarifária (BANDEIRA_TARIFARIA — Módulo COSIP)</div>
+    <table>
+      <tr><th>Código</th><th>Bandeira</th><th>Descrição</th></tr>
+      <tr><td class="centro code">1</td><td>Verde</td><td>Condições favoráveis</td></tr>
+      <tr><td class="centro code">2</td><td>Amarela</td><td>Condições menos favoráveis</td></tr>
+      <tr><td class="centro code">3</td><td>Vermelha P1</td><td>Condições custosas</td></tr>
+      <tr><td class="centro code">4</td><td>Vermelha P2</td><td>Condições muito custosas</td></tr>
+    </table>
+
+    <div class="sub2-titulo">§ 3.8.8.1 — Status de Pagamento (STATUS_PAGAMENTO — Módulo COSIP)</div>
+    <table>
+      <tr><th>Valor</th><th>Descrição</th><th>DT_PAGAMENTO</th></tr>
+      <tr><td class="code">pago</td><td>Fatura paga em dia</td><td>Obrigatória</td></tr>
+      <tr><td class="code">nao_pago</td><td>Fatura não paga</td><td>Deve ficar vazia</td></tr>
+      <tr><td class="code">pago_em_atraso</td><td>Fatura paga em atraso</td><td>Obrigatória</td></tr>
+    </table>
+
+    <div class="sub2-titulo">§ 3.8.9 — Tipo de Medição do Ponto (inventário municipal — Módulo EXTRATO)</div>
+    <p>Este domínio não é informado no arquivo EXTRATO. Pertence ao cadastro vigente de pontos do Município e determina as regras de preenchimento do registro <span class="inline-code">0110</span>.</p>
+    <table>
+      <tr><th>Código</th><th>Descrição</th><th>Efeito no EXTRATO</th></tr>
+      <tr><td class="centro code">01</td><td>Estimado</td><td>1 extrato geral (equipamento vazio) e, se houver consumo, detalhamento por equipamento; medidor proibido</td></tr>
+      <tr><td class="centro code">02</td><td>Medido</td><td>Extrato do ponto com equipamento vazio; medidor e leituras obrigatórios</td></tr>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- S13 — Entrega -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+<div class="parte-titulo" id="parte-d">4. Catálogo de mensagens</div>
+<div class="secao" id="s24">
+    <div class="secao-titulo">4.1 Regras de Validação e Códigos de Erro</div>
+
+    <p>A validação ocorre em três fases sequenciais. Erro em fase anterior pode impedir as posteriores. Erro bloqueante rejeita o conteúdo assinado inteiro. Severidade <span class="inline-code">warning</span> ou <span class="inline-code">info</span> não rejeita a declaração: <span class="inline-code">UC-82</span>, <span class="inline-code">COS-104</span>, <span class="inline-code">COS-105</span> e <span class="inline-code">COS-107</span>.</p>
+
+    <table>
+      <tr><th>Severidade</th><th>Efeito</th><th>Exemplos</th></tr>
+      <tr><td><strong>error</strong></td><td>Rejeita o conteúdo assinado inteiro. Nenhum município do arquivo é aceito.</td><td>HDR-01, UC-01, COS-42, MUN-18, CON-14</td></tr>
+      <tr><td><strong>warning</strong> / <strong>info</strong></td><td>Não rejeita. Persistido à parte e devolvido em TXT de alertas.</td><td>UC-82, COS-104, COS-105, COS-107</td></tr>
+    </table>
+
+    <div class="subsecao-titulo">4.1.1 Categorias de validação</div>
+
+    <table>
+      <tr>
+        <th>Categoria</th>
+        <th>Escopo</th>
+        <th>Efeito da falha</th>
+      </tr>
+      <tr>
+        <td><strong>Assinatura</strong></td>
+        <td>Arquivo <span class="inline-code">.p7s</span>, assinatura attached, certificado ICP-Brasil e CNPJ</td>
+        <td>Rejeição na entrada, sem leitura do conteúdo</td>
+      </tr>
+      <tr>
+        <td><strong>Estrutura</strong></td>
+        <td>Ordem dos registros, existência de <span class="inline-code">0000</span>, <span class="inline-code">0100</span>, <span class="inline-code">0999</span> e <span class="inline-code">9999</span>, tipos permitidos no módulo</td>
+        <td>Rejeição do conteúdo assinado</td>
+      </tr>
+      <tr>
+        <td><strong>Formato de campo</strong></td>
+        <td>Obrigatoriedade, tamanho, UTF-8, campo vazio, numéricos, decimais, datas, competência e domínios</td>
+        <td>Rejeição do registro</td>
+      </tr>
+      <tr>
+        <td><strong>Totalizadores</strong></td>
+        <td>Totais de <span class="inline-code">0999</span> e <span class="inline-code">9999</span> em relação aos registros declarados</td>
+        <td>Rejeição por divergência de totalizador</td>
+      </tr>
+      <tr>
+        <td><strong>Dependência entre módulos</strong></td>
+        <td>UC prévia para COSIP; ponto (e, se medido, medidor) no inventário municipal para EXTRATO</td>
+        <td>Rejeição por referência inexistente ou dependência não satisfeita</td>
+      </tr>
+      <tr>
+        <td><strong>Regras de negócio</strong></td>
+        <td>Classe, subclasse, grupo, modalidade, demanda, geração distribuída, status da UC, valores de COSIP, tipo de medição e fórmulas da conciliação</td>
+        <td>Rejeição por inconsistência de domínio ou de regra</td>
+      </tr>
+    </table>
+
+    <div class="subsecao-titulo">4.1.2 Fase 1 — Estrutura e Formato (comuns a todos os módulos)</div>
+
+    <p>Aplicadas a cada linha do conteúdo assinado durante a leitura. Erros estruturais críticos interrompem imediatamente o processamento.</p>
+
+    <table>
+      <tr><th>Código</th><th>Descrição da Regra</th></tr>
+      <tr><td class="code">EST-01</td><td>A primeira linha do conteúdo assinado deve ser o registro <span class="inline-code">0000</span></td></tr>
+      <tr><td class="code">EST-02</td><td>A última linha do conteúdo assinado deve ser o registro <span class="inline-code">9999</span></td></tr>
+      <tr><td class="code">EST-03</td><td>Os registros de dados devem ocorrer dentro de um bloco municipal aberto pelo registro <span class="inline-code">0100</span></td></tr>
+      <tr><td class="code">EST-04</td><td>Cada bloco municipal deve conter ao menos um registro de dados. Município sem movimento não envia bloco <span class="inline-code">0100</span></td></tr>
+      <tr><td class="code">EST-05</td><td>Tipos de registro não previstos para o módulo não são permitidos</td></tr>
+      <tr><td class="code">EST-06</td><td>O registro <span class="inline-code">0000</span> deve ocorrer uma única vez no conteúdo assinado</td></tr>
+      <tr><td class="code">EST-07</td><td>O registro <span class="inline-code">9999</span> deve ocorrer uma única vez no conteúdo assinado</td></tr>
+      <tr><td class="code">EST-08</td><td>Cada bloco <span class="inline-code">0100</span> deve ser encerrado por exatamente um registro <span class="inline-code">0999</span></td></tr>
+      <tr><td class="code">EST-09</td><td>No módulo COSIP, o registro <span class="inline-code">0120</span> só é admitido imediatamente após um <span class="inline-code">0110</span></td></tr>
+      <tr><td class="code">TXT-01</td><td>Campos textuais não podem ter espaços no início ou no fim do valor</td></tr>
+      <tr><td class="code">TXT-03</td><td>O conteúdo assinado deve estar em codificação UTF-8 válida, sem caracteres de controle</td></tr>
+      <tr><td class="code">DEL-01</td><td>O caractere separador de campos <span class="inline-code">|</span> (pipe) deve estar presente em todas as linhas</td></tr>
+      <tr><td class="code">DEL-02</td><td>Não deve haver pipe extra após o último campo do registro</td></tr>
+      <tr><td class="code">TXT-04</td><td>É vedada a ocorrência do caractere pipe no conteúdo de qualquer campo</td></tr>
+      <tr><td class="code">VAZ-02</td><td>Campos vazios não podem conter valores substitutos textuais como <span class="inline-code">null</span>, <span class="inline-code">-</span> ou <span class="inline-code">N/A</span></td></tr>
+    </table>
+
+    <div class="subsecao-titulo">4.1.3 Fase 2 — Registro de Abertura, Município, Totalizadores e Encerramento (comuns a todos os módulos)</div>
+
+    <table>
+      <tr><th>Código</th><th>Campo</th><th>Descrição da Regra</th></tr>
+      <tr><td class="code">HDR-01</td><td>0000</td><td>Registro deve ter exatamente 9 campos</td></tr>
+      <tr><td class="code">HDR-02</td><td>NOME_ARQUIVO</td><td>Deve conter o identificador do módulo correspondente ao arquivo enviado</td></tr>
+      <tr><td class="code">HDR-03</td><td>VERSAO</td><td>Não pode ser vazio; formato <span class="inline-code">X.Y.Z</span> e valor exatamente <span class="inline-code">1.0.0</span> (versão vigente do leiaute)</td></tr>
+      <tr><td class="code">HDR-04</td><td>TIPO_OPERACAO</td><td>Deve ser <span class="inline-code">O</span> (Original) ou <span class="inline-code">R</span> (Retificadora). O tipo vale para todos os municípios do arquivo</td></tr>
+      <tr><td class="code">HDR-05</td><td>COMPETENCIA</td><td>Formato <span class="inline-code">AAAAMM</span>; mês entre 01 e 12</td></tr>
+      <tr><td class="code">HDR-06</td><td>COD_DISTRIBUIDORA</td><td>Exatamente 6 dígitos numéricos</td></tr>
+      <tr><td class="code">HDR-07</td><td>CNPJ_DISTRIBUIDORA</td><td>Exatamente 14 dígitos; dígito verificador válido</td></tr>
+      <tr><td class="code">HDR-08</td><td>RAZAO_SOCIAL</td><td>Não pode ser vazio; máximo 100 caracteres</td></tr>
+      <tr><td class="code">HDR-09</td><td>UF</td><td>Sigla com 2 caracteres maiúsculos, correspondente a UF válida</td></tr>
+      <tr><td class="code">HDR-10</td><td>CNPJ_DISTRIBUIDORA</td><td>CNPJ deve estar cadastrado na base de concessionárias do sistema</td></tr>
+      <tr><td class="code">HDR-11</td><td>COMPETENCIA</td><td>A competência declarada não pode ser futura em relação à data de envio</td></tr>
+      <tr><td class="code">HDR-12</td><td>CNPJ_DISTRIBUIDORA</td><td>CNPJ do header deve ser igual ao CNPJ da concessionária acessada</td></tr>
+      <tr><td class="code">MUN-01</td><td>0100</td><td>Registro deve ter exatamente 5 campos</td></tr>
+      <tr><td class="code">MUN-02</td><td>COD_MUNICIPIO_IBGE</td><td>Exatamente 7 dígitos numéricos</td></tr>
+      <tr><td class="code">MUN-03</td><td>NOME_MUNICIPIO</td><td>Não pode ser vazio; máximo 60 caracteres</td></tr>
+      <tr><td class="code">MUN-04</td><td>UF</td><td>Sigla com 2 caracteres maiúsculos</td></tr>
+      <tr><td class="code">MUN-05</td><td>PROTOCOLO_RETIFICADORA</td><td>Obrigatório quando <span class="inline-code">TIPO_OPERACAO = R</span></td></tr>
+      <tr><td class="code">MUN-06</td><td>PROTOCOLO_RETIFICADORA</td><td>Deve estar vazio quando <span class="inline-code">TIPO_OPERACAO = O</span></td></tr>
+      <tr><td class="code">MUN-07</td><td>COD_MUNICIPIO_IBGE</td><td>Código IBGE deve existir na base de municípios do sistema</td></tr>
+      <tr><td class="code">MUN-08</td><td>UF</td><td>UF declarada deve corresponder ao código IBGE informado</td></tr>
+      <tr><td class="code">MUN-09</td><td>COD_MUNICIPIO_IBGE</td><td>O mesmo município não pode ser declarado mais de uma vez no conteúdo assinado</td></tr>
+      <tr><td class="code">MUN-10</td><td>PROTOCOLO_RETIFICADORA</td><td>Quando informado, deve ter exatamente 44 dígitos numéricos</td></tr>
+      <tr><td class="code">MUN-11</td><td>COD_MUNICIPIO_IBGE</td><td>A concessionária deve ter relacionamento ativo com o município declarado</td></tr>
+      <tr><td class="code">MUN-12</td><td>COD_MUNICIPIO_IBGE</td><td>Em operação original, não pode existir declaração original prévia para o mesmo município, competência e módulo. A regra é por município: arquivo original subsequente na mesma competência é admitido para município ainda não declarado. Municípios já declarados no original anterior não podem figurar nesse arquivo</td></tr>
+      <tr><td class="code">MUN-13</td><td>PROTOCOLO_RETIFICADORA</td><td>Em operação retificadora, o protocolo informado deve existir na base de declarações</td></tr>
+      <tr><td class="code">MUN-14</td><td>PROTOCOLO_RETIFICADORA</td><td>O protocolo informado deve pertencer ao mesmo município</td></tr>
+      <tr><td class="code">MUN-15</td><td>PROTOCOLO_RETIFICADORA</td><td>O protocolo informado deve pertencer à mesma competência da declaração</td></tr>
+      <tr><td class="code">MUN-16</td><td>PROTOCOLO_RETIFICADORA</td><td>O protocolo informado deve pertencer ao mesmo módulo da declaração</td></tr>
+      <tr><td class="code">MUN-17</td><td>PROTOCOLO_RETIFICADORA</td><td>O protocolo informado deve ser o da última declaração <strong>filha</strong> aceita do mesmo município e módulo. Com a MUN-15, isso restringe a retificação à competência da fronteira: declaração antiga é bloqueada se já existir declaração aceita em competência posterior</td></tr>
+      <tr><td class="code">MUN-18</td><td>PROTOCOLO_RETIFICADORA</td><td>No módulo UC, a retificação é bloqueada se as UCs da filha retificada tiverem extrato COSIP. Não há cascata automática</td></tr>
+      <tr><td class="code">MUN-20</td><td>COMPETENCIA</td><td>Em operação original, não pode existir declaração aceita em competência posterior para o mesmo município e módulo</td></tr>
+      <tr><td class="code">FTR-01</td><td>9999</td><td>Registro de encerramento deve ter exatamente 3 campos</td></tr>
+      <tr><td class="code">FTR-02</td><td>QTD_LIN</td><td>Numérico, obrigatório</td></tr>
+      <tr><td class="code">FTR-03</td><td>QTD_REG_0100</td><td>Numérico, obrigatório</td></tr>
+      <tr><td class="code">CNT-01</td><td>QTD_LIN</td><td>Deve ser igual ao total de linhas contadas no conteúdo assinado</td></tr>
+      <tr><td class="code">CNT-02</td><td>QTD_REG_0100</td><td>Deve ser igual ao número de registros <span class="inline-code">0100</span> encontrados no conteúdo assinado</td></tr>
+    </table>
+
+    <div class="subsecao-titulo">4.1.4 Fase 3 — Validações Específicas do Módulo UC</div>
+
+    <p>Aplicadas ao registro <span class="inline-code">0110</span> e ao totalizador <span class="inline-code">0999</span> do módulo UC.</p>
+
+    <table>
+      <tr><th>Código</th><th>Campo</th><th>Descrição da Regra</th></tr>
+      <tr><td class="code">UC-01</td><td>0110</td><td>Registro deve ter exatamente 24 campos</td></tr>
+      <tr><td class="code">UC-02</td><td>CODIGO_UC</td><td>Obrigatório; exatamente 15 dígitos</td></tr>
+      <tr><td class="code">UC-03</td><td>COD_CLASSE_CONSUMO</td><td>Obrigatório; numérico</td></tr>
+      <tr><td class="code">UC-04</td><td>COD_SUBCLASSE_CONSUMO</td><td>Obrigatório; numérico</td></tr>
+      <tr><td class="code">UC-05</td><td>TIPO_LIGACAO</td><td>Obrigatório</td></tr>
+      <tr><td class="code">UC-06</td><td>TIPO_GRUPO_TENSAO</td><td>Obrigatório; numérico</td></tr>
+      <tr><td class="code">UC-07</td><td>TIPO_MODALIDADE_TARIFARIA</td><td>Obrigatório; numérico</td></tr>
+      <tr><td class="code">UC-08</td><td>STATUS</td><td>Obrigatório; numérico</td></tr>
+      <tr><td class="code">UC-09</td><td>PROGRAMA_SOCIAL</td><td>Obrigatório; deve ser <span class="inline-code">S</span> ou <span class="inline-code">N</span></td></tr>
+      <tr><td class="code">UC-14</td><td>MOTIVO_ENCERRAMENTO</td><td>Numérico quando preenchido</td></tr>
+      <tr><td class="code">UC-15</td><td>MOTIVO_SUSPENSAO</td><td>Numérico quando preenchido</td></tr>
+      <tr><td class="code">UC-16</td><td>DATA_INICIO_STATUS</td><td>Obrigatória; data real no formato <span class="inline-code">DD/MM/AAAA</span></td></tr>
+      <tr><td class="code">UC-10</td><td>LOGRADOURO</td><td>Obrigatório</td></tr>
+      <tr><td class="code">UC-11</td><td>NUMERO</td><td>Obrigatório</td></tr>
+      <tr><td class="code">UC-12</td><td>BAIRRO</td><td>Obrigatório</td></tr>
+      <tr><td class="code">UC-13</td><td>CEP</td><td>Obrigatório; exatamente 8 dígitos numéricos</td></tr>
+      <tr><td class="code">UC-20</td><td>COD_CLASSE_CONSUMO</td><td>Valores válidos: 01 a 08</td></tr>
+      <tr><td class="code">UC-21</td><td>COD_SUBCLASSE_CONSUMO</td><td>Deve ser compatível com a classe informada</td></tr>
+      <tr><td class="code">UC-22</td><td>TIPO_LIGACAO</td><td>Valores válidos: 1 (Monofásica), 2 (Bifásica), 3 (Trifásica)</td></tr>
+      <tr><td class="code">UC-23</td><td>TIPO_GRUPO_TENSAO</td><td>Valores válidos: 01 a 14</td></tr>
+      <tr><td class="code">UC-24</td><td>TIPO_MODALIDADE_TARIFARIA</td><td>Valores válidos: 01 a 10</td></tr>
+      <tr><td class="code">UC-25</td><td>TIPO_GERACAO</td><td>Quando informado, valores válidos: 01 a 06</td></tr>
+      <tr><td class="code">UC-26</td><td>STATUS</td><td>Valores válidos: 01 (Ativo), 02 (Suspenso), 03 (Encerrado)</td></tr>
+      <tr><td class="code">UC-27</td><td>MOTIVO_ENCERRAMENTO</td><td>Quando preenchido, deve pertencer à tabela de motivos de encerramento</td></tr>
+      <tr><td class="code">UC-28</td><td>MOTIVO_SUSPENSAO</td><td>Quando preenchido, deve pertencer à tabela de motivos de suspensão</td></tr>
+      <tr><td class="code">UC-30</td><td>DEMANDA</td><td>UC do Grupo A exige ao menos um campo de demanda contratada preenchido</td></tr>
+      <tr><td class="code">UC-31</td><td>DEMANDA</td><td>UC do Grupo B não pode ter campos de demanda contratada preenchidos</td></tr>
+      <tr><td class="code">UC-32</td><td>DEMANDA_PONTA / FORA_PONTA</td><td>Modalidade Azul exige ambos os campos de demanda ponta e fora de ponta</td></tr>
+      <tr><td class="code">UC-33</td><td>DEMANDA_CONTRATADA_UNICA</td><td>Modalidade Verde exige demanda única</td></tr>
+      <tr><td class="code">UC-34</td><td>DEMANDA_CONTRATADA_UNICA</td><td>Modalidade Binômia exige demanda única</td></tr>
+      <tr><td class="code">UC-40</td><td>GERACAO_DISTRIBUIDA</td><td>Deve ser <span class="inline-code">S</span>, <span class="inline-code">N</span> ou vazio</td></tr>
+      <tr><td class="code">UC-41</td><td>POTENCIA_INSTALADA</td><td>Obrigatório e maior que zero quando geração distribuída = S</td></tr>
+      <tr><td class="code">UC-42</td><td>TIPO_GERACAO</td><td>Obrigatório quando geração distribuída = S</td></tr>
+      <tr><td class="code">UC-43</td><td>POTENCIA_INSTALADA</td><td>Deve estar vazio quando geração distribuída = N ou vazio</td></tr>
+      <tr><td class="code">UC-44</td><td>TIPO_GERACAO</td><td>Deve estar vazio quando geração distribuída = N ou vazio</td></tr>
+      <tr><td class="code">UC-45</td><td>MOTIVO_ENCERRAMENTO</td><td>Obrigatório quando <span class="inline-code">STATUS = 03</span></td></tr>
+      <tr><td class="code">UC-46</td><td>MOTIVO_ENCERRAMENTO</td><td>Deve ficar vazio quando <span class="inline-code">STATUS</span> for diferente de 03</td></tr>
+      <tr><td class="code">UC-47</td><td>MOTIVO_SUSPENSAO</td><td>Obrigatório quando <span class="inline-code">STATUS = 02</span></td></tr>
+      <tr><td class="code">UC-48</td><td>MOTIVO_SUSPENSAO</td><td>Deve ficar vazio quando <span class="inline-code">STATUS</span> for diferente de 02</td></tr>
+      <tr><td class="code">UC-50</td><td>TIPO_MODALIDADE_TARIFARIA</td><td>UC do Grupo A (códigos de tensão 01–06) aceita apenas as modalidades <span class="inline-code">02</span>, <span class="inline-code">04</span>, <span class="inline-code">05</span>, <span class="inline-code">06</span> e <span class="inline-code">07</span></td></tr>
+      <tr><td class="code">UC-51</td><td>TIPO_MODALIDADE_TARIFARIA</td><td>UC do Grupo B (códigos de tensão 07–14) aceita apenas as modalidades <span class="inline-code">01</span>, <span class="inline-code">03</span> e <span class="inline-code">08</span>. Os códigos <span class="inline-code">09</span> e <span class="inline-code">10</span> passam na UC-24 e são rejeitados pela UC-50/UC-51</td></tr>
+      <tr><td class="code">UC-60</td><td>CODIGO_UC</td><td>Exatamente 15 dígitos numéricos</td></tr>
+      <tr><td class="code">UC-61</td><td>CEP</td><td>Exatamente 8 dígitos numéricos</td></tr>
+      <tr><td class="code">UC-62</td><td>DEMANDA_CONTRATADA_PONTA</td><td>Decimal válido: máximo 16 dígitos com 2 casas decimais</td></tr>
+      <tr><td class="code">UC-63</td><td>DEMANDA_CONTRATADA_FORA_PONTA</td><td>Decimal válido: máximo 16 dígitos com 2 casas decimais</td></tr>
+      <tr><td class="code">UC-64</td><td>DEMANDA_CONTRATADA_UNICA</td><td>Decimal válido: máximo 16 dígitos com 2 casas decimais</td></tr>
+      <tr><td class="code">UC-65</td><td>POTENCIA_INSTALADA</td><td>Decimal válido: máximo 16 dígitos com 2 casas decimais</td></tr>
+      <tr><td class="code">UC-70</td><td>INSCRICAO_MUNICIPAL</td><td>Máximo 20 caracteres</td></tr>
+      <tr><td class="code">UC-71</td><td>LOGRADOURO</td><td>Máximo 100 caracteres</td></tr>
+      <tr><td class="code">UC-72</td><td>NUMERO</td><td>Máximo 10 caracteres</td></tr>
+      <tr><td class="code">UC-73</td><td>COMPLEMENTO</td><td>Máximo 60 caracteres</td></tr>
+      <tr><td class="code">UC-74</td><td>BAIRRO</td><td>Máximo 60 caracteres</td></tr>
+      <tr><td class="code">UC-80</td><td>CODIGO_UC</td><td>O mesmo código de UC não pode aparecer mais de uma vez no conteúdo assinado</td></tr>
+      <tr><td class="code">UC-81</td><td>CEP</td><td>Erro bloqueante: CEP encontrado em faixa de outro município</td></tr>
+      <tr><td class="code">UC-82</td><td>CEP</td><td>Alerta (não bloqueante): CEP não encontrado em nenhuma faixa cadastrada</td></tr>
+      <tr><td class="code">MUN-FTR-01</td><td>0999</td><td>Registro deve ter exatamente 2 campos</td></tr>
+      <tr><td class="code">MUN-FTR-02</td><td>QTD_UCS</td><td>Numérico, obrigatório</td></tr>
+      <tr><td class="code">MUN-CNT-01</td><td>QTD_UCS</td><td>Deve ser igual ao total de registros <span class="inline-code">0110</span> contados no bloco</td></tr>
+    </table>
+
+    <div class="subsecao-titulo">4.1.5 Fase 3 — Validações Específicas do Módulo COSIP</div>
+
+    <p>Aplicadas aos registros <span class="inline-code">0110</span>, <span class="inline-code">0120</span> e <span class="inline-code">0999</span> do módulo COSIP.</p>
+
+    <table>
+      <tr><th>Código</th><th>Campo</th><th>Descrição da Regra</th></tr>
+      <tr><td class="code">COS-00</td><td>0110</td><td>Registro deve ter exatamente 29 campos</td></tr>
+      <tr><td class="code">COS-01</td><td>REG</td><td>Deve ser <span class="inline-code">0110</span></td></tr>
+      <tr><td class="code">COS-02</td><td>CHAVE_NFE</td><td>Obrigatório; exatamente 44 dígitos numéricos</td></tr>
+      <tr><td class="code">COS-03</td><td>CODIGO_UC</td><td>Obrigatório; exatamente 15 dígitos numéricos</td></tr>
+      <tr><td class="code">COS-04</td><td>ENERGIA_CONSUMIDA</td><td>Obrigatório; valor não negativo</td></tr>
+      <tr><td class="code">COS-05</td><td>BASE_CALCULO_COSIP</td><td>Obrigatório; valor não negativo</td></tr>
+      <tr><td class="code">COS-06</td><td>VL_COSIP</td><td>Obrigatório; valor não negativo. Informar <span class="inline-code">0.00</span> quando não houver cobrança por isenção</td></tr>
+      <tr><td class="code">COS-07</td><td>VL_TOTAL_FATURA</td><td>Obrigatório; deve ser maior que zero</td></tr>
+      <tr><td class="code">COS-08</td><td>DT_INICIO_PERIODO_FATURAMENTO</td><td>Obrigatória; data real <span class="inline-code">DD/MM/AAAA</span></td></tr>
+      <tr><td class="code">COS-09</td><td>DT_FIM_PERIODO_FATURAMENTO</td><td>Obrigatória; data real <span class="inline-code">DD/MM/AAAA</span></td></tr>
+      <tr><td class="code">COS-10</td><td>COMPETENCIA_FATURAMENTO</td><td>Obrigatória; <span class="inline-code">AAAAMM</span> com mês 01–12</td></tr>
+      <tr><td class="code">COS-11</td><td>STATUS_PAGAMENTO</td><td>Obrigatório; <span class="inline-code">pago</span>, <span class="inline-code">nao_pago</span> ou <span class="inline-code">pago_em_atraso</span></td></tr>
+      <tr><td class="code">COS-12</td><td>DT_PAGAMENTO</td><td>Obrigatória para <span class="inline-code">pago</span> e <span class="inline-code">pago_em_atraso</span>; vazia para <span class="inline-code">nao_pago</span></td></tr>
+      <tr><td class="code">COS-13</td><td>VL_MULTA_COSIP</td><td>Obrigatório; decimal com 2 casas; não negativo</td></tr>
+      <tr><td class="code">COS-14</td><td>VL_JUROS_COSIP</td><td>Obrigatório; decimal com 2 casas; não negativo</td></tr>
+      <tr><td class="code">COS-15</td><td>VL_ATUALIZACAO_MONETARIA_COSIP</td><td>Obrigatório; decimal com 2 casas; não negativo</td></tr>
+      <tr><td class="code">COS-16</td><td>Período de faturamento</td><td>Data inicial não pode ser posterior à data final</td></tr>
+      <tr><td class="code">COS-17</td><td>COMPETENCIA_FATURAMENTO</td><td>Deve intersectar o período de faturamento por mês-calendário</td></tr>
+      <tr><td class="code">COS-30</td><td>ENERGIA_CONSUMIDA</td><td>Não pode ser negativo</td></tr>
+      <tr><td class="code">COS-31</td><td>ENERGIA_CONSUMIDA</td><td>Deve ser maior ou igual à energia injetada</td></tr>
+      <tr><td class="code">COS-32</td><td>ENERGIA_INJETADA</td><td>Deve ser maior ou igual à energia compensada</td></tr>
+      <tr><td class="code">COS-33</td><td>ENERGIA_PONTA / FORA_PONTA</td><td>Quando ambos informados, a soma deve ser igual à energia consumida (tolerância de 0,01)</td></tr>
+      <tr><td class="code">COS-40</td><td>DEMANDA</td><td>UC do Grupo A exige ao menos um campo de demanda faturada preenchido</td></tr>
+      <tr><td class="code">COS-41</td><td>DEMANDA</td><td>UC do Grupo B não pode ter campos de demanda faturada preenchidos</td></tr>
+      <tr><td class="code">COS-42</td><td>DEMANDA_PONTA / FORA_PONTA</td><td>Modalidade Azul exige demanda ponta e fora de ponta</td></tr>
+      <tr><td class="code">COS-43</td><td>DEMANDA_UNICA</td><td>Modalidades com demanda única exigem o campo correspondente preenchido</td></tr>
+      <tr><td class="code">COS-50</td><td>TE_UNICA</td><td>Modalidades convencionais exigem tarifa de energia única</td></tr>
+      <tr><td class="code">COS-51</td><td>TE_PONTA / TE_FORA_PONTA</td><td>Modalidades Azul e Branca exigem tarifas de energia ponta e fora de ponta</td></tr>
+      <tr><td class="code">COS-53</td><td>TUSD_PONTA / TUSD_FORA_PONTA</td><td>Modalidade Azul exige TUSD ponta e fora de ponta</td></tr>
+      <tr><td class="code">COS-54</td><td>TUSD_UNICA</td><td>Grupo A com demanda única exige TUSD única</td></tr>
+      <tr><td class="code">COS-60</td><td>VL_COSIP</td><td>Não negativo</td></tr>
+      <tr><td class="code">COS-61</td><td>VL_TOTAL_FATURA</td><td>Deve ser maior que zero</td></tr>
+      <tr><td class="code">COS-62</td><td>VL_COSIP</td><td>Não pode exceder o valor total da fatura</td></tr>
+      <tr><td class="code">COS-63</td><td>BASE_CALCULO_COSIP</td><td>Deve ser maior ou igual a <span class="inline-code">VL_COSIP</span>. A base é o valor em R$ informado pela concessionária, não o valor esperado da lei municipal</td></tr>
+      <tr><td class="code">COS-70</td><td>ENERGIA_INJETADA / COMPENSADA</td><td>UC com geração distribuída cadastrada exige ambos os campos preenchidos</td></tr>
+      <tr><td class="code">COS-80</td><td>CHAVE_NFE</td><td>Exatamente 44 dígitos numéricos. Modelo 66 e DV módulo 11 não são validados</td></tr>
+      <tr><td class="code">COS-81</td><td>CODIGO_UC</td><td>Exatamente 15 dígitos numéricos</td></tr>
+      <tr><td class="code">COS-82</td><td>BASE_CALCULO_COSIP</td><td>Decimal com 2 casas; não negativo</td></tr>
+      <tr><td class="code">COS-85</td><td>ENERGIA_*</td><td>Todos os campos de energia devem ser decimais não negativos</td></tr>
+      <tr><td class="code">COS-86</td><td>DEMANDA_*</td><td>Todos os campos de demanda devem ser decimais com 2 casas e não negativos</td></tr>
+      <tr><td class="code">COS-87</td><td>TE_*</td><td>Tarifas de energia devem ser decimais com até 6 casas e maiores que zero quando preenchidas</td></tr>
+      <tr><td class="code">COS-88</td><td>TUSD_*</td><td>TUSD deve ser decimal com 2 casas e maior que zero quando preenchido</td></tr>
+      <tr><td class="code">COS-90</td><td>CHAVE_NFE</td><td>A mesma chave NF3e não pode aparecer mais de uma vez no conteúdo assinado</td></tr>
+      <tr><td class="code">COS-91</td><td>CHAVE_NFE</td><td>Em operação original, a chave NF3e não pode existir em declaração anterior da mesma competência</td></tr>
+      <tr><td class="code">COS-100</td><td>CODIGO_UC</td><td>A UC informada deve existir no cadastro do Município</td></tr>
+      <tr><td class="code">COS-101</td><td>CODIGO_UC</td><td>A UC informada deve possuir status válido (ativo, suspenso ou encerrado)</td></tr>
+      <tr><td class="code">COS-104</td><td>UC suspensa</td><td>Alerta: período iniciado antes de <span class="inline-code">DATA_INICIO_STATUS</span>; classifica como residual de UC suspensa</td></tr>
+      <tr><td class="code">COS-105</td><td>UC suspensa</td><td>Alerta: período iniciado na mesma data ou depois; classifica como faturado de UC suspensa</td></tr>
+      <tr><td class="code">COS-106</td><td>UC encerrada</td><td>Erro bloqueante quando o período inicia na mesma data ou depois de <span class="inline-code">DATA_INICIO_STATUS</span></td></tr>
+      <tr><td class="code">COS-107</td><td>UC suspensa</td><td>Alerta de transição quando não há data de início de status</td></tr>
+      <tr><td class="code">COS-108</td><td>UC encerrada</td><td>Erro bloqueante quando não há data para comprovar faturamento residual</td></tr>
+      <tr><td class="code">BND-01</td><td>0120</td><td>Registro deve ter exatamente 5 campos</td></tr>
+      <tr><td class="code">BND-02</td><td>BANDEIRA_TARIFARIA</td><td>Numérico; valores válidos: 1 (Verde), 2 (Amarela), 3 (Vermelha P1), 4 (Vermelha P2)</td></tr>
+      <tr><td class="code">BND-03</td><td>VALOR_BANDEIRA</td><td>Decimal não negativo; até 6 casas decimais</td></tr>
+      <tr><td class="code">BND-04</td><td>TOTAL_ENERGIA_CONSUMIDA</td><td>Decimal com 2 casas; não negativo</td></tr>
+      <tr><td class="code">BND-05</td><td>TOTAL</td><td>Decimal com 2 casas; não negativo</td></tr>
+      <tr><td class="code">BND-06</td><td>TOTAL</td><td>Deve ser igual ao produto de VALOR_BANDEIRA por TOTAL_ENERGIA_CONSUMIDA (tolerância de 0,01)</td></tr>
+      <tr><td class="code">BND-07</td><td>BANDEIRA_TARIFARIA</td><td>Cada código de bandeira deve ocorrer uma única vez por extrato</td></tr>
+      <tr><td class="code">MUN-FTR-01</td><td>0999</td><td>Registro deve ter exatamente 3 campos</td></tr>
+      <tr><td class="code">MUN-FTR-04</td><td>QTD_EXTRATOS</td><td>Numérico, obrigatório</td></tr>
+      <tr><td class="code">MUN-CNT-02</td><td>QTD_EXTRATOS</td><td>Deve ser igual ao total de registros <span class="inline-code">0110</span> contados no bloco</td></tr>
+      <tr><td class="code">MUN-CNT-03</td><td>VL_TOTAL_COSIP</td><td>Deve ser igual à soma dos valores de COSIP de todos os extratos do bloco</td></tr>
+      <tr><td class="code">NUM-02</td><td>Campos decimais</td><td>Formato decimal inválido</td></tr>
+      <tr><td class="code">NUM-03</td><td>Campos decimais</td><td>Quantidade de casas decimais diferente do exigido</td></tr>
+      <tr><td class="code">NUM-04</td><td>Campos decimais</td><td>Tamanho numérico excede o limite do leiaute</td></tr>
+      <tr><td class="code">NUM-05</td><td>Campos decimais</td><td>Valor negativo não permitido</td></tr>
+    </table>
+
+    <div class="subsecao-titulo">4.1.6 Fase 3 — Validações Específicas do Módulo EXTRATO</div>
+
+    <p>Aplicadas ao registro <span class="inline-code">0110</span> e ao totalizador <span class="inline-code">0999</span> do módulo EXTRATO.</p>
+
+    <table>
+      <tr><th>Código</th><th>Campo</th><th>Descrição da Regra</th></tr>
+      <tr><td class="code">EXT-01</td><td>0110</td><td>Registro deve ter exatamente 15 campos</td></tr>
+      <tr><td class="code">EXT-02</td><td>REG</td><td>Deve ser <span class="inline-code">0110</span></td></tr>
+      <tr><td class="code">EXT-03</td><td>CODIGO_PONTO_IP_MUNICIPIO</td><td>Obrigatório; não vazio</td></tr>
+      <tr><td class="code">EXT-04</td><td>CODIGO_PONTO_IP_MUNICIPIO</td><td>Máximo 30 caracteres</td></tr>
+      <tr><td class="code">EXT-05</td><td>CODIGO_IP_MUNICIPIO</td><td>Quando informado, máximo 30 caracteres</td></tr>
+      <tr><td class="code">EXT-06</td><td>CODIGO_EQUIPAMENTO</td><td>Preenchimento condicional ao tipo de medição do ponto (ver <span class="inline-code">EXT-40</span> a <span class="inline-code">EXT-44</span>). Não valida existência no banco</td></tr>
+      <tr><td class="code">EXT-07</td><td>CODIGO_EQUIPAMENTO</td><td>Quando informado, máximo 30 caracteres</td></tr>
+      <tr><td class="code">EXT-08</td><td>CONSUMO_KWH</td><td>Obrigatório</td></tr>
+      <tr><td class="code">EXT-09</td><td>CONSUMO_KWH</td><td>Deve ser decimal válido</td></tr>
+      <tr><td class="code">EXT-10</td><td>CONSUMO_KWH</td><td>Deve ser não negativo</td></tr>
+      <tr><td class="code">EXT-11</td><td>TARIFA_UNITARIA</td><td>Obrigatória</td></tr>
+      <tr><td class="code">EXT-12</td><td>TARIFA_UNITARIA</td><td>Deve ser decimal válido</td></tr>
+      <tr><td class="code">EXT-13</td><td>TARIFA_UNITARIA</td><td>Deve ser maior que zero</td></tr>
+      <tr><td class="code">EXT-14</td><td>VALOR_FATURADO</td><td>Obrigatório</td></tr>
+      <tr><td class="code">EXT-15</td><td>VALOR_FATURADO</td><td>Deve ser decimal válido</td></tr>
+      <tr><td class="code">EXT-16</td><td>VALOR_FATURADO</td><td>Deve ser não negativo</td></tr>
+      <tr><td class="code">EXT-17</td><td>VALOR_FATURADO</td><td>A diferença entre o valor faturado e o produto do consumo pela tarifa não pode exceder R$ 0,02</td></tr>
+      <tr><td class="code">EXT-18</td><td>NUMERO_MEDIDOR</td><td>Quando informado, máximo 30 caracteres</td></tr>
+      <tr><td class="code">EXT-19</td><td>LEITURAS</td><td>Quando o número do medidor é informado, as leituras anterior e atual tornam-se obrigatórias</td></tr>
+      <tr><td class="code">EXT-20</td><td>LEITURA_ANTERIOR</td><td>Quando informada, deve ser numérico inteiro</td></tr>
+      <tr><td class="code">EXT-21</td><td>LEITURA_ATUAL</td><td>Quando informada, deve ser numérico inteiro</td></tr>
+      <tr><td class="code">EXT-22</td><td>LEITURA_ATUAL</td><td>Quando ambas informadas, a leitura atual deve ser maior ou igual à leitura anterior</td></tr>
+      <tr><td class="code">EXT-23</td><td>TEMPO_FUNCIONAMENTO</td><td>Quando informado, decimal entre 0 e 24 horas</td></tr>
+      <tr><td class="code">EXT-24</td><td>PERDA_REATOR</td><td>Quando informado, decimal não negativo</td></tr>
+      <tr><td class="code">EXT-30</td><td>CODIGO_PONTO_IP_MUNICIPIO</td><td>O ponto IP informado deve existir no inventário municipal</td></tr>
+      <tr><td class="code">EXT-34</td><td>CODIGO_IP_MUNICIPIO</td><td>Quando informado, deve corresponder ao código cadastrado no ponto IP</td></tr>
+      <tr><td class="code">EXT-35</td><td>TIPO_MEDICAO</td><td>O ponto deve ter tipo de medição <span class="inline-code">01</span> (estimado) ou <span class="inline-code">02</span> (medido) no inventário</td></tr>
+      <tr><td class="code">EXT-40</td><td>Ponto estimado</td><td>Se o extrato geral tiver consumo &gt; 0, exige ao menos 1 extrato com <span class="inline-code">CODIGO_EQUIPAMENTO</span> preenchido</td></tr>
+      <tr><td class="code">EXT-41</td><td>Ponto estimado</td><td>Exatamente 1 extrato geral do ponto (<span class="inline-code">CODIGO_EQUIPAMENTO</span> vazio)</td></tr>
+      <tr><td class="code">EXT-42</td><td>Ponto estimado</td><td>A soma do consumo dos equipamentos deve fechar com o geral (tolerância 0,02 kWh)</td></tr>
+      <tr><td class="code">EXT-43</td><td>Ponto estimado</td><td>Não informar medidor nem leituras</td></tr>
+      <tr><td class="code">EXT-44</td><td>Ponto medido</td><td><span class="inline-code">CODIGO_EQUIPAMENTO</span> deve ficar vazio</td></tr>
+      <tr><td class="code">EXT-45</td><td>Ponto medido</td><td>Medidor e leituras anterior/atual obrigatórios</td></tr>
+      <tr><td class="code">EXT-46</td><td>NUMERO_MEDIDOR</td><td>O medidor deve existir e estar ativo no inventário municipal</td></tr>
+      <tr><td class="code">EXT-47</td><td>NUMERO_MEDIDOR</td><td>O medidor deve estar vinculado ao ponto informado</td></tr>
+      <tr><td class="code">EXT-48</td><td>NUMERO_MEDIDOR</td><td>Código do medidor único no arquivo por município</td></tr>
+      <tr><td class="code">EXT-49</td><td>Ponto / Medidor</td><td>Par ponto+medidor único no arquivo</td></tr>
+      <tr><td class="code">EXT-50</td><td>DT_INICIO_PERIODO_FATURAMENTO</td><td>Obrigatória; data real <span class="inline-code">DD/MM/AAAA</span></td></tr>
+      <tr><td class="code">EXT-51</td><td>DT_FIM_PERIODO_FATURAMENTO</td><td>Obrigatória; data real <span class="inline-code">DD/MM/AAAA</span></td></tr>
+      <tr><td class="code">EXT-52</td><td>COMPETENCIA_FATURAMENTO</td><td>Obrigatória; <span class="inline-code">AAAAMM</span> com mês 01–12</td></tr>
+      <tr><td class="code">EXT-53</td><td>Período de faturamento</td><td>Data inicial não pode ser posterior à data final</td></tr>
+      <tr><td class="code">EXT-54</td><td>COMPETENCIA_FATURAMENTO</td><td>Deve intersectar o período de faturamento por mês-calendário</td></tr>
+      <tr><td class="code">MUN-FTR-01</td><td>0999</td><td>Registro deve ter exatamente 3 campos</td></tr>
+      <tr><td class="code">MUN-FTR-08</td><td>QTD_EXTRATOS</td><td>Numérico, obrigatório</td></tr>
+      <tr><td class="code">MUN-FTR-09</td><td>VL_TOTAL_CONSUMO</td><td>Decimal válido, obrigatório</td></tr>
+      <tr><td class="code">MUN-CNT-07</td><td>QTD_EXTRATOS</td><td>Deve ser igual à quantidade de registros <span class="inline-code">0110</span> do bloco (extratos de ponto e de equipamento)</td></tr>
+      <tr><td class="code">MUN-CNT-08</td><td>VL_TOTAL_CONSUMO</td><td>Deve ser igual à soma dos <span class="inline-code">VALOR_FATURADO</span> dos extratos de ponto; o detalhamento por equipamento não entra na soma</td></tr>
+      <tr><td class="code">NUM-02</td><td>VL_TOTAL_CONSUMO</td><td>Formato decimal inválido</td></tr>
+      <tr><td class="code">NUM-03</td><td>VL_TOTAL_CONSUMO</td><td>Quantidade de casas decimais diferente de 2</td></tr>
+      <tr><td class="code">NUM-04</td><td>VL_TOTAL_CONSUMO</td><td>Tamanho numérico excede 16 dígitos</td></tr>
+      <tr><td class="code">NUM-05</td><td>VL_TOTAL_CONSUMO</td><td>Valor negativo não permitido</td></tr>
+    </table>
+
+    <div class="subsecao-titulo">4.1.7 Fase 3 — Validações Específicas do Módulo CONCILIACAO</div>
+
+    <p>Aplicadas ao registro <span class="inline-code">0110</span> e ao totalizador <span class="inline-code">0999</span> do módulo CONCILIACAO.</p>
+
+    <table>
+      <tr><th>Código</th><th>Campo</th><th>Descrição da Regra</th></tr>
+      <tr><td class="code">CON-01</td><td>0110</td><td>Registro deve ter exatamente 11 campos</td></tr>
+      <tr><td class="code">CON-02</td><td>QTD_UCS_FATURADAS</td><td>Inteiro &gt;= 0</td></tr>
+      <tr><td class="code">CON-03</td><td>VL_COSIP_FATURADO</td><td>Decimal válido; não negativo</td></tr>
+      <tr><td class="code">CON-04</td><td>QTD_UCS_ARRECADADAS</td><td>Inteiro &gt;= 0</td></tr>
+      <tr><td class="code">CON-05</td><td>QTD_UCS_INADIMPLENTES</td><td>Inteiro &gt;= 0</td></tr>
+      <tr><td class="code">CON-06</td><td>VL_COSIP_ARRECADADO</td><td>Decimal válido; não negativo</td></tr>
+      <tr><td class="code">CON-07</td><td>CONSUMO_IP_KWH</td><td>Decimal válido; não negativo</td></tr>
+      <tr><td class="code">CON-08</td><td>VL_FATURADO_IP</td><td>Decimal válido; não negativo</td></tr>
+      <tr><td class="code">CON-09</td><td>VL_DESPESA_MANUTENCAO_ILUMINACAO</td><td>Decimal válido; não negativo</td></tr>
+      <tr><td class="code">CON-10</td><td>VL_DESPESA_MANUTENCAO_MONITORAMENTO</td><td>Decimal válido; não negativo</td></tr>
+      <tr><td class="code">CON-11</td><td>VL_SALDO</td><td>Decimal válido; aceita negativo</td></tr>
+      <tr><td class="code">CON-12</td><td>0110</td><td>Exatamente um registro <span class="inline-code">0110</span> por município</td></tr>
+      <tr><td class="code">CON-13</td><td>VL_SALDO</td><td>Deve conferir com a fórmula de saldo. Nesta fase o saldo usa os valores declarados, sem cruzamento com COSIP ou EXTRATO</td></tr>
+      <tr><td class="code">CON-14</td><td>QTD_UCS_INADIMPLENTES</td><td>Deve ser igual a <span class="inline-code">QTD_UCS_FATURADAS − QTD_UCS_ARRECADADAS</span>. Pagamento parcial ou de competência anterior não é modelado neste leiaute</td></tr>
+      <tr><td class="code">MUN-FTR-01</td><td>0999</td><td>Registro deve ter exatamente 3 campos</td></tr>
+      <tr><td class="code">MUN-FTR-10</td><td>QTD_CONCILIACOES</td><td>Numérico, obrigatório e &gt;= 1</td></tr>
+      <tr><td class="code">MUN-FTR-11</td><td>VL_TOTAL_SALDO</td><td>Decimal válido</td></tr>
+      <tr><td class="code">MUN-CNT-09</td><td>QTD_CONCILIACOES</td><td>Deve ser igual ao total de registros <span class="inline-code">0110</span> do bloco</td></tr>
+      <tr><td class="code">MUN-CNT-10</td><td>VL_TOTAL_SALDO</td><td>Deve ser igual à soma dos <span class="inline-code">VL_SALDO</span> do bloco</td></tr>
+    </table>
+
+    <div class="subsecao-titulo">4.1.8 Resultado da Validação</div>
+
+    <p>Arquivo <strong>válido</strong>: gera declaração master do lote e declaração filha por município, cada uma com protocolo de 44 dígitos. Retificação posterior utiliza exclusivamente o protocolo da filha. Segue-se o processamento. No módulo COSIP, a apuração municipal do valor esperado ocorre após o aceite e não rejeita o arquivo.</p>
+    <p>Arquivo <strong>inválido</strong>: erro bloqueante rejeita o conteúdo assinado inteiro. As ocorrências são devolvidas em resumo e em arquivo TXT. Alertas (<span class="inline-code">warning</span>/<span class="inline-code">info</span>) não rejeitam a declaração.</p>
+    <div class="sub2-titulo">Conteúdo do retorno de erro (TXT)</div>
+    <p>Cada ocorrência bloqueante identifica, no mínimo: código da regra, número da linha no conteúdo assinado, nome do campo, valor informado e valor ou condição esperados. A mesma estrutura vale para o TXT de alertas, quando houver.</p>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- S10 — Assinatura Digital -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+<div class="parte-titulo" id="anexos">5. Anexos</div>
+<div class="secao" id="s25">
+    <div class="secao-titulo">5.1 Requisitos de geração e transmissão</div>
+
+    <table>
+      <tr>
+        <th>Item</th>
+        <th>Requisito</th>
+      </tr>
+      <tr><td class="centro">1</td><td>Conteúdo textual em UTF-8 sem BOM, delimitado por pipe <span class="inline-code">|</span>, conforme o módulo do registro <span class="inline-code">0000</span>.</td></tr>
+      <tr><td class="centro">2</td><td>Transmissão exclusiva de arquivo <span class="inline-code">.p7s</span> com assinatura CAdES attached e conteúdo textual incorporado.</td></tr>
+      <tr><td class="centro">3</td><td>Vedados conteúdo textual separado e assinatura detached.</td></tr>
+      <tr><td class="centro">4</td><td>Campo vazio = <span class="inline-code">||</span>. Vedados <span class="inline-code">null</span>, <span class="inline-code">N/A</span>, hífen e espaços substitutos.</td></tr>
+      <tr><td class="centro">5</td><td>Campos numéricos sem máscara e sem separador de milhar; decimal com ponto.</td></tr>
+      <tr><td class="centro">6</td><td>Quantidade de campos conforme o leiaute, inclusive opcionais vazios. Vedados pipe extra terminal e o caractere pipe no conteúdo.</td></tr>
+      <tr><td class="centro">7</td><td>Totalizadores <span class="inline-code">0999</span> e <span class="inline-code">9999</span> consistentes. No EXTRATO, o 0999 conta todos os <span class="inline-code">0110</span> e soma apenas o <span class="inline-code">VALOR_FATURADO</span> dos extratos de ponto.</td></tr>
+      <tr><td class="centro">8</td><td>Retificadora: <span class="inline-code">PROTOCOLO_RETIFICADORA</span> no <span class="inline-code">0100</span> igual ao protocolo da declaração municipal última aceita, na competência da fronteira. Vedado o protocolo da declaração geral. <span class="inline-code">VERSAO = 1.0.0</span>.</td></tr>
+      <tr><td class="centro">9</td><td>UC antes de COSIP. EXTRATO exige ponto (e, se medido, medidor) no inventário municipal vigente. CONCILIACAO não cruza COSIP nem EXTRATO.</td></tr>
+      <tr><td class="centro">10</td><td>Assinatura com e-CNPJ ICP-Brasil cujo CNPJ coincide com <span class="inline-code">CNPJ_DISTRIBUIDORA</span> do <span class="inline-code">0000</span> e com a concessionária autenticada.</td></tr>
+      <tr><td class="centro">11</td><td>Município sem movimento: omissão do bloco <span class="inline-code">0100</span>.</td></tr>
+      <tr><td class="centro">12</td><td>Entrega do <span class="inline-code">.p7s</span> no painel da concessionária. Protocolo municipal emitido após o aceite.</td></tr>
+    </table>
+  </div>
+
+  <div class="secao" id="s27">
+    <div class="secao-titulo">5.2 Glossário</div>
+    <table>
+      <tr><th>Termo</th><th>Definição</th></tr>
+      <tr><td>Declaração geral do arquivo</td><td>Lote entregue (um <span class="inline-code">.p7s</span> aceito). Tem protocolo de 44 dígitos. Não se retifica.</td></tr>
+      <tr><td>Declaração do município</td><td>Recorte daquele município dentro da entrega aceita. Tem protocolo próprio. É a chave da retificação.</td></tr>
+      <tr><td>Erro bloqueante</td><td>Rejeita o <span class="inline-code">.p7s</span> inteiro na validação.</td></tr>
+      <tr><td>Alerta</td><td>Aviso que não impede o aceite (ex.: <span class="inline-code">UC-82</span>).</td></tr>
+      <tr><td>Fronteira de retificação</td><td>Última competência com declaração do município aceita naquele módulo.</td></tr>
+      <tr><td>Inventário municipal de IP</td><td>Cadastro de pontos e medidores mantido pelo Município; não é arquivo desta obrigação.</td></tr>
+      <tr><td>e-CNPJ da assinatura</td><td>Certificado de pessoa jurídica que assina o <span class="inline-code">.p7s</span>. Distinto do certificado de autenticação do usuário.</td></tr>
+    </table>
+  </div>
+
+
+  <hr>
+  <p style="font-size: 11px; color: #666; margin-top: 16px;">
+    Este manual descreve a obrigação acessória municipal de controle de despesas de Iluminação Pública e monitoramento, no leiaute 1.0.0. Na hipótese de conflito entre este manual e a NT SIPGIP 001/2025 ou o Regulamento publicado pelo Município, prevalecem a Nota Técnica e o Regulamento. Dúvidas técnicas devem ser encaminhadas ao Departamento de Controle de Iluminação Pública.
+  </p>
+
+</div>
+
+<footer>
+  <span>Manual da Concessionária SIPGIP — Leiaute 1.0.0</span>
+  <span>Departamento de Controle de Iluminação Pública e Câmeras de Monitoramento</span>
+</footer>
+
+</body>
+</html>

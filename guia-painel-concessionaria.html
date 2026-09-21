@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia do Painel da Concessionária — SIPGIP</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --azul-gov: #071D41;
+    --azul-faixa: #1351B4;
+    --cinza-borda: #CCCCCC;
+    --cinza-fundo: #F8F8F8;
+    --cinza-cabecalho: #E8E8E8;
+    --preto: #1B1B1B;
+    --texto: #333333;
+    --fonte: 'Arial', 'Helvetica Neue', sans-serif;
+  }
+
+  html { font-size: 13px; }
+
+  body {
+    font-family: var(--fonte);
+    color: var(--texto);
+    background: #FFFFFF;
+    line-height: 1.55;
+  }
+
+  .faixa-gov {
+    background: var(--azul-gov);
+    color: #FFFFFF;
+    font-size: 11px;
+    padding: 4px 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .faixa-gov span { opacity: 0.85; }
+
+  .cabecalho-inst {
+    border-bottom: 3px solid var(--azul-faixa);
+    padding: 16px 40px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .brasao {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--azul-gov);
+    color: #fff;
+    font-size: 22px;
+    border-radius: 2px;
+  }
+  .inst-titulo h1 {
+    font-size: 11px;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #555;
+    letter-spacing: 0.04em;
+  }
+  .inst-titulo h2 {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--azul-gov);
+    margin-top: 2px;
+  }
+  .inst-titulo p {
+    font-size: 11px;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  .id-documento {
+    background: var(--azul-faixa);
+    color: #FFFFFF;
+    padding: 10px 40px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .id-documento .sigla {
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+  }
+  .id-documento .desc {
+    font-size: 12px;
+    opacity: 0.88;
+  }
+  .id-documento .versao {
+    margin-left: auto;
+    font-size: 11px;
+    opacity: 0.78;
+    text-align: right;
+  }
+
+  .container {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 40px 60px;
+  }
+
+  .ficha {
+    border: 1px solid var(--cinza-borda);
+    margin: 20px 0;
+    font-size: 12px;
+  }
+  .ficha-linha {
+    display: flex;
+    border-bottom: 1px solid var(--cinza-borda);
+  }
+  .ficha-linha:last-child { border-bottom: none; }
+  .ficha-rotulo {
+    background: var(--cinza-cabecalho);
+    padding: 5px 12px;
+    width: 180px;
+    min-width: 180px;
+    font-weight: bold;
+    color: var(--azul-gov);
+    border-right: 1px solid var(--cinza-borda);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .ficha-valor { padding: 5px 12px; flex: 1; }
+
+  .sumario {
+    border: 1px solid var(--cinza-borda);
+    margin: 24px 0;
+    background: var(--cinza-fundo);
+  }
+  .sumario-titulo {
+    background: var(--cinza-cabecalho);
+    padding: 6px 14px;
+    font-weight: bold;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--azul-gov);
+    border-bottom: 1px solid var(--cinza-borda);
+  }
+  .sumario ol {
+    counter-reset: item;
+    list-style: none;
+    padding: 10px 14px 10px 16px;
+    font-size: 12px;
+  }
+  .sumario li { counter-increment: item; margin: 3px 0; }
+  .sumario li > a::before {
+    content: counters(item, ".") ". ";
+    font-weight: bold;
+    color: var(--azul-gov);
+  }
+  .sumario a { color: #1B1B1B; text-decoration: underline; }
+  .sumario .sub { padding-left: 18px; list-style: none; }
+  .sumario .pendente { color: #777; }
+  .sumario .pendente::before {
+    content: counters(item, ".") ". ";
+    font-weight: bold;
+    color: #999;
+  }
+
+  .secao { margin: 28px 0 0; }
+  .secao-titulo {
+    background: var(--azul-gov);
+    color: #FFFFFF;
+    padding: 7px 14px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+  }
+  .subsecao-titulo {
+    border-left: 4px solid #333333;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--azul-gov);
+    margin: 16px 0 8px;
+  }
+
+  p { margin: 6px 0; font-size: 12px; }
+  ul, ol { margin: 8px 0 8px 20px; font-size: 12px; line-height: 1.7; }
+
+  .aviso {
+    border-left: 4px solid #666666;
+    background: #F4F4F4;
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 12px;
+  }
+  .label-aviso {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    margin: 10px 0;
+  }
+  th {
+    background: var(--cinza-cabecalho);
+    border: 1px solid var(--cinza-borda);
+    padding: 5px 8px;
+    text-align: left;
+    font-weight: bold;
+    color: var(--azul-gov);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  td {
+    border: 1px solid var(--cinza-borda);
+    padding: 4px 8px;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: var(--cinza-fundo); }
+
+  .inline-code {
+    font-family: 'Courier New', monospace;
+    background: #F2F2F2;
+    border: 1px solid #CCCCCC;
+    padding: 1px 5px;
+    font-size: 11px;
+    color: var(--preto);
+  }
+
+  figure.figura {
+    margin: 14px 0 18px;
+    border: 1px solid var(--cinza-borda);
+    background: var(--cinza-fundo);
+    page-break-inside: avoid;
+  }
+  figure.figura img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #fff;
+  }
+  figure.figura figcaption {
+    font-size: 11px;
+    color: #555;
+    padding: 7px 10px;
+    border-top: 1px solid var(--cinza-borda);
+  }
+  figure.figura figcaption strong {
+    color: var(--azul-gov);
+    margin-right: 6px;
+  }
+
+  footer {
+    border-top: 2px solid var(--azul-faixa);
+    margin-top: 40px;
+    padding: 12px 40px;
+    font-size: 10px;
+    color: #888;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .nav-docs {
+    background: var(--cinza-fundo);
+    border-bottom: 1px solid var(--cinza-borda);
+    padding: 6px 40px;
+    font-size: 11px;
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .nav-docs a { color: var(--azul-faixa); }
+
+  @media print {
+    .faixa-gov, footer, .secao-titulo, th, figure.figura { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    figure.figura { break-inside: avoid; }
+    .nav-docs { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav-docs">
+  <a href="index.html">Documentação SIPGIP</a>
+  <span>Guia do painel da concessionária</span>
+</div>
+
+<div class="faixa-gov">
+  <span>&#9632;</span>
+  <span>PREFEITURA MUNICIPAL — SECRETARIA DE INFRAESTRUTURA E SERVIÇOS URBANOS</span>
+</div>
+
+<div class="cabecalho-inst">
+  <div class="brasao">&#9670;</div>
+  <div class="inst-titulo">
+    <h1>Sistema de Informações da Planta de Gestão de Iluminação Pública</h1>
+    <h2>SIPGIP — Guia do Painel da Concessionária</h2>
+    <p>Departamento de Controle de Iluminação Pública e Câmeras de Monitoramento</p>
+  </div>
+</div>
+
+<div class="id-documento">
+  <span class="sigla">PAINEL SIPGIP</span>
+  <span class="desc">Operação do painel da concessionária — telas, acesso e módulos</span>
+  <span class="versao">Leiaute 1.0.0 &nbsp;|&nbsp; Módulo publicado: Acesso</span>
+</div>
+
+<div class="container">
+
+  <div class="ficha">
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Documento</div>
+      <div class="ficha-valor">Guia do Painel da Concessionária — SIPGIP</div>
+    </div>
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Assunto</div>
+      <div class="ficha-valor">Uso do painel: autenticação, municípios, declarações e gestão de usuários</div>
+    </div>
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Destinatários</div>
+      <div class="ficha-valor">Equipes operacionais das concessionárias de energia elétrica</div>
+    </div>
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Complementa</div>
+      <div class="ficha-valor">Manual da Concessionária — SIPGIP 1.0.0 (obrigação, leiautes e catálogo de mensagens)</div>
+    </div>
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Versão do documento</div>
+      <div class="ficha-valor">Preliminar — módulo de acesso</div>
+    </div>
+    <div class="ficha-linha">
+      <div class="ficha-rotulo">Situação</div>
+      <div class="ficha-valor">Primeiro módulo publicado. Municípios, declarações e cargos/usuários entram nas próximas atualizações, no mesmo formato.</div>
+    </div>
+  </div>
+
+  <div class="sumario">
+    <div class="sumario-titulo">Sumário</div>
+    <ol>
+      <li><a href="#s1">Acesso</a>
+        <ol class="sub">
+          <li><a href="#s1-1">Requisitos</a></li>
+          <li><a href="#s1-2">Tela de acesso geral</a></li>
+          <li><a href="#s1-3">Tela de acesso da concessionária</a></li>
+          <li><a href="#s1-4">Autenticação</a></li>
+          <li><a href="#s1-5">Rejeição de acesso</a></li>
+          <li><a href="#s1-6">Painel autenticado</a></li>
+          <li><a href="#s1-7">Encerramento da sessão</a></li>
+        </ol>
+      </li>
+      <li class="pendente">Municípios — a publicar</li>
+      <li class="pendente">Declarações — a publicar</li>
+      <li class="pendente">Cargos e usuários — a publicar</li>
+    </ol>
+  </div>
+
+  <div class="secao" id="s1">
+    <div class="secao-titulo">1. Acesso</div>
+
+    <div class="subsecao-titulo" id="s1-1">1.1 Requisitos</div>
+    <p>O acesso ao painel da concessionária é exclusivo por certificado digital A1 ou A3, ICP-Brasil. O CPF ou CNPJ do certificado deve coincidir com o documento de um usuário cadastrado e ativo da concessionária.</p>
+    <p>O certificado de autenticação do usuário é distinto do certificado de assinatura do arquivo. A assinatura do <span class="inline-code">.p7s</span> exige e-CNPJ da concessionária, idêntico ao <span class="inline-code">CNPJ_DISTRIBUIDORA</span> do registro <span class="inline-code">0000</span>. Autenticação com e-CPF não substitui essa exigência.</p>
+    <div class="aviso">
+      <span class="label-aviso">Escopo</span>
+      Este guia descreve as telas do painel. Leiautes, regras de rejeição do arquivo e catálogo de mensagens permanecem no Manual da Concessionária.
+    </div>
+
+    <div class="subsecao-titulo" id="s1-2">1.2 Tela de acesso geral</div>
+    <p>A entrada do sistema é a tela <strong>Acessar sistema</strong>. Ela admite e-mail e senha para os demais contextos e, para a concessionária, o atalho <strong>Acesso Concessionária</strong>.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/01-login-geral.png" alt="Tela geral de acesso ao sistema, com e-mail, senha e o botão Acesso Concessionária">
+      <figcaption><strong>Figura 1.</strong> Tela geral de acesso ao sistema. A concessionária não utiliza e-mail e senha nesta tela: o caminho é o botão Acesso Concessionária.</figcaption>
+    </figure>
+
+    <div class="subsecao-titulo" id="s1-3">1.3 Tela de acesso da concessionária</div>
+    <p>O atalho <strong>Acesso Concessionária</strong> abre o cartão <strong>Acesso da concessionária</strong>, com o botão <strong>Entrar com certificado digital</strong> e as orientações sobre a escolha do certificado no navegador.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/02-acesso-concessionaria.png" alt="Tela de acesso da concessionária com o botão Entrar com certificado digital">
+      <figcaption><strong>Figura 2.</strong> Tela de acesso da concessionária.</figcaption>
+    </figure>
+    <p>O navegador solicita a escolha do certificado no início da autenticação. Se a janela não for exibida, não há certificado compatível instalado no navegador ou no sistema. Para trocar de certificado, é necessário sair, fechar totalmente o navegador e reabrir a página: o navegador pode reutilizar o certificado já escolhido enquanto permanecer aberto.</p>
+
+    <div class="subsecao-titulo" id="s1-4">1.4 Autenticação</div>
+    <p>Quando o certificado é apresentado ao host de autenticação, o sistema identifica o documento e, se o usuário estiver cadastrado e ativo, concede o acesso ao painel. Se a sessão anterior tiver sido encerrada no mesmo navegador, a tela permanece visível com o certificado detectado, para nova autenticação pelo mesmo botão.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/04-certificado-detectado.png" alt="Tela de acesso após saída, com certificado detectado pelo navegador">
+      <figcaption><strong>Figura 3.</strong> Retorno à tela de acesso após encerrar a sessão. O navegador ainda apresenta o certificado; o documento aparece mascarado e a validade é exibida.</figcaption>
+    </figure>
+
+    <div class="subsecao-titulo" id="s1-5">1.5 Rejeição de acesso</div>
+    <p>Se nenhum certificado for apresentado, o acesso é recusado e a recusa é exibida na própria tela.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/03-rejeicao-sem-certificado.png" alt="Mensagem de recusa quando nenhum certificado é apresentado">
+      <figcaption><strong>Figura 4.</strong> Recusa de acesso na ausência de certificado digital.</figcaption>
+    </figure>
+    <table>
+      <tr><th>Condição</th><th>Efeito</th></tr>
+      <tr><td>Certificado não apresentado</td><td>Acesso recusado</td></tr>
+      <tr><td>Certificado não validado ou fora da validade</td><td>Acesso recusado</td></tr>
+      <tr><td>CPF/CNPJ inexistente no cadastro da concessionária</td><td>Acesso recusado</td></tr>
+      <tr><td>Usuário inativo</td><td>Acesso recusado</td></tr>
+      <tr><td>Usuário sem contexto de concessionária</td><td>Acesso recusado</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s1-6">1.6 Painel autenticado</div>
+    <p>O aceite identifica a concessionária no cabeçalho e abre o painel. O menu à esquerda reúne os módulos operacionais:</p>
+    <ul>
+      <li><strong>Dashboard</strong> — tela inicial após o acesso;</li>
+      <li><strong>Municípios</strong> — vínculos da concessionária com os municípios;</li>
+      <li><strong>Declarações</strong> — UCS, Extrato COSIP/CIP, Extrato IP e Conciliação Financeira;</li>
+      <li><strong>Cargos e Usuários</strong> — usuários e cargos da concessionária.</li>
+    </ul>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/05-painel-apos-acesso.png" alt="Painel autenticado da concessionária com o menu de declarações expandido">
+      <figcaption><strong>Figura 5.</strong> Painel após o acesso. O cabeçalho exibe a razão social; o menu à esquerda lista os módulos, com Declarações expandido.</figcaption>
+    </figure>
+    <p>O sino do cabeçalho concentra as notificações do sistema. O ícone de usuário abre o menu da sessão.</p>
+
+    <div class="subsecao-titulo" id="s1-7">1.7 Encerramento da sessão</div>
+    <p>O encerramento ocorre pela opção <strong>Sair</strong> no menu do usuário. O sistema retorna à tela de acesso da concessionária. Se o navegador permanecer aberto, o certificado anterior pode ser reapresentado automaticamente (Figura 3).</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/06-encerrar-sessao.png" alt="Menu do usuário com a opção Sair">
+      <figcaption><strong>Figura 6.</strong> Menu do usuário autenticado, com a opção de encerrar a sessão.</figcaption>
+    </figure>
+  </div>
+
+</div>
+
+<footer>
+  <span>SIPGIP — Guia do Painel da Concessionária</span>
+  <span>Módulo de acesso · Leiaute 1.0.0</span>
+</footer>
+
+</body>
+</html>

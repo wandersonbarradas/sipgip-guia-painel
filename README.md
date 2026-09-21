@@ -1,6 +1,12 @@
 # Publicar o guia no GitHub Pages
 
-Esta pasta é o site. Só entram aqui o HTML do guia e as imagens — nada de planos internos, NT de trabalho ou certificados.
+Esta pasta é o site. A `index.html` é a página-base, com links para os documentos publicados:
+
+- `guia-painel-concessionaria.html` — telas do painel, com capturas
+- `manual-concessionaria-sipgip.html` — manual da obrigação (leiautes e catálogo)
+- `NT_SIPGIP_001_2025.html` — nota técnica do leiaute 1.0.0
+
+Não entra o guia interno do processor. Nada de planos internos, NT de trabalho ou certificados.
 
 O GitHub Pages gratuito publica um **site público**. Mesmo com repositório privado, no plano gratuito o Pages não sobe; e, nos planos em que sobe a partir de repositório privado, o endereço do site continua aberto na internet. Se a homologação (Enel, usuários de teste) não puder ficar pública, não habilite o Pages: mantenha o repositório privado e abra o `index.html` no navegador.
 
@@ -12,8 +18,8 @@ No computador, nesta pasta (`docs/site`):
 cd "/home/wanderson-barradas/Área de trabalho/cosip/docs/site"
 
 git init
-git add index.html imagens .nojekyll README.md .gitignore
-git commit -m "docs: publica o guia do painel da concessionária"
+git add index.html guia-painel-concessionaria.html manual-concessionaria-sipgip.html NT_SIPGIP_001_2025.html imagens .nojekyll README.md .gitignore
+git commit -m "docs: publica o índice SIPGIP, o painel, o manual e a NT"
 git branch -M main
 ```
 
@@ -61,7 +67,7 @@ O arquivo `.nojekyll` evita que o GitHub trate o site como Jekyll e quebre as pa
 
 ## 4. Atualizar depois de mudar o guia
 
-Edite `docs/site/index.html` e, se houver tela nova, recapture as imagens:
+Edite `docs/site/guia-painel-concessionaria.html` (e a `index.html` se o índice mudar). Se houver tela nova, recapture as imagens:
 
 ```bash
 cd "/home/wanderson-barradas/Área de trabalho/cosip"
@@ -72,7 +78,7 @@ O script grava em `docs/site/imagens/painel-concessionaria/`. Depois, nesta past
 
 ```bash
 cd docs/site
-git add index.html imagens
+git add index.html guia-painel-concessionaria.html imagens
 git commit -m "docs: atualiza o módulo do painel"
 git push
 ```
