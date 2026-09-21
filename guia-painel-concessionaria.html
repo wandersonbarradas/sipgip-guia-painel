@@ -337,11 +337,11 @@
     </div>
     <div class="ficha-linha">
       <div class="ficha-rotulo">Versão do documento</div>
-      <div class="ficha-valor">Preliminar — módulos de acesso, municípios e cargos</div>
+      <div class="ficha-valor">Preliminar — módulos de acesso, municípios, cargos e usuários</div>
     </div>
     <div class="ficha-linha">
       <div class="ficha-rotulo">Situação</div>
-      <div class="ficha-valor">Módulos publicados: acesso, municípios e cargos. Declarações e usuários entram nas próximas atualizações, no mesmo formato.</div>
+      <div class="ficha-valor">Módulos publicados: acesso, municípios, cargos e usuários. Declarações entram nas próximas atualizações, no mesmo formato.</div>
     </div>
   </div>
 
@@ -377,7 +377,16 @@
           <li><a href="#s3-6">Atribuição a usuários</a></li>
         </ol>
       </li>
-      <li class="pendente">Usuários — a publicar</li>
+      <li><a href="#s4">Usuários</a>
+        <ol class="sub">
+          <li><a href="#s4-1">Finalidade</a></li>
+          <li><a href="#s4-2">Listagem</a></li>
+          <li><a href="#s4-3">Consulta</a></li>
+          <li><a href="#s4-4">Novo usuário</a></li>
+          <li><a href="#s4-5">Alteração e exclusão</a></li>
+          <li><a href="#s4-6">Acesso ao painel</a></li>
+        </ol>
+      </li>
       <li class="pendente">Declarações — a publicar</li>
     </ol>
   </div>
@@ -533,11 +542,57 @@
     </figure>
   </div>
 
+  <div class="secao" id="s4">
+    <div class="secao-titulo">4. Usuários</div>
+
+    <div class="subsecao-titulo" id="s4-1">4.1 Finalidade</div>
+    <p>O módulo <strong>Usuários</strong> cadastra as pessoas que acessam o painel da concessionária. Cada usuário tem documento (CPF ou CNPJ do certificado de autenticação), situação ativo/inativo e ao menos um cargo. O cargo determina o que a pessoa consulta e opera; o documento é o que o sistema confronta no acesso por certificado (seção 1).</p>
+
+    <div class="subsecao-titulo" id="s4-2">4.2 Listagem</div>
+    <p>A listagem apresenta nome, cargos, e-mail, documento, status e data de criação. Filtros por nome, e-mail e cargo recortam a mesma relação. A inclusão de novos usuários aparece somente para o usuário principal da concessionária, com permissão de gerenciar usuários.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/13-usuarios.png" alt="Listagem de usuários da concessionária, com filtros e o botão Adicionar Usuário">
+      <figcaption><strong>Figura 13.</strong> Usuários da concessionária. Ações de consulta, alteração e exclusão; Adicionar Usuário visível para o usuário principal.</figcaption>
+    </figure>
+
+    <div class="subsecao-titulo" id="s4-3">4.3 Consulta</div>
+    <p>A consulta exibe nome, e-mail, documento, status, cargos atribuídos e as datas de cadastro e atualização.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/14-usuario-detalhe.png" alt="Detalhes do usuário com documento, status Ativo e cargo Concessionaria">
+      <figcaption><strong>Figura 14.</strong> Consulta do usuário. O documento coincide com o certificado de autenticação; o status Ativo admite o acesso.</figcaption>
+    </figure>
+
+    <div class="subsecao-titulo" id="s4-4">4.4 Novo usuário</div>
+    <p>O cadastro exige nome, e-mail, documento (CPF ou CNPJ do certificado) e pelo menos um cargo. A situação inicia como ativo. A senha é opcional: o acesso ao painel da concessionária permanece pelo certificado digital, não por e-mail e senha (seção 1.2). E-mail e documento não podem coincidir com outro usuário já cadastrado.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/15-usuario-novo.png" alt="Formulário Novo Usuário com nome, e-mail, documento, senha, status e cargos">
+      <figcaption><strong>Figura 15.</strong> Cadastro de usuário. Documento é o CPF ou CNPJ do certificado; Cargos é obrigatório.</figcaption>
+    </figure>
+
+    <div class="subsecao-titulo" id="s4-5">4.5 Alteração e exclusão</div>
+    <p>A alteração reedita os mesmos campos. Senha em branco conserva a senha atual. A exclusão remove o usuário da concessionária. Usuário inativo permanece na listagem, mas o acesso por certificado é recusado (seção 1.4).</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/16-usuario-editar.png" alt="Formulário Editar Usuário com os dados preenchidos e o cargo Concessionaria marcado">
+      <figcaption><strong>Figura 16.</strong> Alteração de usuário. Senha em branco não altera a senha vigente; o cargo permanece obrigatório.</figcaption>
+    </figure>
+    <table>
+      <tr><th>Condição</th><th>Efeito</th></tr>
+      <tr><td>Usuário sem ser o principal da concessionária</td><td>Adicionar Usuário não é exibido</td></tr>
+      <tr><td>E-mail ou documento já cadastrado</td><td>Cadastro ou alteração recusados</td></tr>
+      <tr><td>Nenhum cargo selecionado</td><td>Cadastro ou alteração recusados</td></tr>
+      <tr><td>Usuário inativo</td><td>Permanece na listagem; acesso por certificado recusado</td></tr>
+      <tr><td>Documento do certificado ≠ documento cadastrado</td><td>Acesso recusado (seção 1.4)</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s4-6">4.6 Acesso ao painel</div>
+    <p>O usuário autenticado no painel da concessionária é o que tem documento coincidente com o certificado apresentado, está ativo e possui cargo do contexto. A atribuição de cargos está na seção 3.6.</p>
+  </div>
+
 </div>
 
 <footer>
   <span>SIPGIP — Guia do Painel da Concessionária</span>
-  <span>Acesso, municípios e cargos · Leiaute 1.0.0</span>
+  <span>Acesso, municípios, cargos e usuários · Leiaute 1.0.0</span>
 </footer>
 
 </body>
