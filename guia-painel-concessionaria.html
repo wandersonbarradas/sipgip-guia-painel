@@ -337,11 +337,11 @@
     </div>
     <div class="ficha-linha">
       <div class="ficha-rotulo">Versão do documento</div>
-      <div class="ficha-valor">Preliminar — módulo de acesso</div>
+      <div class="ficha-valor">Preliminar — módulos de acesso e municípios</div>
     </div>
     <div class="ficha-linha">
       <div class="ficha-rotulo">Situação</div>
-      <div class="ficha-valor">Primeiro módulo publicado. Municípios, declarações e cargos/usuários entram nas próximas atualizações, no mesmo formato.</div>
+      <div class="ficha-valor">Módulos publicados: acesso e municípios. Declarações e cargos/usuários entram nas próximas atualizações, no mesmo formato.</div>
     </div>
   </div>
 
@@ -359,7 +359,14 @@
           <li><a href="#s1-7">Encerramento da sessão</a></li>
         </ol>
       </li>
-      <li class="pendente">Municípios — a publicar</li>
+      <li><a href="#s2">Municípios</a>
+        <ol class="sub">
+          <li><a href="#s2-1">Finalidade</a></li>
+          <li><a href="#s2-2">Listagem</a></li>
+          <li><a href="#s2-3">Consulta do vínculo</a></li>
+          <li><a href="#s2-4">Efeito na declaração</a></li>
+        </ol>
+      </li>
       <li class="pendente">Declarações — a publicar</li>
       <li class="pendente">Cargos e usuários — a publicar</li>
     </ol>
@@ -435,11 +442,36 @@
     </figure>
   </div>
 
+  <div class="secao" id="s2">
+    <div class="secao-titulo">2. Municípios</div>
+
+    <div class="subsecao-titulo" id="s2-1">2.1 Finalidade</div>
+    <p>O módulo <strong>Municípios</strong> apresenta os vínculos da concessionária com os municípios. Não há cadastro, alteração nem exclusão neste painel: a tela serve para a concessionária identificar quais municípios integram o seu recorte e em que situação está cada vínculo, antes de gerar a declaração.</p>
+
+    <div class="subsecao-titulo" id="s2-2">2.2 Listagem</div>
+    <p>A listagem exibe o município (razão social do cliente), o status do vínculo, a data de criação e a consulta. Filtros por nome e por situação (Ativa, Inativa, Suspensa, Cancelada) recortam a mesma relação.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/07-municipios.png" alt="Listagem de municípios vinculados à concessionária, com status Ativa">
+      <figcaption><strong>Figura 7.</strong> Municípios vinculados à concessionária. A situação do vínculo aparece na coluna Status.</figcaption>
+    </figure>
+
+    <div class="subsecao-titulo" id="s2-3">2.3 Consulta do vínculo</div>
+    <p>A consulta apresenta o status, as datas do vínculo e a identificação do município (razão social, CNPJ e endereço). O conteúdo é informativo; o vínculo não se altera nesta tela.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/08-municipio-detalhe.png" alt="Detalhe do município com status Ativa, razão social, CNPJ e endereço">
+      <figcaption><strong>Figura 8.</strong> Consulta do vínculo municipal. Status Ativa indica município admitido no arquivo da competência.</figcaption>
+    </figure>
+
+    <div class="subsecao-titulo" id="s2-4">2.4 Efeito na declaração</div>
+    <p>O arquivo deve conter apenas municípios com vínculo <strong>ativo</strong>. Vínculo inativo, suspenso ou cancelado não admite bloco <span class="inline-code">0100</span> (<span class="inline-code">MUN-11</span>). Município sem fato gerador na competência é omitido; não existe registro de município sem movimento (<span class="inline-code">EST-04</span>).</p>
+    <p>A regra de conteúdo do arquivo está no Manual da Concessionária, seção 2.2.</p>
+  </div>
+
 </div>
 
 <footer>
   <span>SIPGIP — Guia do Painel da Concessionária</span>
-  <span>Módulo de acesso · Leiaute 1.0.0</span>
+  <span>Acesso e municípios · Leiaute 1.0.0</span>
 </footer>
 
 </body>
