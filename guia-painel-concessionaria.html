@@ -337,11 +337,11 @@
     </div>
     <div class="ficha-linha">
       <div class="ficha-rotulo">Versão do documento</div>
-      <div class="ficha-valor">Preliminar — módulos de acesso, municípios, cargos e usuários</div>
+      <div class="ficha-valor">Preliminar — acesso, municípios, cargos, usuários e declarações</div>
     </div>
     <div class="ficha-linha">
       <div class="ficha-rotulo">Situação</div>
-      <div class="ficha-valor">Módulos publicados: acesso, municípios, cargos e usuários. Declarações entram nas próximas atualizações, no mesmo formato.</div>
+      <div class="ficha-valor">Módulos publicados: acesso, municípios, cargos, usuários e declarações.</div>
     </div>
   </div>
 
@@ -387,7 +387,19 @@
           <li><a href="#s4-6">Acesso ao painel</a></li>
         </ol>
       </li>
-      <li class="pendente">Declarações — a publicar</li>
+      <li><a href="#s5">Declarações</a>
+        <ol class="sub">
+          <li><a href="#s5-1">Finalidade</a></li>
+          <li><a href="#s5-2">Os quatro módulos</a></li>
+          <li><a href="#s5-3">Listagem e filtros</a></li>
+          <li><a href="#s5-4">Consulta</a></li>
+          <li><a href="#s5-5">Envio do arquivo</a></li>
+          <li><a href="#s5-6">Validação em andamento</a></li>
+          <li><a href="#s5-7">Aceite</a></li>
+          <li><a href="#s5-8">Rejeição</a></li>
+          <li><a href="#s5-9">Retificação</a></li>
+        </ol>
+      </li>
     </ol>
   </div>
 
@@ -552,7 +564,7 @@
     <p>A listagem apresenta nome, cargos, e-mail, documento, status e data de criação. Filtros por nome, e-mail e cargo recortam a mesma relação. A inclusão de novos usuários aparece somente para o usuário principal da concessionária, com permissão de gerenciar usuários.</p>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/13-usuarios.png" alt="Listagem de usuários da concessionária, com filtros e o botão Adicionar Usuário">
-      <figcaption><strong>Figura 13.</strong> Usuários da concessionária. Ações de consulta, alteração e exclusão; Adicionar Usuário visível para o usuário principal.</figcaption>
+      <figcaption><strong>Figura 13.</strong> Usuários da concessionária, com filtros e Adicionar Usuário para o usuário principal. Consulta e alteração ficam em todas as linhas; a exclusão só nas demais contas.</figcaption>
     </figure>
 
     <div class="subsecao-titulo" id="s4-3">4.3 Consulta</div>
@@ -570,7 +582,7 @@
     </figure>
 
     <div class="subsecao-titulo" id="s4-5">4.5 Alteração e exclusão</div>
-    <p>A alteração reedita os mesmos campos. Senha em branco conserva a senha atual. A exclusão remove o usuário da concessionária. Usuário inativo permanece na listagem, mas o acesso por certificado é recusado (seção 1.4).</p>
+    <p>A alteração reedita os mesmos campos. Senha em branco conserva a senha atual. A exclusão remove outro usuário da concessionária. A conta autenticada não exibe a ação de excluir, e o sistema recusa a operação se ela for solicitada. Usuário inativo permanece na listagem, mas o acesso por certificado é recusado (seção 1.4).</p>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/16-usuario-editar.png" alt="Formulário Editar Usuário com os dados preenchidos e o cargo Concessionaria marcado">
       <figcaption><strong>Figura 16.</strong> Alteração de usuário. Senha em branco não altera a senha vigente; o cargo permanece obrigatório.</figcaption>
@@ -580,6 +592,7 @@
       <tr><td>Usuário sem ser o principal da concessionária</td><td>Adicionar Usuário não é exibido</td></tr>
       <tr><td>E-mail ou documento já cadastrado</td><td>Cadastro ou alteração recusados</td></tr>
       <tr><td>Nenhum cargo selecionado</td><td>Cadastro ou alteração recusados</td></tr>
+      <tr><td>Conta autenticada</td><td>A listagem não oferece excluir; a exclusão da própria conta é recusada</td></tr>
       <tr><td>Usuário inativo</td><td>Permanece na listagem; acesso por certificado recusado</td></tr>
       <tr><td>Documento do certificado ≠ documento cadastrado</td><td>Acesso recusado (seção 1.4)</td></tr>
     </table>
@@ -588,11 +601,112 @@
     <p>O usuário autenticado no painel da concessionária é o que tem documento coincidente com o certificado apresentado, está ativo e possui cargo do contexto. A atribuição de cargos está na seção 3.6.</p>
   </div>
 
+  <div class="secao" id="s5">
+    <div class="secao-titulo">5. Declarações</div>
+
+    <div class="subsecao-titulo" id="s5-1">5.1 Finalidade</div>
+    <p>O menu <strong>Declarações</strong> reúne a entrega dos arquivos <span class="inline-code">.p7s</span>. São quatro módulos — UCS, Extrato COSIP/CIP, Extrato IP e Conciliação Financeira — e as telas são as mesmas em todos: listagem, filtros, envio, validação, aceite e rejeição. O que muda é o título da página e o conteúdo do arquivo. Leiaute, ordem da obrigação e catálogo de mensagens permanecem no Manual da Concessionária.</p>
+
+    <div class="subsecao-titulo" id="s5-2">5.2 Os quatro módulos</div>
+    <p>Cada módulo é uma entrega separada. O envio de um não substitui o dos demais. Enquanto UCS ou Extrato COSIP/CIP estiver em validação ou processamento, o painel recusa um novo arquivo de qualquer um dos dois. Extrato IP e Conciliação Financeira recusam apenas um novo arquivo do próprio módulo.</p>
+    <table>
+      <tr><th>Menu</th><th>Página</th><th>Título do envio</th></tr>
+      <tr><td>UCS</td><td>Declarações - UCS</td><td>Importar Cadastro de Ucs</td></tr>
+      <tr><td>Extrato COSIP/CIP</td><td>Declarações - Extrato COSIP/CIP</td><td>Importar Extrato COSIP/CIP</td></tr>
+      <tr><td>Extrato IP</td><td>Declarações - Extrato IP</td><td>Importar Extrato IP</td></tr>
+      <tr><td>Conciliação Financeira</td><td>Declarações - Conciliação Financeira</td><td>Importar Conciliação Financeira</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s5-3">5.3 Listagem e filtros</div>
+    <p>A listagem mostra as declarações municipais já aceitas. As colunas são número, protocolo, tipo, competência, status, protocolo da declaração retificada e ações. O protocolo longo aparece abreviado, com o início e o fim visíveis.</p>
+    <p>Os filtros são os mesmos nos quatro módulos: protocolo, tipo de declaração (Original ou Retificadora) e competência (mês e ano). <strong>Nova Declaração</strong> abre o envio e só aparece para quem tem permissão de entregar o módulo.</p>
+    <p>A lista não traz arquivo rejeitado nem entrega ainda em validação. Entram somente as declarações municipais com status <strong>Concluído</strong> ou <strong>Retificada</strong>. A consulta abre o detalhe; o download do arquivo aparece na linha, exceto quando o status é Retificada.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/17-declaracoes-ucs.png" alt="Listagem de declarações UCS com filtros de protocolo, tipo e competência, status Concluído e o botão Nova Declaração">
+      <figcaption><strong>Figura 17.</strong> Declarações de UCS. Extrato COSIP/CIP, Extrato IP e Conciliação Financeira repetem os mesmos filtros, colunas e ações; muda o título da página e o item marcado no menu.</figcaption>
+    </figure>
+    <table>
+      <tr><th>Coluna</th><th>Conteúdo</th></tr>
+      <tr><td>Protocolo</td><td>Protocolo da declaração do município</td></tr>
+      <tr><td>Tipo</td><td>Original ou Retificadora</td></tr>
+      <tr><td>Competência</td><td>Mês e ano da declaração</td></tr>
+      <tr><td>Status</td><td>Concluído ou Retificada</td></tr>
+      <tr><td>Protocolo Retificada</td><td>Protocolo da declaração municipal substituída; vazio quando não houve retificação</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s5-4">5.4 Consulta</div>
+    <p>A consulta, intitulada <strong>Detalhes da Declaração</strong>, mostra município, protocolo, competência, data do protocolo, tipo e módulo. Na retificadora, também mostra o protocolo da declaração retificada. O arquivo pode ser baixado nesta tela, salvo quando a declaração está retificada: nesse caso o download fica indisponível.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/22-declaracao-detalhe-ucs.png" alt="Detalhe da declaração de unidades de consumo do município de Tianguá, com protocolo, competência e botão Baixar Arquivo">
+      <figcaption><strong>Figura 18.</strong> Consulta da declaração municipal. O mesmo cartão vale para os quatro módulos; o campo Módulo identifica a entrega.</figcaption>
+    </figure>
+
+    <div class="subsecao-titulo" id="s5-5">5.5 Envio do arquivo</div>
+    <p><strong>Nova Declaração</strong> abre o mesmo formulário nos quatro módulos. O único campo é o arquivo <span class="inline-code">.p7s</span>, arrastado para a área ou escolhido no computador. O formato aceito é P7S, um arquivo por envio. <strong>Importar</strong> inicia a validação; <strong>Cancelar</strong> fecha a janela sem enviar.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/21-declaracao-upload-ucs.png" alt="Janela Importar Cadastro de Ucs com a área para arrastar o arquivo p7s e os botões Cancelar e Importar">
+      <figcaption><strong>Figura 19.</strong> Envio do arquivo de UCS. Nos demais módulos a janela é a mesma; o título passa a Importar Extrato COSIP/CIP, Importar Extrato IP ou Importar Conciliação Financeira.</figcaption>
+    </figure>
+    <p>Arquivo ausente, formato diferente de P7S ou tamanho acima do limite é recusado antes da validação de conteúdo. Se já existir validação ou processamento em andamento de um módulo que bloqueia o envio, o painel recusa o arquivo e pede para aguardar a finalização. O aviso informa o módulo em andamento, o protocolo e a etapa atual.</p>
+    <table>
+      <tr><th>Módulo em andamento</th><th>Envios recusados até a finalização</th></tr>
+      <tr><td>UCS</td><td>UCS e Extrato COSIP/CIP</td></tr>
+      <tr><td>Extrato COSIP/CIP</td><td>Extrato COSIP/CIP e UCS</td></tr>
+      <tr><td>Extrato IP</td><td>Extrato IP</td></tr>
+      <tr><td>Conciliação Financeira</td><td>Conciliação Financeira</td></tr>
+    </table>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/30-declaracao-em-andamento.png" alt="Aviso de que não é possível iniciar a declaração UC porque há processamento em andamento">
+      <figcaption><strong>Figura 22.</strong> Envio recusado enquanto há validação ou processamento em andamento. O mesmo aviso cobre o bloqueio do próprio módulo e o bloqueio cruzado entre UCS e Extrato COSIP/CIP.</figcaption>
+    </figure>
+
+    <div class="subsecao-titulo" id="s5-6">5.6 Validação em andamento</div>
+    <p>Depois do envio, a mesma janela passa a acompanhar a validação. O título é <strong>Validando arquivo</strong>, com a situação <strong>Em andamento</strong>, o nome do arquivo, a barra de progresso e a lista de etapas. A janela pede para permanecer aberta até o comprovante de entrega. Enquanto a validação não termina, ela não se fecha pelo fundo nem pela tecla Esc.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/26-declaracao-validando.png" alt="Janela Validando arquivo, em andamento, com a etapa Validando municípios e registros">
+      <figcaption><strong>Figura 20.</strong> Validação em andamento. A mesma janela vale para os quatro módulos; mudam o nome do arquivo e o rótulo do módulo.</figcaption>
+    </figure>
+    <p>Se a consulta do andamento falhar várias vezes seguidas, a janela informa <strong>Acompanhamento indisponível</strong> e orienta a atualizar a listagem para ver o estado da entrega.</p>
+
+    <div class="subsecao-titulo" id="s5-7">5.7 Aceite</div>
+    <p>No aceite, o título muda para <strong>Arquivo aceito</strong> e a situação para <strong>Aceito</strong>. O comprovante traz o protocolo e o identificador da declaração. A orientação é guardar o número do protocolo; o tratamento posterior segue no sistema. Se houver alertas, a janela oferece <strong>Ver Alertas de Validação</strong>, com código, linha, campo, mensagem, valor encontrado e valor esperado, além do relatório completo para download.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/27-declaracao-resultado.png" alt="Janela Arquivo aceito com comprovante de entrega, protocolo e botão Fechar">
+      <figcaption><strong>Figura 21.</strong> Aceite da declaração. O comprovante mostra o protocolo da entrega e o identificador da declaração.</figcaption>
+    </figure>
+    <p>O alerta não rejeita o arquivo. Encerrada a janela, as declarações municipais dessa entrega passam a constar na listagem com status Concluído.</p>
+
+    <div class="subsecao-titulo" id="s5-8">5.8 Rejeição</div>
+    <p>Quando a validação encontra erro bloqueante, o título é <strong>Validação encontrou erros</strong> e a situação é <strong>Erros</strong>. A barra indica <strong>Validação falhou</strong>, as etapas com inconsistência aparecem em vermelho e a mensagem pede para corrigir e reenviar o arquivo.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/28-declaracao-erros.png" alt="Janela Validação encontrou erros, com a barra Validação falhou, etapas em vermelho e o botão Ver Erros Detalhados">
+      <figcaption><strong>Figura 23.</strong> Rejeição do arquivo. A mesma janela vale para os quatro módulos. <strong>Ver Erros Detalhados</strong> abre o relatório; <strong>Fechar</strong> encerra sem gerar declaração municipal.</figcaption>
+    </figure>
+    <p><strong>Ver Erros Detalhados</strong> abre o relatório na mesma estrutura dos alertas: resumo por categoria, amostra das ocorrências em cada categoria e o relatório completo para download, em <strong>Baixar Relatório</strong> e em <strong>Baixar TXT</strong>.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/29-declaracao-erros-detalhados.png" alt="Janela Erros de Validação com resumo por categoria Município e botões Baixar Relatório e Baixar TXT">
+      <figcaption><strong>Figura 24.</strong> Relatório de erros. O exemplo traz uma ocorrência na categoria Município. Cada categoria abre a amostra das linhas; o relatório completo fica disponível para download.</figcaption>
+    </figure>
+    <p>Arquivo rejeitado não gera declaração municipal e não aparece na listagem. Não há protocolo de município para essa entrega.</p>
+    <table>
+      <tr><th>Resultado na janela</th><th>O que a concessionária faz</th></tr>
+      <tr><td>Em andamento</td><td>Mantém a janela aberta até o comprovante</td></tr>
+      <tr><td>Aceito</td><td>Guarda o protocolo; a declaração municipal entra na listagem como Concluído</td></tr>
+      <tr><td>Aceito com alertas</td><td>Guarda o protocolo e consulta os alertas; o arquivo permanece aceito</td></tr>
+      <tr><td>Erros</td><td>Corrige o arquivo e envia de novo; a listagem não recebe essa entrega</td></tr>
+      <tr><td>Acompanhamento indisponível</td><td>Atualiza a listagem para ver se a entrega foi aceita</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s5-9">5.9 Retificação</div>
+    <p>A retificação usa o mesmo envio, com arquivo do tipo Retificadora. Depois do aceite, a declaração municipal anterior permanece na listagem com status <strong>Retificada</strong> e deixa de oferecer download. A declaração nova entra como Retificadora, com o próprio protocolo, e a coluna Protocolo Retificada mostra o protocolo da declaração municipal que ela substituiu.</p>
+    <p>Qual protocolo informar no arquivo e quais municípios podem ser retificados estão no Manual da Concessionária. O painel não monta o arquivo; ele recebe, valida e passa a exibir o resultado.</p>
+  </div>
+
 </div>
 
 <footer>
   <span>SIPGIP — Guia do Painel da Concessionária</span>
-  <span>Acesso, municípios, cargos e usuários · Leiaute 1.0.0</span>
+  <span>Acesso, municípios, cargos, usuários e declarações · Leiaute 1.0.0</span>
 </footer>
 
 </body>
