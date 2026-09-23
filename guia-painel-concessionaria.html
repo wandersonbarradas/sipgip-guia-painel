@@ -380,10 +380,9 @@
         <ol class="sub">
           <li><a href="#s4-1">Finalidade</a></li>
           <li><a href="#s4-2">Listagem</a></li>
-          <li><a href="#s4-3">Consulta</a></li>
-          <li><a href="#s4-4">Novo usuário</a></li>
-          <li><a href="#s4-5">Alteração e exclusão</a></li>
-          <li><a href="#s4-6">Acesso ao painel</a></li>
+          <li><a href="#s4-3">Novo usuário</a></li>
+          <li><a href="#s4-4">Alteração e exclusão</a></li>
+          <li><a href="#s4-5">Acesso ao painel</a></li>
         </ol>
       </li>
       <li><a href="#s5">Declarações</a>
@@ -553,31 +552,24 @@
     <p>O módulo <strong>Usuários</strong> cadastra as pessoas que acessam o painel da concessionária. Cada usuário tem documento (CPF ou CNPJ do certificado de autenticação), situação ativo/inativo e ao menos um cargo. O cargo determina o que a pessoa consulta e opera; o documento é o que o sistema confronta no acesso por certificado (seção 1).</p>
 
     <div class="subsecao-titulo" id="s4-2">4.2 Listagem</div>
-    <p>A listagem apresenta nome, cargos, e-mail, documento, status e data de criação. Filtros por nome, e-mail e cargo recortam a mesma relação. A inclusão de novos usuários aparece somente para o usuário principal da concessionária, com permissão de gerenciar usuários.</p>
+    <p>A listagem apresenta nome, cargos, e-mail, documento, status e data de criação. Filtros por nome, e-mail e cargo recortam a mesma relação. A inclusão de novos usuários aparece somente para o usuário principal da concessionária, com permissão de gerenciar usuários. Cada linha oferece alterar e, nas demais contas, excluir.</p>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/13-usuarios.png" alt="Listagem de usuários da concessionária, com filtros e o botão Adicionar Usuário">
-      <figcaption><strong>Figura 12.</strong> Usuários da concessionária, com filtros e Adicionar Usuário para o usuário principal. Consulta e alteração ficam em todas as linhas; a exclusão só nas demais contas.</figcaption>
+      <figcaption><strong>Figura 12.</strong> Usuários da concessionária, com filtros e Adicionar Usuário para o usuário principal. A alteração fica em todas as linhas; a exclusão só nas demais contas.</figcaption>
     </figure>
 
-    <div class="subsecao-titulo" id="s4-3">4.3 Consulta</div>
-    <p>A consulta exibe nome, e-mail, documento, status, cargos atribuídos e as datas de cadastro e atualização.</p>
+    <div class="subsecao-titulo" id="s4-3">4.3 Novo usuário</div>
+    <p>O cadastro exige nome, e-mail, documento (CPF ou CNPJ do certificado) e pelo menos um cargo. A situação inicia como ativo. O acesso ao painel permanece pelo certificado digital (seção 1.2). E-mail e documento não podem coincidir com outro usuário já cadastrado.</p>
     <figure class="figura">
-      <img src="imagens/painel-concessionaria/14-usuario-detalhe.png" alt="Detalhes do usuário com documento, status Ativo e cargo Concessionaria">
-      <figcaption><strong>Figura 13.</strong> Consulta do usuário. O documento coincide com o certificado de autenticação; o status Ativo admite o acesso.</figcaption>
+      <img src="imagens/painel-concessionaria/15-usuario-novo.png" alt="Formulário Novo Usuário com nome, e-mail, documento, status e cargos">
+      <figcaption><strong>Figura 13.</strong> Cadastro de usuário. Documento é o CPF ou CNPJ do certificado; Cargos é obrigatório.</figcaption>
     </figure>
 
-    <div class="subsecao-titulo" id="s4-4">4.4 Novo usuário</div>
-    <p>O cadastro exige nome, e-mail, documento (CPF ou CNPJ do certificado) e pelo menos um cargo. A situação inicia como ativo. A senha é opcional: o acesso ao painel da concessionária permanece pelo certificado digital, não por e-mail e senha (seção 1.2). E-mail e documento não podem coincidir com outro usuário já cadastrado.</p>
-    <figure class="figura">
-      <img src="imagens/painel-concessionaria/15-usuario-novo.png" alt="Formulário Novo Usuário com nome, e-mail, documento, senha, status e cargos">
-      <figcaption><strong>Figura 14.</strong> Cadastro de usuário. Documento é o CPF ou CNPJ do certificado; Cargos é obrigatório.</figcaption>
-    </figure>
-
-    <div class="subsecao-titulo" id="s4-5">4.5 Alteração e exclusão</div>
-    <p>A alteração reedita os mesmos campos. Senha em branco conserva a senha atual. A exclusão remove outro usuário da concessionária. A conta autenticada não exibe a ação de excluir, e o sistema recusa a operação se ela for solicitada. Usuário inativo permanece na listagem, mas o acesso por certificado é recusado (seção 1.4).</p>
+    <div class="subsecao-titulo" id="s4-4">4.4 Alteração e exclusão</div>
+    <p>A alteração reedita nome, e-mail, documento, situação e cargos. A exclusão remove outro usuário da concessionária. A conta autenticada não exibe a ação de excluir, e o sistema recusa a operação se ela for solicitada. Usuário inativo permanece na listagem, mas o acesso por certificado é recusado (seção 1.4).</p>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/16-usuario-editar.png" alt="Formulário Editar Usuário com os dados preenchidos e o cargo Concessionaria marcado">
-      <figcaption><strong>Figura 15.</strong> Alteração de usuário. Senha em branco não altera a senha vigente; o cargo permanece obrigatório.</figcaption>
+      <figcaption><strong>Figura 14.</strong> Alteração de usuário. O cargo permanece obrigatório.</figcaption>
     </figure>
     <table>
       <tr><th>Condição</th><th>Efeito</th></tr>
@@ -589,7 +581,7 @@
       <tr><td>Documento do certificado ≠ documento cadastrado</td><td>Acesso recusado (seção 1.4)</td></tr>
     </table>
 
-    <div class="subsecao-titulo" id="s4-6">4.6 Acesso ao painel</div>
+    <div class="subsecao-titulo" id="s4-5">4.5 Acesso ao painel</div>
     <p>O usuário autenticado no painel da concessionária é o que tem documento coincidente com o certificado apresentado, está ativo e possui cargo do contexto. A atribuição de cargos está na seção 3.6.</p>
   </div>
 
@@ -615,7 +607,7 @@
     <p>A lista não traz arquivo rejeitado nem entrega ainda em validação. Entram somente as declarações municipais com status <strong>Concluído</strong> ou <strong>Retificada</strong>. A consulta abre o detalhe; o download do arquivo aparece na linha, exceto quando o status é Retificada.</p>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/17-declaracoes-ucs.png" alt="Listagem de declarações UCS com município, protocolo, tipo, competência, status e protocolo retificada">
-      <figcaption><strong>Figura 16.</strong> Declarações de UCS. Extrato COSIP/CIP, Extrato IP e Conciliação Financeira repetem os mesmos filtros, colunas e ações; muda o título da página e o item marcado no menu.</figcaption>
+      <figcaption><strong>Figura 15.</strong> Declarações de UCS. Extrato COSIP/CIP, Extrato IP e Conciliação Financeira repetem os mesmos filtros, colunas e ações; muda o título da página e o item marcado no menu.</figcaption>
     </figure>
     <table>
       <tr><th>Coluna</th><th>Conteúdo</th></tr>
@@ -631,14 +623,14 @@
     <p>A consulta, intitulada <strong>Detalhes da Declaração</strong>, mostra município, protocolo, competência, data do protocolo, tipo e módulo. Na retificadora, também mostra o protocolo da declaração retificada. O arquivo pode ser baixado nesta tela, salvo quando a declaração está retificada: nesse caso o download fica indisponível.</p>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/22-declaracao-detalhe-ucs.png" alt="Detalhe da declaração de unidades de consumo do município de Tianguá, com protocolo, competência e botão Baixar Arquivo">
-      <figcaption><strong>Figura 17.</strong> Consulta da declaração municipal. O mesmo cartão vale para os quatro módulos; o campo Módulo identifica a entrega.</figcaption>
+      <figcaption><strong>Figura 16.</strong> Consulta da declaração municipal. O mesmo cartão vale para os quatro módulos; o campo Módulo identifica a entrega.</figcaption>
     </figure>
 
     <div class="subsecao-titulo" id="s5-5">5.5 Envio do arquivo</div>
     <p><strong>Nova Declaração</strong> abre o mesmo formulário nos quatro módulos. O único campo é o arquivo <span class="inline-code">.p7s</span>, arrastado para a área ou escolhido no computador. O formato aceito é P7S, um arquivo por envio. <strong>Importar</strong> inicia a validação; <strong>Cancelar</strong> fecha a janela sem enviar.</p>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/21-declaracao-upload-ucs.png" alt="Janela Importar Cadastro de Ucs com a área para arrastar o arquivo p7s e os botões Cancelar e Importar">
-      <figcaption><strong>Figura 18.</strong> Envio do arquivo de UCS. Nos demais módulos a janela é a mesma; o título passa a Importar Extrato COSIP/CIP, Importar Extrato IP ou Importar Conciliação Financeira.</figcaption>
+      <figcaption><strong>Figura 17.</strong> Envio do arquivo de UCS. Nos demais módulos a janela é a mesma; o título passa a Importar Extrato COSIP/CIP, Importar Extrato IP ou Importar Conciliação Financeira.</figcaption>
     </figure>
     <p>Arquivo ausente, formato diferente de P7S ou tamanho acima do limite é recusado antes da validação de conteúdo. Se já existir validação ou processamento em andamento de um módulo que bloqueia o envio, o painel recusa o arquivo e pede para aguardar a finalização. O aviso informa o módulo em andamento, o protocolo e a etapa atual.</p>
     <table>
@@ -650,14 +642,14 @@
     </table>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/30-declaracao-em-andamento.png" alt="Aviso de que não é possível iniciar a declaração UC porque há processamento em andamento">
-      <figcaption><strong>Figura 21.</strong> Envio recusado enquanto há validação ou processamento em andamento. O mesmo aviso cobre o bloqueio do próprio módulo e o bloqueio cruzado entre UCS e Extrato COSIP/CIP.</figcaption>
+      <figcaption><strong>Figura 20.</strong> Envio recusado enquanto há validação ou processamento em andamento. O mesmo aviso cobre o bloqueio do próprio módulo e o bloqueio cruzado entre UCS e Extrato COSIP/CIP.</figcaption>
     </figure>
 
     <div class="subsecao-titulo" id="s5-6">5.6 Validação em andamento</div>
     <p>Depois do envio, a mesma janela passa a acompanhar a validação. O título é <strong>Validando arquivo</strong>, com a situação <strong>Em andamento</strong>, o nome do arquivo, a barra de progresso e a lista de etapas. A janela pede para permanecer aberta até o comprovante de entrega. Enquanto a validação não termina, ela não se fecha pelo fundo nem pela tecla Esc.</p>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/26-declaracao-validando.png" alt="Janela Validando arquivo, em andamento, com a etapa Validando municípios e registros">
-      <figcaption><strong>Figura 19.</strong> Validação em andamento. A mesma janela vale para os quatro módulos; mudam o nome do arquivo e o rótulo do módulo.</figcaption>
+      <figcaption><strong>Figura 18.</strong> Validação em andamento. A mesma janela vale para os quatro módulos; mudam o nome do arquivo e o rótulo do módulo.</figcaption>
     </figure>
     <p>Se a consulta do andamento falhar várias vezes seguidas, a janela informa <strong>Acompanhamento indisponível</strong> e orienta a atualizar a listagem para ver o estado da entrega.</p>
 
@@ -665,7 +657,7 @@
     <p>No aceite, o título muda para <strong>Arquivo aceito</strong> e a situação para <strong>Aceito</strong>. O comprovante traz o protocolo e o identificador da declaração. A orientação é guardar o número do protocolo; o tratamento posterior segue no sistema. Se houver alertas, a janela oferece <strong>Ver Alertas de Validação</strong>, com código, linha, campo, mensagem, valor encontrado e valor esperado, além do relatório completo para download.</p>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/27-declaracao-resultado.png" alt="Janela Arquivo aceito com comprovante de entrega, protocolo e botão Fechar">
-      <figcaption><strong>Figura 20.</strong> Aceite da declaração. O comprovante mostra o protocolo da entrega e o identificador da declaração.</figcaption>
+      <figcaption><strong>Figura 19.</strong> Aceite da declaração. O comprovante mostra o protocolo da entrega e o identificador da declaração.</figcaption>
     </figure>
     <p>O alerta não rejeita o arquivo. Encerrada a janela, as declarações municipais dessa entrega passam a constar na listagem com status Concluído.</p>
 
@@ -673,12 +665,12 @@
     <p>Quando a validação encontra erro bloqueante, o título é <strong>Validação encontrou erros</strong> e a situação é <strong>Erros</strong>. A barra indica <strong>Validação falhou</strong>, as etapas com inconsistência aparecem em vermelho e a mensagem pede para corrigir e reenviar o arquivo.</p>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/28-declaracao-erros.png" alt="Janela Validação encontrou erros, com a barra Validação falhou, etapas em vermelho e o botão Ver Erros Detalhados">
-      <figcaption><strong>Figura 22.</strong> Rejeição do arquivo. A mesma janela vale para os quatro módulos. <strong>Ver Erros Detalhados</strong> abre o relatório; <strong>Fechar</strong> encerra sem gerar declaração municipal.</figcaption>
+      <figcaption><strong>Figura 21.</strong> Rejeição do arquivo. A mesma janela vale para os quatro módulos. <strong>Ver Erros Detalhados</strong> abre o relatório; <strong>Fechar</strong> encerra sem gerar declaração municipal.</figcaption>
     </figure>
     <p><strong>Ver Erros Detalhados</strong> abre o relatório na mesma estrutura dos alertas: resumo por categoria, amostra das ocorrências em cada categoria e o relatório completo para download, em <strong>Baixar Relatório</strong> e em <strong>Baixar TXT</strong>.</p>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/29-declaracao-erros-detalhados.png" alt="Janela Erros de Validação com resumo por categoria Município e botões Baixar Relatório e Baixar TXT">
-      <figcaption><strong>Figura 23.</strong> Relatório de erros. O exemplo traz uma ocorrência na categoria Município. Cada categoria abre a amostra das linhas; o relatório completo fica disponível para download.</figcaption>
+      <figcaption><strong>Figura 22.</strong> Relatório de erros. O exemplo traz uma ocorrência na categoria Município. Cada categoria abre a amostra das linhas; o relatório completo fica disponível para download.</figcaption>
     </figure>
     <p>Arquivo rejeitado não gera declaração municipal e não aparece na listagem. Não há protocolo de município para essa entrega.</p>
     <table>
