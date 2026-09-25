@@ -325,7 +325,7 @@
     </div>
     <div class="ficha-linha">
       <div class="ficha-rotulo">Assunto</div>
-      <div class="ficha-valor">Uso do painel: autenticação, municípios, declarações e gestão de usuários</div>
+      <div class="ficha-valor">Uso do painel: autenticação, municípios, planta energética, declarações e gestão de usuários</div>
     </div>
     <div class="ficha-linha">
       <div class="ficha-rotulo">Destinatários</div>
@@ -337,11 +337,11 @@
     </div>
     <div class="ficha-linha">
       <div class="ficha-rotulo">Versão do documento</div>
-      <div class="ficha-valor">Preliminar — acesso, municípios, cargos, usuários e declarações</div>
+      <div class="ficha-valor">Preliminar — acesso, municípios, planta energética, cargos, usuários e declarações</div>
     </div>
     <div class="ficha-linha">
       <div class="ficha-rotulo">Situação</div>
-      <div class="ficha-valor">Módulos publicados: acesso, municípios, cargos, usuários e declarações.</div>
+      <div class="ficha-valor">Módulos publicados: acesso, municípios, planta energética, cargos, usuários e declarações.</div>
     </div>
   </div>
 
@@ -364,6 +364,16 @@
           <li><a href="#s2-1">Finalidade</a></li>
           <li><a href="#s2-2">Listagem</a></li>
           <li><a href="#s2-3">Efeito na declaração</a></li>
+        </ol>
+      </li>
+      <li><a href="#s6">Planta energética</a>
+        <ol class="sub">
+          <li><a href="#s6-1">Finalidade</a></li>
+          <li><a href="#s6-2">Quem acessa</a></li>
+          <li><a href="#s6-3">Período e download</a></li>
+          <li><a href="#s6-4">Aba Inventário</a></li>
+          <li><a href="#s6-5">Aba Alterações</a></li>
+          <li><a href="#s6-6">Uso no Extrato IP</a></li>
         </ol>
       </li>
       <li><a href="#s3">Cargos</a>
@@ -454,6 +464,7 @@
     <ul>
       <li><strong>Dashboard</strong> — tela inicial após o acesso;</li>
       <li><strong>Municípios</strong> — vínculos da concessionária com os municípios;</li>
+      <li><strong>Planta energética</strong> — download da planta do município no período escolhido, para montar o Extrato IP;</li>
       <li><strong>Declarações</strong> — UCS, Extrato COSIP/CIP, Extrato IP e Conciliação Financeira;</li>
       <li><strong>Cargos e Usuários</strong> — usuários e cargos da concessionária.</li>
     </ul>
@@ -503,7 +514,7 @@
     </figure>
 
     <div class="subsecao-titulo" id="s3-3">3.3 Cargo padrão do sistema</div>
-    <p>O cargo <strong>Concessionaria</strong> é criado pelo sistema e é compartilhado entre as concessionárias. Não admite alteração de nome, de permissões nem exclusão: na listagem aparece somente a consulta. Ele reúne as capacidades do contexto da concessionária (dashboard, municípios, declarações e gestão de usuários e cargos). O campo <strong>Usuários Associados</strong> conta somente os usuários da concessionária que consulta o cargo. A mesma conta vale para os cargos criados pela própria concessionária.</p>
+    <p>O cargo <strong>Concessionaria</strong> é criado pelo sistema e é compartilhado entre as concessionárias. Não admite alteração de nome, de permissões nem exclusão: na listagem aparece somente a consulta. Ele reúne as capacidades do contexto da concessionária (dashboard, municípios, planta energética, declarações e gestão de usuários e cargos). O campo <strong>Usuários Associados</strong> conta somente os usuários da concessionária que consulta o cargo. A mesma conta vale para os cargos criados pela própria concessionária.</p>
     <figure class="figura">
       <img src="imagens/painel-concessionaria/10-cargo-padrao.png" alt="Detalhes do cargo padrão Concessionaria, com permissões atribuídas por módulo">
       <figcaption><strong>Figura 9.</strong> Consulta do cargo padrão Concessionaria. As permissões cobrem os módulos do painel; o registro não é editável.</figcaption>
@@ -519,6 +530,7 @@
       <tr><th>Grupo</th><th>Capacidades</th></tr>
       <tr><td>Dashboard</td><td>Acessar dashboard</td></tr>
       <tr><td>Municípios</td><td>Consultar municípios vinculados</td></tr>
+      <tr><td>Planta energética</td><td>Exportar planta energética</td></tr>
       <tr><td>Declarações UC</td><td>Consultar, enviar, corrigir/atualizar, baixar erros de validação</td></tr>
       <tr><td>Declarações Extrato COSIP</td><td>Consultar, enviar, corrigir/atualizar, baixar erros de validação</td></tr>
       <tr><td>Declarações Extrato IP</td><td>Consultar, enviar, corrigir/atualizar, baixar erros de validação</td></tr>
@@ -687,11 +699,68 @@
     <p>Qual protocolo informar no arquivo e quais municípios podem ser retificados estão no Manual da Concessionária. O painel não monta o arquivo; ele recebe, valida e passa a exibir o resultado.</p>
   </div>
 
+  <div class="secao" id="s6">
+    <div class="secao-titulo">6. Planta energética</div>
+
+    <div class="subsecao-titulo" id="s6-1">6.1 Finalidade</div>
+    <p>O módulo entrega à concessionária a planta de iluminação pública do município, no período escolhido, para montar o arquivo do Extrato IP. É somente download. A concessionária não grava planta, não importa planilha de inventário e não envia arquivo de planta por este painel. Quem mantém o inventário é o município.</p>
+    <p>O processador confere cada linha <span class="inline-code">0110</span> com o ponto e o medidor vigentes no período de faturamento da própria linha, não com o cadastro do dia do envio. O download serve para a concessionária copiar códigos, tipo de medição, medidor, equipamento, horas por dia e perda do reator como estavam naquele período.</p>
+
+    <div class="subsecao-titulo" id="s6-2">6.2 Quem acessa</div>
+    <p>O item <strong>Planta energética</strong> fica no menu, ao lado de Municípios. Ele só aparece para o cargo que tem a permissão <strong>Exportar planta energética</strong>. Sem essa permissão, o menu e o endereço da página ficam ocultos.</p>
+    <p>A lista de municípios traz apenas clientes com vínculo <strong>ativo</strong> com a concessionária logada. Vínculo inativo, suspenso ou cancelado, e município de outra concessionária, não entram na lista. A tentativa de baixar um desses municípios é recusada.</p>
+
+    <div class="subsecao-titulo" id="s6-3">6.3 Período e download</div>
+    <p>A tela pede o município, o início e o fim do período, nos dois casos em <span class="inline-code">DD/MM/AAAA</span>. O fim não pode ser anterior ao início. O campo <strong>Competência</strong>, em <span class="inline-code">MM/AAAA</span>, é atalho: ao escolhê-lo, o início e o fim passam a ser o primeiro e o último dia daquele mês. As datas continuam editáveis; o arquivo usa o intervalo que estiver nos dois campos no momento do download.</p>
+    <p><strong>Baixar XLSX</strong> gera uma planilha com duas abas. Enquanto o arquivo é preparado, o botão indica que o download está em andamento. O painel não monta o <span class="inline-code">.p7s</span>, não calcula kWh, tarifa, leitura nem valor faturado.</p>
+    <figure class="figura">
+      <img src="imagens/painel-concessionaria/31-planta-energetica.png" alt="Página Planta energética da concessionária, com município, competência, início e fim do período e o botão Baixar XLSX">
+      <figcaption><strong>Figura 23.</strong> Exportação da planta do município. O menu Planta energética fica ao lado de Municípios. A competência só preenche as datas; o download usa o intervalo que estiver na tela.</figcaption>
+    </figure>
+    <table>
+      <tr><th>Aba</th><th>O que contém</th></tr>
+      <tr><td>Inventário</td><td>Estado da planta no fim do período, no fim daquele dia</td></tr>
+      <tr><td>Alterações</td><td>Inclusões e alterações de ponto, medidor e instalação ocorridas dentro do intervalo</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s6-4">6.4 Aba Inventário</div>
+    <p>Cada instalação de equipamento ocupa uma linha. Ponto sem equipamento sai uma vez, com as colunas de equipamento vazias. Quando o ponto tem medidor e equipamento, o medidor se repete nas linhas de equipamento. Vários medidores no mesmo ponto aparecem na mesma célula, separados por ponto e vírgula. Ponto, medidor e instalação inativos, em manutenção, pendentes, danificados ou removidos entram na planilha com o status visível: omiti-los esconderia um código que o arquivo ainda pode informar.</p>
+    <table>
+      <tr><th>Coluna</th><th>Uso no registro 0110</th></tr>
+      <tr><td>Código do ponto na concessionária</td><td><span class="inline-code">CODIGO_PONTO_IP_MUNICIPIO</span></td></tr>
+      <tr><td>Código municipal</td><td><span class="inline-code">CODIGO_IP_MUNICIPIO</span>, quando houver</td></tr>
+      <tr><td>Tipo de medição</td><td>Estimado ou medido no fim do período. Define se a linha leva equipamento ou medidor</td></tr>
+      <tr><td>Status do ponto</td><td>Informação de cadastro. O processador não rejeita o arquivo por esse status</td></tr>
+      <tr><td>Código do medidor, tipo de ligação e status do medidor</td><td>Ponto medido. O medidor precisa ter estado ativo ou em manutenção em algum momento do período de faturamento da linha</td></tr>
+      <tr><td>Código do equipamento, status da instalação e categoria</td><td>Detalhe do ponto estimado. O código do equipamento é texto livre: não encontrar a instalação não rejeita o arquivo</td></tr>
+      <tr><td>Horas por dia e perda do reator (W)</td><td>Valores da instalação no fim do período, para copiar em <span class="inline-code">TEMPO_FUNCIONAMENTO</span> e <span class="inline-code">PERDA_REATOR</span></td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s6-5">6.5 Aba Alterações</div>
+    <p>A aba lista o que mudou dentro do intervalo, uma linha por campo alterado. O tipo <strong>Inclusão</strong> é o cadastro do registro; <strong>Alteração</strong> é a mudança de um campo já existente. A entidade é Ponto, Medidor ou Instalação. O identificador é o código do ponto, do medidor ou do equipamento.</p>
+    <table>
+      <tr><th>Coluna</th><th>Conteúdo</th></tr>
+      <tr><td>Data</td><td>Momento da inclusão ou da alteração</td></tr>
+      <tr><td>Tipo</td><td>Inclusão ou Alteração</td></tr>
+      <tr><td>Entidade</td><td>Ponto, Medidor ou Instalação</td></tr>
+      <tr><td>Identificador</td><td>Código do ponto, do medidor ou do equipamento</td></tr>
+      <tr><td>Campo</td><td>Nome do campo que entrou ou mudou</td></tr>
+      <tr><td>Valor antigo</td><td>Valor anterior; vazio na inclusão</td></tr>
+      <tr><td>Valor novo</td><td>Valor gravado naquela mudança</td></tr>
+    </table>
+
+    <div class="subsecao-titulo" id="s6-6">6.6 Uso no Extrato IP</div>
+    <p>A potência não vai no arquivo. Horas por dia e perda do reator saem da instalação, não do cadastro geral do equipamento. O relé, quando existir, é outra linha de equipamento: a perda dele não entra na perda do reator da lâmpada.</p>
+    <p>Na linha de equipamento do ponto estimado, <span class="inline-code">TEMPO_FUNCIONAMENTO</span>, <span class="inline-code">PERDA_REATOR</span> e <span class="inline-code">DIAS_FUNCIONAMENTO</span> são obrigatórios. Zero é valor preenchido. Se o consumo dessa linha for maior que zero, tempo e dias também precisam ser maiores que zero; perda zero continua válida. Consumo zero com os três campos zerados é aceito. Na linha geral do ponto estimado, com o código de equipamento vazio, e na linha do ponto medido, os três campos são opcionais.</p>
+    <p>Campo em branco nessa linha de equipamento recusa o arquivo. A diferença entre o kWh declarado e a conta da planta não recusa. Depois do aceite, o município confronta o consumo. A fórmula usada nessa conferência é (potência em watts + perda do reator em watts) × horas por dia × dias / 1000. Instalação sem horas, sem perda ou sem potência fica como cadastro incompleto, e a declaração permanece aceita. Código de equipamento que não corresponda a uma instalação do ponto no fim do período também não rejeita a linha: a confrontação apenas registra que não houve base de cálculo.</p>
+    <p>O leiaute do registro, os códigos de erro e o exemplo de arquivo estão na Nota Técnica, seção 7, e no Manual da Concessionária. Este painel não substitui esse leiaute: ele só entrega a planta do período para a concessionária preencher o arquivo.</p>
+  </div>
+
 </div>
 
 <footer>
   <span>SIPGIP — Guia do Painel da Concessionária</span>
-  <span>Acesso, municípios, cargos, usuários e declarações · Leiaute 1.0.0</span>
+  <span>Acesso, municípios, planta energética, cargos, usuários e declarações · Leiaute 1.0.0</span>
 </footer>
 
 </body>
