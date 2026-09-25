@@ -1015,7 +1015,7 @@
     <div class="subsecao-titulo" id="s7b">7.2 Leiaute dos Registros</div>
 
     <!-- 0110 EXTRATO -->
-    <div class="sub2-titulo">Registro 0110 — Consumo por Ponto / Equipamento (15 campos)</div>
+    <div class="sub2-titulo">Registro 0110 — Consumo por Ponto / Equipamento (16 campos)</div>
     <table>
       <tr><th>Pos</th><th>Campo</th><th>Tipo</th><th>Tam</th><th>Dec</th><th>Obrig</th><th>Descrição / Regra</th></tr>
       <tr><td class="centro">01</td><td class="code">REG</td><td class="centro">C</td><td class="centro">4</td><td class="centro">—</td><td class="obrig">SIM</td><td>Fixo: <span class="inline-code">0110</span></td></tr>
@@ -1025,21 +1025,22 @@
       <tr><td class="centro">05</td><td class="code">CONSUMO_KWH</td><td class="centro">N</td><td class="centro">10</td><td class="centro">2</td><td class="obrig">SIM</td><td>kWh — Consumo no período. Não negativo.</td></tr>
       <tr><td class="centro">06</td><td class="code">TARIFA_UNITARIA</td><td class="centro">N</td><td class="centro">10</td><td class="centro">4</td><td class="obrig">SIM</td><td>R$/kWh — Tarifa aplicada. Deve ser maior que zero.</td></tr>
       <tr><td class="centro">07</td><td class="code">VALOR_FATURADO</td><td class="centro">N</td><td class="centro">15</td><td class="centro">2</td><td class="obrig">SIM</td><td>R$ — Valor faturado. A diferença em relação a <span class="inline-code">CONSUMO_KWH × TARIFA_UNITARIA</span> não pode exceder R$ 0,02.</td></tr>
-      <tr><td class="centro">08</td><td class="code">TEMPO_FUNCIONAMENTO</td><td class="centro">N</td><td class="centro">5</td><td class="centro">2</td><td class="opc">NÃO</td><td>Horas/dia de funcionamento. Quando informado, deve estar entre 0 e 24.</td></tr>
-      <tr><td class="centro">09</td><td class="code">PERDA_REATOR</td><td class="centro">N</td><td class="centro">8</td><td class="centro">2</td><td class="opc">NÃO</td><td>Watts — Perda no reator. Não negativa.</td></tr>
-      <tr><td class="centro">10</td><td class="code">NUMERO_MEDIDOR</td><td class="centro">C</td><td class="centro">30</td><td class="centro">—</td><td class="opc">COND.</td><td>Obrigatório em ponto medido; proibido em ponto estimado.</td></tr>
-      <tr><td class="centro">11</td><td class="code">LEITURA_ANTERIOR</td><td class="centro">N</td><td class="centro">10</td><td class="centro">—</td><td class="opc">COND.</td><td>Obrigatória quando houver medidor.</td></tr>
-      <tr><td class="centro">12</td><td class="code">LEITURA_ATUAL</td><td class="centro">N</td><td class="centro">10</td><td class="centro">—</td><td class="opc">COND.</td><td>Obrigatória quando houver medidor. Deve ser maior ou igual à leitura anterior.</td></tr>
-      <tr><td class="centro">13</td><td class="code">DT_INICIO_PERIODO_FATURAMENTO</td><td class="centro">D</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Data real no formato <span class="inline-code">DD/MM/AAAA</span></td></tr>
-      <tr><td class="centro">14</td><td class="code">DT_FIM_PERIODO_FATURAMENTO</td><td class="centro">D</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Data real no formato <span class="inline-code">DD/MM/AAAA</span>, não anterior à data inicial</td></tr>
-      <tr><td class="centro">15</td><td class="code">COMPETENCIA_FATURAMENTO</td><td class="centro">N</td><td class="centro">6</td><td class="centro">—</td><td class="obrig">SIM</td><td><span class="inline-code">AAAAMM</span>, mês 01–12. Deve intersectar o período de faturamento</td></tr>
+      <tr><td class="centro">08</td><td class="code">TEMPO_FUNCIONAMENTO</td><td class="centro">N</td><td class="centro">5</td><td class="centro">2</td><td class="opc">COND.</td><td>Horas/dia. Obrigatório na linha de equipamento do ponto estimado; entre 0 e 24. Se o consumo dessa linha for maior que zero, deve ser maior que zero. Opcional na linha geral e no ponto medido.</td></tr>
+      <tr><td class="centro">09</td><td class="code">PERDA_REATOR</td><td class="centro">N</td><td class="centro">8</td><td class="centro">2</td><td class="opc">COND.</td><td>Watts. Obrigatório na linha de equipamento do ponto estimado. Não negativo; zero é valor preenchido. Opcional na linha geral e no ponto medido.</td></tr>
+      <tr><td class="centro">10</td><td class="code">DIAS_FUNCIONAMENTO</td><td class="centro">N</td><td class="centro">6</td><td class="centro">2</td><td class="opc">COND.</td><td>Dias de funcionamento no período. Obrigatório na linha de equipamento do ponto estimado. Não negativo; se o consumo dessa linha for maior que zero, deve ser maior que zero. Opcional na linha geral e no ponto medido.</td></tr>
+      <tr><td class="centro">11</td><td class="code">NUMERO_MEDIDOR</td><td class="centro">C</td><td class="centro">30</td><td class="centro">—</td><td class="opc">COND.</td><td>Obrigatório em ponto medido; proibido em ponto estimado.</td></tr>
+      <tr><td class="centro">12</td><td class="code">LEITURA_ANTERIOR</td><td class="centro">N</td><td class="centro">10</td><td class="centro">—</td><td class="opc">COND.</td><td>Obrigatória quando houver medidor.</td></tr>
+      <tr><td class="centro">13</td><td class="code">LEITURA_ATUAL</td><td class="centro">N</td><td class="centro">10</td><td class="centro">—</td><td class="opc">COND.</td><td>Obrigatória quando houver medidor. Deve ser maior ou igual à leitura anterior.</td></tr>
+      <tr><td class="centro">14</td><td class="code">DT_INICIO_PERIODO_FATURAMENTO</td><td class="centro">D</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Data real no formato <span class="inline-code">DD/MM/AAAA</span></td></tr>
+      <tr><td class="centro">15</td><td class="code">DT_FIM_PERIODO_FATURAMENTO</td><td class="centro">D</td><td class="centro">10</td><td class="centro">—</td><td class="obrig">SIM</td><td>Data real no formato <span class="inline-code">DD/MM/AAAA</span>, não anterior à data inicial</td></tr>
+      <tr><td class="centro">16</td><td class="code">COMPETENCIA_FATURAMENTO</td><td class="centro">N</td><td class="centro">6</td><td class="centro">—</td><td class="obrig">SIM</td><td><span class="inline-code">AAAAMM</span>, mês 01–12. Deve intersectar o período de faturamento</td></tr>
     </table>
 
     <div class="aviso">
       <span class="label-aviso">Tipo de medição do ponto</span>
       O tipo de medição vem do inventário municipal (<span class="inline-code">01</span> estimado ou <span class="inline-code">02</span> medido), não do arquivo EXTRATO.
       <ul style="margin: 6px 0 0 18px; font-size: 12px; line-height: 1.7;">
-        <li><strong>Ponto estimado:</strong> exatamente 1 extrato geral (<span class="inline-code">CODIGO_EQUIPAMENTO</span> vazio). Se o consumo geral for maior que zero, exigir pelo menos 1 extrato por equipamento (código preenchido), cuja soma de consumo feche com o geral (tolerância 0,02 kWh). Medidor e leituras são proibidos. Se o geral tiver consumo zero, os extratos por equipamento são dispensados.</li>
+        <li><strong>Ponto estimado:</strong> exatamente 1 extrato geral (<span class="inline-code">CODIGO_EQUIPAMENTO</span> vazio). Se o consumo geral for maior que zero, exigir pelo menos 1 extrato por equipamento (código preenchido), cuja soma de consumo feche com o geral (tolerância 0,02 kWh). Medidor e leituras são proibidos. Se o geral tiver consumo zero, os extratos por equipamento são dispensados. Na linha de equipamento, <span class="inline-code">TEMPO_FUNCIONAMENTO</span>, <span class="inline-code">PERDA_REATOR</span> e <span class="inline-code">DIAS_FUNCIONAMENTO</span> são obrigatórios. O kWh incompatível com a fórmula da planta não recusa o arquivo: o município confronta depois da aceitação.</li>
         <li><strong>Ponto medido:</strong> somente extrato(s) do ponto, com <span class="inline-code">CODIGO_EQUIPAMENTO</span> vazio, medidor e leituras obrigatórios. O medidor deve existir, estar ativo e vinculado ao ponto.</li>
       </ul>
     </div>
@@ -1057,10 +1058,10 @@
     <div class="bloco-codigo-legenda"># Módulo EXTRATO — ponto estimado (geral + equipamentos) e ponto medido — Competência 11/2025</div>
 <div class="bloco-codigo"><span class="valor">0000</span>|EXTRATO|1.0.0|O|202511|068407|06840748000189|ENERGISA PIAUI - DISTRIBUIDORA DE ENERGIA S.A.|PI
 <span class="valor">0100</span>|2211001|TERESINA|PI|
-<span class="valor">0110</span>|CONC-2024-0001|MUN-IP-00123|LED-001|36.00|0.5234|18.84|12.00|0.00||||01/11/2025|30/11/2025|202511
-<span class="valor">0110</span>|CONC-2024-0001|MUN-IP-00123|RELE-001|1.80|0.5234|0.94||||||01/11/2025|30/11/2025|202511
-<span class="valor">0110</span>|CONC-2024-0001|MUN-IP-00123||37.80|0.5234|19.78||||||01/11/2025|30/11/2025|202511
-<span class="valor">0110</span>|CONC-2024-0002|||30.00|0.5234|15.70|||MED-98765|1500|1531|01/11/2025|30/11/2025|202511
+<span class="valor">0110</span>|CONC-2024-0001|MUN-IP-00123|LED-001|36.00|0.5234|18.84|12.00|0.00|30||||01/11/2025|30/11/2025|202511
+<span class="valor">0110</span>|CONC-2024-0001|MUN-IP-00123|RELE-001|1.80|0.5234|0.94|11.50|0.00|30||||01/11/2025|30/11/2025|202511
+<span class="valor">0110</span>|CONC-2024-0001|MUN-IP-00123||37.80|0.5234|19.78|||||||01/11/2025|30/11/2025|202511
+<span class="valor">0110</span>|CONC-2024-0002|||30.00|0.5234|15.70||||MED-98765|1500|1531|01/11/2025|30/11/2025|202511
 <span class="valor">0999</span>|4|35.48
 <span class="valor">9999</span>|8|1</div>
   </div>
@@ -1400,7 +1401,7 @@ VL_SALDO = VL_COSIP_ARRECADADO
 
     <table>
       <tr><th>Código</th><th>Campo</th><th>Descrição da Regra</th></tr>
-      <tr><td class="code">EXT-01</td><td>0110</td><td>Registro deve ter exatamente 15 campos</td></tr>
+      <tr><td class="code">EXT-01</td><td>0110</td><td>Registro deve ter exatamente 16 campos</td></tr>
       <tr><td class="code">EXT-02</td><td>REG</td><td>Deve ser <span class="inline-code">0110</span></td></tr>
       <tr><td class="code">EXT-03</td><td>CODIGO_PONTO_IP_MUNICIPIO</td><td>Obrigatório; não vazio</td></tr>
       <tr><td class="code">EXT-04</td><td>CODIGO_PONTO_IP_MUNICIPIO</td><td>Máximo 30 caracteres</td></tr>
@@ -1422,8 +1423,9 @@ VL_SALDO = VL_COSIP_ARRECADADO
       <tr><td class="code">EXT-20</td><td>LEITURA_ANTERIOR</td><td>Quando informada, deve ser numérico inteiro</td></tr>
       <tr><td class="code">EXT-21</td><td>LEITURA_ATUAL</td><td>Quando informada, deve ser numérico inteiro</td></tr>
       <tr><td class="code">EXT-22</td><td>LEITURA_ATUAL</td><td>Quando ambas informadas, a leitura atual deve ser maior ou igual à leitura anterior</td></tr>
-      <tr><td class="code">EXT-23</td><td>TEMPO_FUNCIONAMENTO</td><td>Quando informado, decimal entre 0 e 24 horas</td></tr>
-      <tr><td class="code">EXT-24</td><td>PERDA_REATOR</td><td>Quando informado, decimal não negativo</td></tr>
+      <tr><td class="code">EXT-23</td><td>TEMPO_FUNCIONAMENTO</td><td>Decimal entre 0 e 24. Obrigatório na linha de equipamento do ponto estimado; maior que zero se o consumo dessa linha for maior que zero</td></tr>
+      <tr><td class="code">EXT-24</td><td>PERDA_REATOR</td><td>Decimal não negativo. Obrigatório na linha de equipamento do ponto estimado. Zero é valor preenchido</td></tr>
+      <tr><td class="code">EXT-55</td><td>DIAS_FUNCIONAMENTO</td><td>Decimal não negativo. Obrigatório na linha de equipamento do ponto estimado; maior que zero se o consumo dessa linha for maior que zero</td></tr>
       <tr><td class="code">EXT-30</td><td>CODIGO_PONTO_IP_MUNICIPIO</td><td>O ponto IP informado deve existir no inventário municipal</td></tr>
       <tr><td class="code">EXT-34</td><td>CODIGO_IP_MUNICIPIO</td><td>Quando informado, deve corresponder ao código cadastrado no ponto IP</td></tr>
       <tr><td class="code">EXT-35</td><td>TIPO_MEDICAO</td><td>O ponto deve ter tipo de medição <span class="inline-code">01</span> (estimado) ou <span class="inline-code">02</span> (medido) no inventário</td></tr>
